@@ -6,15 +6,15 @@
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:background="@color/green">
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
+            android:gravity="center_horizontal"
             android:layout_height="?attr/actionBarSize"
-            android:background="@color/transparent"
-            android:textAlignment="center"
-            app:theme="@style/ToolbarTheme" />
+            app:theme="@style/HomeToolbarTheme" />
 
     </com.google.android.material.appbar.AppBarLayout>
 

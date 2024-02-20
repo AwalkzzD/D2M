@@ -4,17 +4,26 @@ import android.graphics.Color
 import android.graphics.Typeface
 import android.os.Bundle
 import android.os.CountDownTimer
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import com.example.d2m.data.models.otp.send.OtpResponse
+import com.example.d2m.data.models.otp.verify.OtpVerify
+import com.example.d2m.data.services.api.ApiClient
+import com.example.d2m.data.services.api.SendOtpService
+import com.example.d2m.data.services.api.VerifyOtpService
 import com.example.d2m.databinding.FragmentOtpBinding
 import java.util.concurrent.TimeUnit
 
 
 class OtpFragment : Fragment() {
     private lateinit var otpBinding: FragmentOtpBinding
+    lateinit var timer: CountDownTimer
+    private val TAG = "OtpFragment"
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
@@ -24,37 +33,88 @@ class OtpFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        otpBinding.otpLayout.isEnabled = false
+        sendOtp(arguments?.getString("phoneNum")!!, arguments?.getString("getWhatsappUpdates")!!)
         startResendTimer()
+
         (activity as AppCompatActivity?)!!.supportActionBar!!.setDisplayHomeAsUpEnabled(true)
         (activity as AppCompatActivity?)!!.supportActionBar!!.setDisplayShowHomeEnabled(true)
         otpBinding.resendCodeLink.setOnClickListener {
-//            Toast.makeText(requireActivity(), "OTP sent", Toast.LENGTH_SHORT).show()
-            TODO("resend code")
+            sendOtp(
+                arguments?.getString("phoneNum")!!,
+                arguments?.getString("getWhatsappUpdates")!!
+            )
         }
 
         otpBinding.signIn.setOnClickListener {
             val otpCode = getOtp()
-            TODO("sign in")
+            Log.d(TAG, "onViewCreated: $otpCode")
+            verifyOtp(arguments?.getString("phoneNum")!!, otpCode)
         }
     }
 
+    private fun verifyOtp(userPhoneNumber: String, otpCode: String) {
+        val retrofitInstance =
+            ApiClient.createService(VerifyOtpService::class.java) as VerifyOtpService
+        val retrofitData =
+            retrofitInstance.verifyOtp(userPhoneNumber, otpCode, "123ASDFSFFSAFSSSSS", "android")
+
+        retrofitData.enqueue(object : retrofit2.Callback<OtpVerify?> {
+            override fun onResponse(
+                call: retrofit2.Call<OtpVerify?>, response: retrofit2.Response<OtpVerify?>
+            ) {
+                if (response.body()!!.success) {
+                    Toast.makeText(
+                        requireActivity(), "Verification Successful", Toast.LENGTH_LONG
+                    ).show()
+                }
+            }
+
+            override fun onFailure(call: retrofit2.Call<OtpVerify?>, t: Throwable) {
+                Log.d(TAG, "onFailure: Failed to verify OTP -> $t")
+            }
+        })
+        ApiClient.destroyInstance()
+    }
+
+    private fun sendOtp(userPhoneNumber: String, getWhatsappUpdates: String) {
+        val retrofitInstance = ApiClient.createService(SendOtpService::class.java) as SendOtpService
+        val retrofitData = retrofitInstance.sendOtp(userPhoneNumber, getWhatsappUpdates)
+
+        retrofitData.enqueue(object : retrofit2.Callback<OtpResponse?> {
+            override fun onResponse(
+                call: retrofit2.Call<OtpResponse?>, response: retrofit2.Response<OtpResponse?>
+            ) {
+                if (response.body()!!.success) {
+                    otpBinding.otpLayout.isEnabled = true
+                    Toast.makeText(
+                        requireActivity(), response.body()!!.data.otp.toString(), Toast.LENGTH_LONG
+                    ).show()
+                }
+            }
+
+            override fun onFailure(call: retrofit2.Call<OtpResponse?>, t: Throwable) {
+                Log.d(TAG, "onFailure: Failed to send OTP -> $t")
+            }
+        })
+        ApiClient.destroyInstance()
+    }
 
     private fun getOtp(): String {
-        val otpCode: String = ""
-        for (i in 0..4) {
-            otpBinding.apply {
-                otpCode.plus(otpDigit1.text.toString())
-                otpCode.plus(otpDigit2.text.toString())
-                otpCode.plus(otpDigit3.text.toString())
-                otpCode.plus(otpDigit4.text.toString())
-            }
+        var otpCode: String = ""
+        otpBinding.apply {
+            otpCode = otpCode.plus(otpDigit1.text.toString())
+            otpCode = otpCode.plus(otpDigit2.text.toString())
+            otpCode = otpCode.plus(otpDigit3.text.toString())
+            otpCode = otpCode.plus(otpDigit4.text.toString())
         }
         return otpCode
     }
 
     private fun startResendTimer() {
         otpBinding.resendCodeLink.isEnabled = false
-        object : CountDownTimer(60000, 1000) {
+
+        timer = object : CountDownTimer(60000, 1000) {
             override fun onTick(millisUntilFinished: Long) {
                 otpBinding.resendCodeTimer.text = String.format(
                     "%02d:%02d",

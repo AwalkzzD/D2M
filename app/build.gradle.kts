@@ -59,4 +59,11 @@ dependencies {
     api("androidx.navigation:navigation-fragment-ktx:$nav_version")
     api("androidx.navigation:navigation-ui-ktx:$nav_version")
     api("androidx.navigation:navigation-dynamic-features-fragment:$nav_version")
+//    Retrofit
+    implementation("com.squareup.retrofit2:retrofit:2.9.0")
+//    GsonConverter
+    implementation("com.squareup.retrofit2:converter-gson:2.9.0")
+    implementation("com.squareup.okhttp3:okhttp:4.9.1")
+//    Picasso
+    implementation("com.squareup.picasso:picasso:2.8")
 }
