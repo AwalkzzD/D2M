@@ -10,14 +10,36 @@
         android:name="com.example.d2m.screens.home.addvehicle.AddCarFragment"
         android:label="Add Car"
         tools:layout="@layout/fragment_add_car">
+
         <action
-            android:id="@+id/action_addCarFragment_to_addMakeModelFragment"
-            app:destination="@id/addMakeModelFragment"
+            android:id="@+id/action_addCarFragment_to_addCarBrandFragment"
+            app:destination="@id/addCarBrandFragment"
             app:popUpTo="@id/addCarFragment" />
     </fragment>
     <fragment
-        android:id="@+id/addMakeModelFragment"
-        android:name="com.example.d2m.screens.home.addvehicle.AddMakeModelFragment"
-        android:label="Add Brand"
-        tools:layout="@layout/fragment_add_make_model" />
+        android:id="@+id/addCarBrandFragment"
+        android:name="com.example.d2m.screens.home.addvehicle.AddCarBrandFragment"
+        android:label="Select Brand"
+        tools:layout="@layout/fragment_add_car_brand">
+        <action
+            android:id="@+id/action_addCarBrandFragment_to_addCarModelFragment"
+            app:destination="@id/addCarModelFragment"
+            app:popUpTo="@id/addCarBrandFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/addCarModelFragment"
+        android:name="com.example.d2m.screens.home.addvehicle.AddCarModelFragment"
+        android:label="Select Model"
+        tools:layout="@layout/fragment_add_car_model">
+        <action
+            android:id="@+id/action_addCarModelFragment_to_addFuelTypeFragment"
+            app:destination="@id/addFuelTypeFragment"
+            app:popUpTo="@id/addCarModelFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/addFuelTypeFragment"
+        android:name="com.example.d2m.screens.home.addvehicle.AddFuelTypeFragment"
+        android:label="Select Fuel Type"
+        tools:layout="@layout/fragment_add_fuel_type" />
+
 </navigation>

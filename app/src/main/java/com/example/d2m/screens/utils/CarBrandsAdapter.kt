@@ -1,30 +1,51 @@
 package com.example.d2m.screens.utils
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
-import com.example.d2m.R
-import com.example.d2m.data.models.car.brand.CarBrand
-import com.squareup.picasso.Picasso
+import com.example.d2m.data.models.car.CarBrand
+import com.example.d2m.databinding.BrandListItemBinding
 
-class CarBrandsAdapter(private val brandList: MutableList<CarBrand>) :
+class CarBrandsAdapter(
+    private var brandList: MutableList<CarBrand>,
+    private val onItemClick: (CarBrand) -> Unit
+) :
     RecyclerView.Adapter<CarBrandsAdapter.ViewHolder>() {
-    class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val brandImage: ImageView = itemView.findViewById<ImageView>(R.id.brandImage)
+
+    private lateinit var binding: BrandListItemBinding
+
+    inner class ViewHolder(
+        private val binding: BrandListItemBinding,
+        onItemClicked: (Int) -> Unit
+    ) :
+        RecyclerView.ViewHolder(binding.root) {
+        fun bind(carBrand: CarBrand) {
+            binding.carBrand = carBrand
+        }
+
+        init {
+            itemView.setOnClickListener {
+                onItemClicked(adapterPosition)
+            }
+        }
+    }
+
+    fun filterList(filterlist: ArrayList<CarBrand>) {
+        brandList = filterlist
+        notifyDataSetChanged()
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val itemView =
-            LayoutInflater.from(parent.context).inflate(R.layout.brand_list_item, parent, false)
-        return ViewHolder(itemView)
+        binding = BrandListItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        return ViewHolder(binding) {
+            onItemClick(brandList[it])
+        }
     }
 
     override fun getItemCount(): Int = brandList.size
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        Picasso.get().load(brandList[position].carBrandImage)
-            .placeholder(R.drawable.app_placeholder).into(holder.brandImage)
+        val carBrand = brandList[position]
+        holder.bind(carBrand)
     }
 }

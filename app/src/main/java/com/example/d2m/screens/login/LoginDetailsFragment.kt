@@ -1,20 +1,21 @@
 package com.example.d2m.screens.login
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
+import com.example.d2m.R
 import com.example.d2m.databinding.FragmentLoginDetailsBinding
-import com.example.d2m.screens.home.HomeActivity
 
 class LoginDetailsFragment : Fragment() {
     private lateinit var loginDetailsBinding: FragmentLoginDetailsBinding
     private val TAG = "LoginDetailsFragment"
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         loginDetailsBinding = FragmentLoginDetailsBinding.inflate(inflater)
         return loginDetailsBinding.root
     }
@@ -23,9 +24,8 @@ class LoginDetailsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         loginDetailsBinding.getOtp.setOnClickListener {
 
-            startActivity(Intent(activity, HomeActivity::class.java))
-
-            /*var getWhatsappUpdates: String = "0"
+//            ----> login code
+            var getWhatsappUpdates: String = "0"
             if (loginDetailsBinding.getWhatsAppUpdates.isChecked) {
                 getWhatsappUpdates = "1"
             }
@@ -39,7 +39,10 @@ class LoginDetailsFragment : Fragment() {
             } else {
                 Toast.makeText(requireActivity(), "Enter a valid phone number", Toast.LENGTH_SHORT)
                     .show()
-            }*/
+            }
+
+//            ----> bypass login
+//            startActivity(Intent(activity, HomeActivity::class.java))
         }
     }
 }

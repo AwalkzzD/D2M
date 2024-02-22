@@ -56,9 +56,10 @@
                 android:layout_weight="1"
                 android:background="@drawable/rounded_rectangle_button"
                 android:hint="XX-00-XX-0000"
+                android:textColorHint="@color/gray"
                 android:imeOptions="actionNext"
-                android:inputType="number"
-                android:maxLength="1"
+                android:inputType="text"
+                android:maxLength="13"
                 android:textAlignment="textStart"
                 android:textColor="@color/black"
                 android:textSize="20sp" />

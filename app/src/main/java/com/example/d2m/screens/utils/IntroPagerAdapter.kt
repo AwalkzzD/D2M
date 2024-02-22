@@ -6,13 +6,11 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.d2m.R
 import com.example.d2m.databinding.GetStartedListItemBinding
 
-class IntroPagerAdapter() : RecyclerView.Adapter<IntroPagerAdapter.ViewHolder>() {
+class IntroPagerAdapter : RecyclerView.Adapter<IntroPagerAdapter.ViewHolder>() {
     private val images = arrayListOf(R.drawable.getstarted, R.drawable.getstarted2)
 
     class ViewHolder(val binding: GetStartedListItemBinding) :
-        RecyclerView.ViewHolder(binding.root) {
-
-    }
+        RecyclerView.ViewHolder(binding.root)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = ViewHolder(
         GetStartedListItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)

@@ -1,5 +1,7 @@
 package com.example.d2m.screens.login
 
+import android.content.Context.MODE_PRIVATE
+import android.content.Intent
 import android.graphics.Color
 import android.graphics.Typeface
 import android.os.Bundle
@@ -17,16 +19,19 @@ import com.example.d2m.data.services.api.ApiClient
 import com.example.d2m.data.services.api.SendOtpService
 import com.example.d2m.data.services.api.VerifyOtpService
 import com.example.d2m.databinding.FragmentOtpBinding
+import com.example.d2m.screens.home.HomeActivity
+import com.google.gson.GsonBuilder
 import java.util.concurrent.TimeUnit
 
 
 class OtpFragment : Fragment() {
     private lateinit var otpBinding: FragmentOtpBinding
-    lateinit var timer: CountDownTimer
+    private lateinit var timer: CountDownTimer
     private val TAG = "OtpFragment"
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         otpBinding = FragmentOtpBinding.inflate(inflater)
         return otpBinding.root
     }
@@ -41,8 +46,7 @@ class OtpFragment : Fragment() {
         (activity as AppCompatActivity?)!!.supportActionBar!!.setDisplayShowHomeEnabled(true)
         otpBinding.resendCodeLink.setOnClickListener {
             sendOtp(
-                arguments?.getString("phoneNum")!!,
-                arguments?.getString("getWhatsappUpdates")!!
+                arguments?.getString("phoneNum")!!, arguments?.getString("getWhatsappUpdates")!!
             )
         }
 
@@ -59,6 +63,8 @@ class OtpFragment : Fragment() {
         val retrofitData =
             retrofitInstance.verifyOtp(userPhoneNumber, otpCode, "123ASDFSFFSAFSSSSS", "android")
 
+
+
         retrofitData.enqueue(object : retrofit2.Callback<OtpVerify?> {
             override fun onResponse(
                 call: retrofit2.Call<OtpVerify?>, response: retrofit2.Response<OtpVerify?>
@@ -67,14 +73,39 @@ class OtpFragment : Fragment() {
                     Toast.makeText(
                         requireActivity(), "Verification Successful", Toast.LENGTH_LONG
                     ).show()
+
+                    setSharedPrefs(
+                        response.body()!!.data.id.toString(),
+                        response.body()!!.data.token
+                    )
                 }
+                Log.d(
+                    TAG,
+                    "onResponse: " + GsonBuilder().setPrettyPrinting().create()
+                        .toJson(response.body())
+                )
             }
 
             override fun onFailure(call: retrofit2.Call<OtpVerify?>, t: Throwable) {
                 Log.d(TAG, "onFailure: Failed to verify OTP -> $t")
             }
         })
+
+
         ApiClient.destroyInstance()
+    }
+
+    private fun setSharedPrefs(userID: String, token: String) {
+
+        Log.d(TAG, "setSharedPrefs: $userID")
+        val sharedPreferences =
+            activity?.getSharedPreferences("userData", MODE_PRIVATE)
+        val editor = sharedPreferences!!.edit()
+        editor.putString("userID", userID)
+        editor.putString("token", token)
+        editor.apply()
+
+        startActivity(Intent(activity, HomeActivity::class.java))
     }
 
     private fun sendOtp(userPhoneNumber: String, getWhatsappUpdates: String) {
