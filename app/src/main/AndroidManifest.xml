@@ -19,6 +19,9 @@
             android:name=".screens.home.HomeActivity"
             android:exported="false" />
         <activity
+            android:name=".screens.addcar.AddCarActivity"
+            android:exported="false" />
+        <activity
             android:name=".screens.login.LoginActivity"
             android:exported="false" />
         <activity

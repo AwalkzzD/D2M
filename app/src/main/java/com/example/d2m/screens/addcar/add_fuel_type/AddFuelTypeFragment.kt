@@ -1,4 +1,4 @@
-package com.example.d2m.screens.home.addvehicle
+package com.example.d2m.screens.addcar.add_fuel_type
 
 import android.content.Context.MODE_PRIVATE
 import android.os.Bundle
@@ -8,8 +8,10 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
+import com.example.d2m.R
 import com.example.d2m.data.models.car.FuelType
 import com.example.d2m.databinding.FragmentAddFuelTypeBinding
+import com.example.d2m.screens.addcar.viewmodel.AddCarViewModel
 import com.example.d2m.screens.utils.FuelTypeAdapter
 
 class AddFuelTypeFragment : Fragment() {
@@ -31,7 +33,11 @@ class AddFuelTypeFragment : Fragment() {
         val addFuelTypeViewModel = ViewModelProvider(requireActivity())[AddCarViewModel::class.java]
 
         addFuelTypeBinding.selectedBrandModel.text =
-            "${addFuelTypeViewModel.brandName.value.toString()} - ${addFuelTypeViewModel.modelName.value.toString()}"
+            getString(
+                R.string.selected_brand_model_text,
+                addFuelTypeViewModel.brandName.value.toString(),
+                addFuelTypeViewModel.modelName.value.toString()
+            )
 
         for (i in 0..50) {
             fuelTypeList.add(
@@ -45,10 +51,13 @@ class AddFuelTypeFragment : Fragment() {
             addFuelTypeViewModel.fuelType.value = fuelType.fuelName
         }
 
-        addFuelTypeBinding.fuelTypeRV.layoutManager = GridLayoutManager(requireActivity(), 2)
-        addFuelTypeBinding.fuelTypeRV.adapter = fuelTypeAdapter
+        addFuelTypeBinding.fuelTypeRV.apply {
+            layoutManager = GridLayoutManager(requireActivity(), 2)
+            adapter = fuelTypeAdapter
+        }
 
-        addFuelTypeBinding.setAsDefaultCar.setOnCheckedChangeListener { buttonView, isChecked ->
+        addFuelTypeViewModel.isDefault.value = "0"
+        addFuelTypeBinding.setAsDefaultCar.setOnCheckedChangeListener { _, isChecked ->
             when {
                 isChecked -> {
                     addFuelTypeViewModel.isDefault.value = "1"
@@ -63,11 +72,12 @@ class AddFuelTypeFragment : Fragment() {
         addFuelTypeBinding.addCar.setOnClickListener {
             val sharedPreferences =
                 activity?.getSharedPreferences("userData", MODE_PRIVATE)
-            addFuelTypeViewModel.userID.value = sharedPreferences!!.getString("userID", "")
-            addFuelTypeViewModel.token.value = sharedPreferences.getString("token", "")
 
-            addFuelTypeViewModel.addCar()
+            addFuelTypeViewModel.apply {
+                userID.value = sharedPreferences?.getString("userID", "")
+                token.value = sharedPreferences?.getString("token", "")
+                addCar()
+            }
         }
     }
-
 }

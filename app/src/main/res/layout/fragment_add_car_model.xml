@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white_gray"
-    tools:context=".screens.home.addvehicle.AddCarModelFragment">
+    tools:context=".screens.addcar.add_car_model.AddCarModelFragment">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -27,7 +27,7 @@
                 android:background="@drawable/rounded_rectangle_button">
 
                 <ImageView
-                    android:id="@+id/serachIcon"
+                    android:id="@+id/searchIcon"
                     android:layout_width="30dp"
                     android:layout_height="30dp"
                     android:layout_centerVertical="true"
@@ -38,9 +38,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
-                    android:layout_toEndOf="@id/serachIcon"
+                    android:layout_toEndOf="@id/searchIcon"
                     android:background="@color/white"
-                    android:hint="Search Model"
+                    android:hint="@string/search_model_hint"
                     android:imeOptions="actionSearch"
                     android:inputType="text"
                     android:textAlignment="textStart"
@@ -55,7 +55,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
-            android:text="XYZ"
             android:textColor="@color/green"
             android:textSize="20sp" />
 
@@ -65,7 +64,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
-            android:text="Select Model"
+            android:text="@string/select_model_text"
             android:textColor="@color/black"
             android:textSize="20sp" />
 
@@ -83,7 +82,7 @@
             android:layout_gravity="center"
             android:layout_margin="20dp"
             android:gravity="center"
-            android:text="Sorry, We couldn't find any results"
+            android:text="@string/no_result_text"
             android:textColor="@color/gray"
             android:textSize="20sp"
             android:visibility="gone" />

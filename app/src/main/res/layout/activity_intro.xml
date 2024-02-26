@@ -52,7 +52,7 @@
         android:layout_margin="10dp"
         android:backgroundTint="@color/green"
         android:padding="10dp"
-        android:text="Get Started"
+        android:text="@string/get_started_button_text"
         android:textSize="20sp"
         app:cornerRadius="3dp"
         app:layout_constraintBottom_toBottomOf="parent"

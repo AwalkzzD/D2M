@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".screens.home.addvehicle.AddCarFragment">
+    tools:context=".screens.addcar.add_car_registration.AddCarRegistrationFragment">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -31,7 +31,7 @@
                 android:id="@+id/addCarTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Car Registration"
+                android:text="@string/car_registration_heading"
                 android:textColor="@color/black"
                 android:textSize="40sp"
                 android:textStyle="bold" />
@@ -42,7 +42,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/addCarTitle"
                 android:layout_marginTop="15dp"
-                android:text="Please enter your vehicle number"
+                android:text="@string/enter_vehicle_num_text"
                 android:textColor="@color/black"
                 android:textSize="20sp" />
 
@@ -53,17 +53,15 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/enterVehicleNum"
                 android:layout_marginTop="20dp"
-                android:layout_weight="1"
                 android:background="@drawable/rounded_rectangle_button"
-                android:hint="XX-00-XX-0000"
-                android:textColorHint="@color/gray"
+                android:hint="@string/car_registration_hint"
                 android:imeOptions="actionNext"
                 android:inputType="text"
-                android:maxLength="13"
+                android:maxLength="10"
                 android:textAlignment="textStart"
                 android:textColor="@color/black"
+                android:textColorHint="@color/gray"
                 android:textSize="20sp" />
-
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/addCar"
@@ -72,8 +70,9 @@
                 android:layout_below="@id/vehicleNumber"
                 android:layout_marginTop="20dp"
                 android:backgroundTint="@color/white"
+                android:enabled="false"
                 android:padding="15dp"
-                android:text="Add Car"
+                android:text="@string/add_car_text"
                 android:textColor="@color/black"
                 android:textSize="20sp"
                 app:cornerRadius="3dp"

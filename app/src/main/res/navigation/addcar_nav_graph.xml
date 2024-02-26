@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/home_nav_graph"
+    app:startDestination="@id/addCarRegistrationFragment">
+
+    <fragment
+        android:id="@+id/addCarRegistrationFragment"
+        android:name="com.example.d2m.screens.addcar.add_car_registration.AddCarRegistrationFragment"
+        android:label="Add Car"
+        tools:layout="@layout/fragment_add_car_registration">
+        <action
+            android:id="@+id/action_addCarRegistrationFragment_to_addCarBrandFragment"
+            app:destination="@id/addCarBrandFragment"
+            app:popUpTo="@id/addCarRegistrationFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/addCarBrandFragment"
+        android:name="com.example.d2m.screens.addcar.add_car_brand.AddCarBrandFragment"
+        android:label="Select Brand"
+        tools:layout="@layout/fragment_add_car_brand">
+        <action
+            android:id="@+id/action_addCarBrandFragment_to_addCarModelFragment"
+            app:destination="@id/addCarModelFragment"
+            app:popUpTo="@id/addCarBrandFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/addCarModelFragment"
+        android:name="com.example.d2m.screens.addcar.add_car_model.AddCarModelFragment"
+        android:label="Select Model"
+        tools:layout="@layout/fragment_add_car_model">
+        <action
+            android:id="@+id/action_addCarModelFragment_to_addFuelTypeFragment"
+            app:destination="@id/addFuelTypeFragment"
+            app:popUpTo="@id/addCarModelFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/addFuelTypeFragment"
+        android:name="com.example.d2m.screens.addcar.add_fuel_type.AddFuelTypeFragment"
+        android:label="Select Fuel Type"
+        tools:layout="@layout/fragment_add_fuel_type" />
+
+</navigation>

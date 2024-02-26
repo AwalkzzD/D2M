@@ -1,4 +1,4 @@
-package com.example.d2m.screens.home.addvehicle
+package com.example.d2m.screens.addcar.add_car_model
 
 import android.os.Bundle
 import android.text.Editable
@@ -16,6 +16,7 @@ import com.example.d2m.R
 import com.example.d2m.data.models.car.CarBrand
 import com.example.d2m.data.models.car.CarModel
 import com.example.d2m.databinding.FragmentAddCarModelBinding
+import com.example.d2m.screens.addcar.viewmodel.AddCarViewModel
 import com.example.d2m.screens.utils.CarModelsAdapter
 
 class AddCarModelFragment : Fragment() {
@@ -39,22 +40,27 @@ class AddCarModelFragment : Fragment() {
         addCarModelBinding.selectedBrand.text = addCarModelViewModel.brandName.value.toString()
 
         for (i in 0..100) {
-            modelList.add(
-                i, CarModel(
+            ContextCompat.getDrawable(requireActivity(), R.drawable.ic_car_dummy)?.let {
+                CarModel(
                     "Model $i",
-                    ContextCompat.getDrawable(requireActivity(), R.drawable.ic_car_dummy)!!
+                    it
                 )
-            )
+            }?.let {
+                modelList.add(
+                    i, it
+                )
+            }
         }
 
         carModelsAdapter = CarModelsAdapter(modelList) { carModel ->
-
             addCarModelViewModel.modelName.value = carModel.carModelName
             findNavController().navigate(R.id.action_addCarModelFragment_to_addFuelTypeFragment)
         }
 
-        addCarModelBinding.carModelRV.layoutManager = GridLayoutManager(requireActivity(), 2)
-        addCarModelBinding.carModelRV.adapter = carModelsAdapter
+        addCarModelBinding.carModelRV.apply {
+            layoutManager = GridLayoutManager(requireActivity(), 2)
+            adapter = carModelsAdapter
+        }
 
         addCarModelBinding.searchModel.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
@@ -65,9 +71,7 @@ class AddCarModelFragment : Fragment() {
 
             }
 
-            override fun afterTextChanged(s: Editable?) {
-                filter(s.toString().lowercase())
-            }
+            override fun afterTextChanged(s: Editable?) = filter(s.toString().lowercase())
         })
     }
 

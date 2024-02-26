@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".screens.login.LoginDetailsFragment">
+    tools:context=".screens.login.phone_otp.LoginDetailsFragment">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -31,7 +31,7 @@
                 android:id="@+id/loginTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="LogIn"
+                android:text="@string/login_heading"
                 android:textColor="@color/black"
                 android:textSize="40sp"
                 android:textStyle="bold" />
@@ -42,7 +42,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/loginTitle"
                 android:layout_marginTop="15dp"
-                android:text="Enter your Mobile number"
+                android:text="@string/enter_your_mobile_number_text"
                 android:textColor="@color/black"
                 android:textSize="20sp" />
 
@@ -59,11 +59,13 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="+91 "
+                    android:text="@string/mob_number_prefix_text"
                     android:textColor="@color/black"
                     android:textSize="20sp" />
 
                 <View
+                    android:layout_marginStart="5dp"
+                    android:layout_marginEnd="5dp"
                     android:layout_width="1dp"
                     android:layout_height="30dp"
                     android:background="@color/black" />
@@ -72,10 +74,9 @@
                     android:id="@+id/userPhoneNumber"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="5dp"
                     android:background="@color/light_gray"
                     android:digits="0123456789+"
-                    android:hint="Mobile Number"
+                    android:hint="@string/mobile_number_hint"
                     android:imeOptions="actionDone"
                     android:inputType="phone"
                     android:maxLength="10"
@@ -92,7 +93,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/textInputLayout"
                 android:layout_marginTop="20dp"
-                android:text="Get updates on WhatsApp"
+                android:text="@string/whatsapp_updates_checkbox_text"
                 android:textColor="@color/black"
                 android:textSize="20sp" />
 
@@ -103,7 +104,7 @@
                 android:layout_below="@id/getWhatsAppUpdates"
                 android:layout_marginTop="20dp"
                 android:background="@drawable/rounded_rectangle_button"
-                android:text="Next"
+                android:text="@string/login_next_button_text"
                 android:textColor="@color/white"
                 android:textSize="20sp" />
 
@@ -127,7 +128,7 @@
                     android:background="@color/white"
                     android:paddingLeft="10dp"
                     android:paddingRight="10dp"
-                    android:text="Login with Social Media"
+                    android:text="@string/login_with_social_media_text"
                     android:textColor="@color/gray"
                     android:textSize="17sp" />
             </FrameLayout>
@@ -147,7 +148,7 @@
                     android:layout_weight="1"
                     android:backgroundTint="@color/white"
                     android:drawableLeft="@drawable/google"
-                    android:text="Sign in"
+                    android:text="@string/sign_in_button_text"
                     android:textColor="@color/black"
                     android:textSize="17sp"
                     app:cornerRadius="5dp"
@@ -160,7 +161,7 @@
                     android:layout_weight="1"
                     android:backgroundTint="@color/blue"
                     android:drawableLeft="@drawable/facebook"
-                    android:text="LogIn"
+                    android:text="@string/login_button_text"
                     android:textColor="@color/white"
                     android:textSize="17sp"
                     app:cornerRadius="5dp" />

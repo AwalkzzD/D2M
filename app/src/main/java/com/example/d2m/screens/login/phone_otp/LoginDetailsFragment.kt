@@ -1,4 +1,4 @@
-package com.example.d2m.screens.login
+package com.example.d2m.screens.login.phone_otp
 
 import android.os.Bundle
 import android.view.LayoutInflater

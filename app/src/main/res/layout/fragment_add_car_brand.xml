@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white_gray"
-    tools:context=".screens.home.addvehicle.AddCarBrandFragment">
+    tools:context=".screens.addcar.add_car_brand.AddCarBrandFragment">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -40,7 +40,7 @@
                     android:layout_marginStart="10dp"
                     android:layout_toEndOf="@id/serachIcon"
                     android:background="@color/white"
-                    android:hint="Search Brand"
+                    android:hint="@string/search_brand_hint"
                     android:imeOptions="actionSearch"
                     android:inputType="text"
                     android:textAlignment="textStart"
@@ -55,7 +55,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
-            android:text="Select Brand"
+            android:text="@string/select_brand_text"
             android:textColor="@color/black"
             android:textSize="20sp" />
 
@@ -74,7 +74,7 @@
             android:layout_margin="20dp"
             android:textColor="@color/gray"
             android:gravity="center"
-            android:text="Sorry, We couldn't find any results"
+            android:text="@string/no_result_text"
             android:textSize="20sp"
             android:visibility="gone" />
 

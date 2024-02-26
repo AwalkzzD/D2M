@@ -1,4 +1,4 @@
-package com.example.d2m.screens.home.addvehicle
+package com.example.d2m.screens.addcar.viewmodel
 
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
