@@ -1,6 +1,7 @@
 package com.example.d2m.screens.addcar.add_fuel_type
 
 import android.content.Context.MODE_PRIVATE
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -13,6 +14,7 @@ import com.example.d2m.R
 import com.example.d2m.data.models.car.FuelType
 import com.example.d2m.databinding.FragmentAddFuelTypeBinding
 import com.example.d2m.screens.addcar.AddCarViewModel
+import com.example.d2m.screens.home.HomeActivity
 import com.example.d2m.screens.utils.GenericDataAdapter
 
 class AddFuelTypeFragment : Fragment() {
@@ -90,6 +92,12 @@ class AddFuelTypeFragment : Fragment() {
                 userID.value = sharedPreferences?.getString("userID", "")
                 token.value = sharedPreferences?.getString("token", "")
                 addCar()
+            }
+        }
+
+        addCarViewModel.carAdded.observe(viewLifecycleOwner) {
+            if (it.success) {
+                startActivity(Intent(activity, HomeActivity::class.java))
             }
         }
     }

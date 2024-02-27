@@ -19,6 +19,8 @@ import retrofit2.Response
 
 class AddCarViewModel : ViewModel() {
 
+    var carAdded: MutableLiveData<CarAdded> = MutableLiveData<CarAdded>()
+
     var carBrand: MutableLiveData<CarBrand> = MutableLiveData()
     var carModel: MutableLiveData<CarModel> = MutableLiveData()
     var fuelType: MutableLiveData<FuelType> = MutableLiveData()
@@ -29,10 +31,6 @@ class AddCarViewModel : ViewModel() {
     var vehicleColor = MutableLiveData<String>() // FIXME: currently set in car registration 
 
     fun addCar() {
-
-        Log.d("TAG", "addCar: user ID --> " + userID.value.toString())
-        Log.d("TAG", "addCar: user ID --> " + carModel.value?.carModelName)
-
         val reqBody: RequestBody = MultipartBody.Builder().setType(MultipartBody.FORM)
             .addFormDataPart("user_id", userID.value.toString())
             .addFormDataPart(
@@ -53,18 +51,13 @@ class AddCarViewModel : ViewModel() {
 
         retrofitData.enqueue(object : Callback<CarAdded?> {
             override fun onResponse(call: Call<CarAdded?>, response: Response<CarAdded?>) {
-                Log.d(
-                    "TAG",
-                    "onResponse: " + GsonBuilder().setPrettyPrinting().create()
-                        .toJson(response.body())
-                )
+                carAdded.postValue(response.body())
             }
 
             override fun onFailure(call: Call<CarAdded?>, t: Throwable) {
                 Log.d("TAG", "onFailure: Failed to add Car --> $t")
             }
         })
-
         ApiClient.destroyInstance()
     }
 }

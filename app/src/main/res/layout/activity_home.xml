@@ -33,6 +33,8 @@
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
         android:background="@color/white"
+        app:itemIconTint="@color/gray"
+        app:itemTextColor="@color/gray"
         app:labelVisibilityMode="labeled"
         app:menu="@menu/bottom_nav_view" />
 
