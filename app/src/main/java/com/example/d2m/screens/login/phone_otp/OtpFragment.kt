@@ -13,20 +13,16 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import com.example.d2m.data.models.otp.send.OtpResponse
-import com.example.d2m.data.models.otp.verify.OtpVerify
-import com.example.d2m.data.services.api.ApiClient
-import com.example.d2m.data.services.api.SendOtpService
-import com.example.d2m.data.services.api.VerifyOtpService
+import androidx.lifecycle.ViewModelProvider
 import com.example.d2m.databinding.FragmentOtpBinding
 import com.example.d2m.screens.addcar.AddCarActivity
-import com.google.gson.GsonBuilder
 import java.util.concurrent.TimeUnit
-
 
 class OtpFragment : Fragment() {
     private lateinit var otpBinding: FragmentOtpBinding
     private lateinit var timer: CountDownTimer
+    private lateinit var otpViewModel: OtpViewModel
+    private lateinit var loginDetailsViewModel: LoginDetailsViewModel
     private val TAG = "OtpFragment"
 
     override fun onCreateView(
@@ -38,91 +34,62 @@ class OtpFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        otpBinding.otpLayout.isEnabled = false
-        sendOtp(arguments?.getString("phoneNum"), arguments?.getString("getWhatsappUpdates"))
+
+        initViewModel()
+        otpViewModel.sendOtp(
+            loginDetailsViewModel.phoneNum.value.toString(),
+            loginDetailsViewModel.getWhatsappUpdates.value.toString()
+        )
         startResendTimer()
 
         (activity as AppCompatActivity?)?.supportActionBar?.setDisplayHomeAsUpEnabled(true)
         (activity as AppCompatActivity?)?.supportActionBar?.setDisplayShowHomeEnabled(true)
         otpBinding.resendCodeLink.setOnClickListener {
-            sendOtp(
-                arguments?.getString("phoneNum"), arguments?.getString("getWhatsappUpdates")
+            otpViewModel.sendOtp(
+                loginDetailsViewModel.phoneNum.value.toString(),
+                loginDetailsViewModel.getWhatsappUpdates.value.toString()
             )
         }
 
         otpBinding.signIn.setOnClickListener {
-            val otpCode = getOtp()
-            Log.d(TAG, "onViewCreated: $otpCode")
-            verifyOtp(arguments?.getString("phoneNum"), otpCode)
-        }
-    }
-
-    private fun verifyOtp(userPhoneNumber: String?, otpCode: String) {
-        val retrofitInstance =
-            ApiClient.createService(VerifyOtpService::class.java) as VerifyOtpService
-
-        if (userPhoneNumber != null) {
-            val retrofitData = retrofitInstance.verifyOtp(
-                userPhoneNumber, otpCode, "123ASDFSFFSAFSSSSS", "android"
+            otpViewModel.verifyOtp(
+                loginDetailsViewModel.phoneNum.value.toString(), getOtp()
             )
-
-            retrofitData.enqueue(object : retrofit2.Callback<OtpVerify?> {
-                override fun onResponse(
-                    call: retrofit2.Call<OtpVerify?>, response: retrofit2.Response<OtpVerify?>
-                ) {
-                    if (response.body()?.success == true) {
-                        Toast.makeText(
-                            requireActivity(), "Verification Successful", Toast.LENGTH_LONG
-                        ).show()
-
-                        setSharedPrefs(
-                            response.body()?.data?.id.toString(),
-                            response.body()?.data?.token.toString()
-                        )
-                    }
-                    Log.d(
-                        TAG,
-                        "onResponse: " + GsonBuilder().setPrettyPrinting().create()
-                            .toJson(response.body())
-                    )
-                }
-
-                override fun onFailure(call: retrofit2.Call<OtpVerify?>, t: Throwable) {
-                    Log.d(TAG, "onFailure: Failed to verify OTP -> $t")
-                }
-            })
-            ApiClient.destroyInstance()
-        } else {
-            Toast.makeText(requireActivity(), "Can't get phone number!", Toast.LENGTH_SHORT).show()
         }
     }
 
-    private fun sendOtp(userPhoneNumber: String?, getWhatsappUpdates: String?) {
-        val retrofitInstance = ApiClient.createService(SendOtpService::class.java) as SendOtpService
-        if (userPhoneNumber != null && getWhatsappUpdates != null) {
-            val retrofitData = retrofitInstance.sendOtp(userPhoneNumber, getWhatsappUpdates)
+    private fun initViewModel() {
+        otpViewModel = ViewModelProvider(requireActivity())[OtpViewModel::class.java]
+        loginDetailsViewModel =
+            ViewModelProvider(requireActivity())[LoginDetailsViewModel::class.java]
 
-            retrofitData.enqueue(object : retrofit2.Callback<OtpResponse?> {
-                override fun onResponse(
-                    call: retrofit2.Call<OtpResponse?>, response: retrofit2.Response<OtpResponse?>
-                ) {
-                    if (response.body()?.success == true) {
-                        otpBinding.otpLayout.isEnabled = true
-                        Toast.makeText(
-                            requireActivity(),
-                            response.body()?.data?.otp.toString(),
-                            Toast.LENGTH_LONG
-                        ).show()
-                    }
-                }
+        otpViewModel.otpSendLiveData.observe(viewLifecycleOwner) {
+            if (it.success) {
+                otpBinding.otpLayout.isEnabled = true
+                Toast.makeText(
+                    requireActivity(), it.data.otp.toString(), Toast.LENGTH_LONG
+                ).show()
+            } else {
+                Toast.makeText(
+                    requireActivity(), it.message, Toast.LENGTH_LONG
+                ).show()
+            }
+        }
 
-                override fun onFailure(call: retrofit2.Call<OtpResponse?>, t: Throwable) {
-                    Log.d(TAG, "onFailure: Failed to send OTP -> $t")
-                }
-            })
-            ApiClient.destroyInstance()
-        } else {
-            Toast.makeText(requireActivity(), "Something went wrong", Toast.LENGTH_LONG).show()
+        otpViewModel.otpVerifyLiveData.observe(viewLifecycleOwner) {
+            if (it.success) {
+                Toast.makeText(
+                    requireActivity(), "Verification Successful", Toast.LENGTH_LONG
+                ).show()
+
+                setSharedPrefs(
+                    it.data.id.toString(), it.data.token
+                )
+            } else {
+                Toast.makeText(
+                    requireActivity(), it.message, Toast.LENGTH_LONG
+                ).show()
+            }
         }
     }
 
@@ -135,7 +102,6 @@ class OtpFragment : Fragment() {
             editor.putString("token", token)
             editor.apply()
         }
-
         startActivity(Intent(activity, AddCarActivity::class.java))
     }
 
@@ -173,5 +139,4 @@ class OtpFragment : Fragment() {
             }
         }.start()
     }
-
 }

@@ -4,26 +4,26 @@
     <item
         android:id="@+id/homeFragment"
         android:icon="@drawable/img_home"
-        android:title="Home" />
+        android:title="@string/home" />
 
     <item
         android:id="@+id/helpFragment"
         android:icon="@drawable/img_help"
-        android:title="Help" />
+        android:title="@string/help" />
 
     <item
         android:id="@+id/ordersFragment"
         android:icon="@drawable/img_myorders"
-        android:title="Orders" />
+        android:title="@string/orders" />
 
     <item
         android:id="@+id/accountFragment"
         android:icon="@drawable/img_account"
-        android:title="Account" />
+        android:title="@string/account" />
 
     <item
         android:id="@+id/notificationsFragments"
         android:icon="@drawable/img_notification"
-        android:title="Notifications" />
+        android:title="@string/notifications" />
 
 </menu>

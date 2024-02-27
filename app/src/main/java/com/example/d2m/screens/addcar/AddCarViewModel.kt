@@ -1,9 +1,13 @@
-package com.example.d2m.screens.addcar.viewmodel
+package com.example.d2m.screens.addcar
 
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.d2m.data.models.car.CarAdded
+import com.example.d2m.data.models.car.CarBrand
+import com.example.d2m.data.models.car.CarModel
+import com.example.d2m.data.models.car.CarRegistration
+import com.example.d2m.data.models.car.FuelType
 import com.example.d2m.data.services.api.AddVehicleService
 import com.example.d2m.data.services.api.ApiClient
 import com.google.gson.GsonBuilder
@@ -15,27 +19,33 @@ import retrofit2.Response
 
 class AddCarViewModel : ViewModel() {
 
-    var vehicleNumber = MutableLiveData<String>()
-    var modelName = MutableLiveData<String>()
-    var fuelType = MutableLiveData<String>()
-    var vehicleColor = MutableLiveData<String>()
-    var brandName = MutableLiveData<String>()
+    var carBrand: MutableLiveData<CarBrand> = MutableLiveData()
+    var carModel: MutableLiveData<CarModel> = MutableLiveData()
+    var fuelType: MutableLiveData<FuelType> = MutableLiveData()
+    var carRegistration: MutableLiveData<CarRegistration> = MutableLiveData()
     var isDefault = MutableLiveData<String>()
     var userID = MutableLiveData<String>()
     var token = MutableLiveData<String>()
+    var vehicleColor = MutableLiveData<String>() // FIXME: currently set in car registration 
 
     fun addCar() {
 
         Log.d("TAG", "addCar: user ID --> " + userID.value.toString())
+        Log.d("TAG", "addCar: user ID --> " + carModel.value?.carModelName)
 
         val reqBody: RequestBody = MultipartBody.Builder().setType(MultipartBody.FORM)
             .addFormDataPart("user_id", userID.value.toString())
-            .addFormDataPart("vehicle_number", vehicleNumber.value.toString())
+            .addFormDataPart(
+                "vehicle_number",
+                carRegistration.value?.carRegistrationNumber ?: "null"
+            )
             .addFormDataPart("owner_name", "XYZ")
-            .addFormDataPart("model_name", modelName.value.toString())
-            .addFormDataPart("fuel_type", "1").addFormDataPart("color", "XYZ")
-            .addFormDataPart("brand_name", brandName.value.toString())
-            .addFormDataPart("is_default", isDefault.value.toString()).build()
+            .addFormDataPart("model_name", carModel.value?.carModelName ?: "null")
+            .addFormDataPart("fuel_type", fuelType.value?.fuelName ?: "null")
+            .addFormDataPart("color", vehicleColor.value.toString())
+            .addFormDataPart("brand_name", carBrand.value?.carBrandName ?: "null")
+            .addFormDataPart("is_default", isDefault.value.toString())
+            .build()
 
         val retrofitInstance =
             ApiClient.createService(AddVehicleService::class.java) as AddVehicleService

@@ -1,171 +1,167 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical"
+    android:weightSum="6"
     tools:context=".screens.login.phone_otp.LoginDetailsFragment">
 
-    <LinearLayout
+
+    <ImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/white"
-        android:orientation="vertical"
-        android:weightSum="6">
+        android:layout_weight="4"
+        android:scaleType="fitCenter"
+        android:src="@drawable/login_car" />
 
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="4"
-            android:scaleType="fitCenter"
-            android:src="@drawable/login_car" />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="20dp"
+        android:layout_weight="2"
+        android:gravity="bottom">
 
-        <RelativeLayout
+        <TextView
+            android:id="@+id/loginTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/login_heading"
+            android:textColor="@color/black"
+            android:textSize="40sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/enterPhoneNum"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/loginTitle"
+            android:layout_marginTop="15dp"
+            android:text="@string/enter_your_mobile_number_text"
+            android:textColor="@color/black"
+            android:textSize="20sp" />
+
+        <LinearLayout
+            android:id="@+id/textInputLayout"
+            style="@style/Widget.Material3.TextInputEditText.OutlinedBox"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_margin="20dp"
-            android:layout_weight="2"
-            android:gravity="bottom">
+            android:layout_height="wrap_content"
+            android:layout_below="@id/enterPhoneNum"
+            android:layout_marginTop="10dp"
+            android:background="@color/light_gray"
+            android:orientation="horizontal">
 
             <TextView
-                android:id="@+id/loginTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/login_heading"
-                android:textColor="@color/black"
-                android:textSize="40sp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/enterPhoneNum"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/loginTitle"
-                android:layout_marginTop="15dp"
-                android:text="@string/enter_your_mobile_number_text"
+                android:text="@string/mob_number_prefix_text"
                 android:textColor="@color/black"
                 android:textSize="20sp" />
 
-            <LinearLayout
-                android:id="@+id/textInputLayout"
-                style="@style/Widget.Material3.TextInputEditText.OutlinedBox"
+            <View
+                android:layout_width="1dp"
+                android:layout_height="30dp"
+                android:layout_marginStart="5dp"
+                android:layout_marginEnd="5dp"
+                android:background="@color/black" />
+
+            <EditText
+                android:id="@+id/userPhoneNumber"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/enterPhoneNum"
-                android:layout_marginTop="10dp"
                 android:background="@color/light_gray"
-                android:orientation="horizontal">
+                android:digits="0123456789+"
+                android:hint="@string/mobile_number_hint"
+                android:imeOptions="actionDone"
+                android:inputType="phone"
+                android:maxLength="10"
+                android:maxLines="1"
+                android:textColor="@color/black"
+                android:textColorHint="@color/gray"
+                android:textSize="20sp" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/mob_number_prefix_text"
-                    android:textColor="@color/black"
-                    android:textSize="20sp" />
+        </LinearLayout>
 
-                <View
-                    android:layout_marginStart="5dp"
-                    android:layout_marginEnd="5dp"
-                    android:layout_width="1dp"
-                    android:layout_height="30dp"
-                    android:background="@color/black" />
+        <CheckBox
+            android:id="@+id/getWhatsAppUpdates"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/textInputLayout"
+            android:layout_marginTop="20dp"
+            android:text="@string/whatsapp_updates_checkbox_text"
+            android:textColor="@color/black"
+            android:textSize="20sp" />
 
-                <EditText
-                    android:id="@+id/userPhoneNumber"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@color/light_gray"
-                    android:digits="0123456789+"
-                    android:hint="@string/mobile_number_hint"
-                    android:imeOptions="actionDone"
-                    android:inputType="phone"
-                    android:maxLength="10"
-                    android:maxLines="1"
-                    android:textColor="@color/black"
-                    android:textColorHint="@color/gray"
-                    android:textSize="20sp" />
+        <Button
+            android:id="@+id/getOtp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/getWhatsAppUpdates"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/rounded_rectangle_button"
+            android:text="@string/login_next_button_text"
+            android:textColor="@color/white"
+            android:textSize="20sp" />
 
-            </LinearLayout>
+        <FrameLayout
+            android:id="@+id/loginOption"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/getOtp"
+            android:layout_marginTop="15dp">
 
-            <CheckBox
-                android:id="@+id/getWhatsAppUpdates"
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_gravity="center_vertical"
+                android:background="@color/black" />
+
+            <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/textInputLayout"
-                android:layout_marginTop="20dp"
-                android:text="@string/whatsapp_updates_checkbox_text"
+                android:layout_gravity="center"
+                android:background="@color/white"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:text="@string/login_with_social_media_text"
+                android:textColor="@color/gray"
+                android:textSize="17sp" />
+        </FrameLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/loginOption"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal"
+            android:weightSum="2">
+
+            <com.google.android.material.button.MaterialButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:layout_weight="1"
+                android:backgroundTint="@color/white"
+                android:drawableLeft="@drawable/google"
+                android:text="@string/sign_in_button_text"
                 android:textColor="@color/black"
-                android:textSize="20sp" />
+                android:textSize="17sp"
+                app:cornerRadius="5dp"
+                app:strokeWidth="1dp" />
 
-            <Button
-                android:id="@+id/getOtp"
-                android:layout_width="match_parent"
+            <com.google.android.material.button.MaterialButton
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/getWhatsAppUpdates"
-                android:layout_marginTop="20dp"
-                android:background="@drawable/rounded_rectangle_button"
-                android:text="@string/login_next_button_text"
+                android:layout_margin="5dp"
+                android:layout_weight="1"
+                android:backgroundTint="@color/blue"
+                android:drawableLeft="@drawable/facebook"
+                android:text="@string/login_button_text"
                 android:textColor="@color/white"
-                android:textSize="20sp" />
-
-            <FrameLayout
-                android:id="@+id/loginOption"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/getOtp"
-                android:layout_marginTop="15dp">
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_gravity="center_vertical"
-                    android:background="@color/black" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:background="@color/white"
-                    android:paddingLeft="10dp"
-                    android:paddingRight="10dp"
-                    android:text="@string/login_with_social_media_text"
-                    android:textColor="@color/gray"
-                    android:textSize="17sp" />
-            </FrameLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/loginOption"
-                android:layout_marginTop="10dp"
-                android:orientation="horizontal"
-                android:weightSum="2">
-
-                <com.google.android.material.button.MaterialButton
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
-                    android:layout_weight="1"
-                    android:backgroundTint="@color/white"
-                    android:drawableLeft="@drawable/google"
-                    android:text="@string/sign_in_button_text"
-                    android:textColor="@color/black"
-                    android:textSize="17sp"
-                    app:cornerRadius="5dp"
-                    app:strokeWidth="1dp" />
-
-                <com.google.android.material.button.MaterialButton
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
-                    android:layout_weight="1"
-                    android:backgroundTint="@color/blue"
-                    android:drawableLeft="@drawable/facebook"
-                    android:text="@string/login_button_text"
-                    android:textColor="@color/white"
-                    android:textSize="17sp"
-                    app:cornerRadius="5dp" />
-            </LinearLayout>
-        </RelativeLayout>
-    </LinearLayout>
-</FrameLayout>
+                android:textSize="17sp"
+                app:cornerRadius="5dp" />
+        </LinearLayout>
+    </RelativeLayout>
+</LinearLayout>

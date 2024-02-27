@@ -34,9 +34,8 @@
                 android:layout_height="wrap_content"
                 android:layout_alignBottom="@id/serviceImage"
                 android:layout_centerHorizontal="true"
-                android:background="@color/green"
                 android:layout_marginBottom="40dp"
-                android:text="Denting"
+                android:background="@color/green"
                 android:textAlignment="center"
                 android:textColor="@color/white"
                 android:textSize="20sp" />

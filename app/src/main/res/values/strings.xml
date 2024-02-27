@@ -36,4 +36,12 @@
     <string name="sign_in_button_text">Sign in</string>
     <string name="login_button_text">LogIn</string>
     <string name="selected_brand_model_text">%1$s - %2$s</string>
+    <string name="home">Home</string>
+    <string name="help">Help</string>
+    <string name="orders">Orders</string>
+    <string name="account">Account</string>
+    <string name="notifications">Notifications</string>
+    <string name="enter_otp_text">Please enter the OTP</string>
+    <string name="resend_code_text">Resend code?</string>
+    <string name="available_services_text">Available Services</string>
 </resources>

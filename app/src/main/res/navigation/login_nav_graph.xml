@@ -9,7 +9,7 @@
         android:id="@+id/loginDetailsFragment"
         android:name="com.example.d2m.screens.login.phone_otp.LoginDetailsFragment"
         android:label="fragment_login_details"
-        tools:layout="@layout/fragment_login_details" >
+        tools:layout="@layout/fragment_login_details">
         <action
             android:id="@+id/action_loginDetailsFragment_to_otpFragment"
             app:destination="@id/otpFragment" />

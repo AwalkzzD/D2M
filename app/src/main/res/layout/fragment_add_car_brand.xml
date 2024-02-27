@@ -1,82 +1,78 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white_gray"
+    android:orientation="vertical"
     tools:context=".screens.addcar.add_car_brand.AddCarBrandFragment">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
 
-        <com.google.android.material.card.MaterialCardView
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        app:cardBackgroundColor="@color/white"
+        app:cardCornerRadius="25dp"
+        app:strokeColor="@color/white"
+        app:strokeWidth="0dp">
+
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            app:cardBackgroundColor="@color/white"
-            app:cardCornerRadius="25dp"
-            app:strokeColor="@color/white"
-            app:strokeWidth="0dp">
+            android:background="@drawable/rounded_rectangle_button">
 
-            <RelativeLayout
+            <ImageView
+                android:id="@+id/serachIcon"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_centerVertical="true"
+                android:src="@drawable/search" />
+
+            <EditText
+                android:id="@+id/searchBrand"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/rounded_rectangle_button">
+                android:layout_marginStart="10dp"
+                android:layout_toEndOf="@id/serachIcon"
+                android:background="@color/white"
+                android:hint="@string/search_brand_hint"
+                android:imeOptions="actionSearch"
+                android:inputType="text"
+                android:textAlignment="textStart"
+                android:textColor="@color/black"
+                android:textColorHint="@color/gray"
+                android:textSize="20sp" />
+        </RelativeLayout>
+    </com.google.android.material.card.MaterialCardView>
 
-                <ImageView
-                    android:id="@+id/serachIcon"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:layout_centerVertical="true"
-                    android:src="@drawable/search" />
+    <TextView
+        android:id="@+id/selectionCategory"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:text="@string/select_brand_text"
+        android:textColor="@color/black"
+        android:textSize="20sp" />
 
-                <EditText
-                    android:id="@+id/searchBrand"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:layout_toEndOf="@id/serachIcon"
-                    android:background="@color/white"
-                    android:hint="@string/search_brand_hint"
-                    android:imeOptions="actionSearch"
-                    android:inputType="text"
-                    android:textAlignment="textStart"
-                    android:textColor="@color/black"
-                    android:textColorHint="@color/gray"
-                    android:textSize="20sp" />
-            </RelativeLayout>
-        </com.google.android.material.card.MaterialCardView>
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/carBrandRV"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="20dp"
+        tools:listitem="@layout/brand_list_item" />
 
-        <TextView
-            android:id="@+id/selectionCategory"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:text="@string/select_brand_text"
-            android:textColor="@color/black"
-            android:textSize="20sp" />
+    <TextView
+        android:id="@+id/noResultFound"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:layout_margin="20dp"
+        android:gravity="center"
+        android:text="@string/no_result_text"
+        android:textColor="@color/gray"
+        android:textSize="20sp"
+        android:visibility="gone" />
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/carBrandRV"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_margin="20dp"
-            tools:listitem="@layout/brand_list_item" />
-
-        <TextView
-            android:id="@+id/noResultFound"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_gravity="center"
-            android:layout_margin="20dp"
-            android:textColor="@color/gray"
-            android:gravity="center"
-            android:text="@string/no_result_text"
-            android:textSize="20sp"
-            android:visibility="gone" />
-
-    </LinearLayout>
-</FrameLayout>
+</LinearLayout>

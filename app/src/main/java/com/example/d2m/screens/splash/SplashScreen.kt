@@ -25,6 +25,7 @@ class SplashScreen : AppCompatActivity() {
             }, 1000)
         } else {
             startActivity(Intent(this, LoginActivity::class.java))
+//            startActivity(Intent(this, AddCarActivity::class.java))
             finish()
         }
 
