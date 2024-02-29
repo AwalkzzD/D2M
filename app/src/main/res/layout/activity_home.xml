@@ -10,10 +10,11 @@
 
     <include
         android:id="@+id/app_bar"
-        layout="@layout/dashboard_app_bar"
+        layout="@layout/home_app_bar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
         android:layout_alignParentTop="true" />
 
     <fragment
@@ -33,8 +34,9 @@
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
         android:background="@color/white"
-        app:itemIconTint="@color/gray"
-        app:itemTextColor="@color/gray"
+        app:itemActiveIndicatorStyle="@color/bnv_tab_item"
+        app:itemIconTint="@color/bnv_tab_item"
+        app:itemTextColor="@color/bnv_tab_item"
         app:labelVisibilityMode="labeled"
         app:menu="@menu/bottom_nav_view" />
 

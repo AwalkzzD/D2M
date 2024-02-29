@@ -13,7 +13,8 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import com.example.d2m.databinding.FragmentOtpBinding
 import com.example.d2m.screens.addcar.AddCarActivity
 import java.util.concurrent.TimeUnit
@@ -21,8 +22,8 @@ import java.util.concurrent.TimeUnit
 class OtpFragment : Fragment() {
     private lateinit var otpBinding: FragmentOtpBinding
     private lateinit var timer: CountDownTimer
-    private lateinit var otpViewModel: OtpViewModel
-    private lateinit var loginDetailsViewModel: LoginDetailsViewModel
+    private val otpViewModel: OtpViewModel by viewModels()
+    private val loginDetailsViewModel: LoginDetailsViewModel by activityViewModels()
     private val TAG = "OtpFragment"
 
     override fun onCreateView(
@@ -44,6 +45,7 @@ class OtpFragment : Fragment() {
 
         (activity as AppCompatActivity?)?.supportActionBar?.setDisplayHomeAsUpEnabled(true)
         (activity as AppCompatActivity?)?.supportActionBar?.setDisplayShowHomeEnabled(true)
+
         otpBinding.resendCodeLink.setOnClickListener {
             otpViewModel.sendOtp(
                 loginDetailsViewModel.phoneNum.value.toString(),
@@ -59,10 +61,6 @@ class OtpFragment : Fragment() {
     }
 
     private fun initViewModel() {
-        otpViewModel = ViewModelProvider(requireActivity())[OtpViewModel::class.java]
-        loginDetailsViewModel =
-            ViewModelProvider(requireActivity())[LoginDetailsViewModel::class.java]
-
         otpViewModel.otpSendLiveData.observe(viewLifecycleOwner) {
             if (it.success) {
                 otpBinding.otpLayout.isEnabled = true

@@ -10,6 +10,4 @@ class AddCarModelViewModel : ViewModel() {
     fun postLiveData(carModelList: List<CarModel>) {
         carModelLiveData.postValue(carModelList)
     }
-
-    fun getLiveData(): MutableLiveData<List<CarModel>> = carModelLiveData
 }

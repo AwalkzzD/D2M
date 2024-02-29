@@ -10,6 +10,4 @@ class AddFuelTypeViewModel : ViewModel() {
     fun postLiveData(fuelTypeList: List<FuelType>) {
         fuelTypeLiveData.postValue(fuelTypeList)
     }
-
-    fun getLiveData(): MutableLiveData<List<FuelType>> = fuelTypeLiveData
 }

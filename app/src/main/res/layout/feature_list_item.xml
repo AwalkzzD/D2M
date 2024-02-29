@@ -1,17 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="200dp"
-    android:layout_margin="10dp"
-    app:cardCornerRadius="20dp">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <ImageView
-        android:id="@+id/featureBanner"
+    <data>
+
+        <variable
+            name="banners"
+            type="com.example.d2m.data.models.home.Banner" />
+    </data>
+
+    <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:scaleType="fitXY"
-        android:src="@drawable/banner_1" />
+        android:layout_height="200dp"
+        android:layout_margin="10dp"
+        app:cardCornerRadius="20dp">
 
-</com.google.android.material.card.MaterialCardView>
+        <ImageView
+            android:id="@+id/featureBanner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:scaleType="fitXY"
+            app:imageUrl="@{banners.banner_url}" />
+
+    </com.google.android.material.card.MaterialCardView>
+</layout>

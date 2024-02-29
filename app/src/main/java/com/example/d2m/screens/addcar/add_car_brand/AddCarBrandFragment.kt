@@ -6,12 +6,10 @@ import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.TextView
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.d2m.R
@@ -23,8 +21,10 @@ import com.example.d2m.screens.utils.GenericDataAdapter
 class AddCarBrandFragment : Fragment() {
 
     private lateinit var addCarBrandBinding: FragmentAddCarBrandBinding
-    private val brandList: ArrayList<CarBrand> = arrayListOf()
+    private var brandList: MutableList<CarBrand> = mutableListOf()
     private lateinit var carBrandsAdapter: GenericDataAdapter<CarBrand>
+    private val addCarBrandViewModel: AddCarBrandViewModel by activityViewModels()
+    private val addCarViewModel: AddCarViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -35,38 +35,9 @@ class AddCarBrandFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val addCarViewModel = ViewModelProvider(requireActivity())[AddCarViewModel::class.java]
-        val addCarBrandViewModel =
-            ViewModelProvider(requireActivity())[AddCarBrandViewModel::class.java]
 
-        for (i in 0..100) {
-            ContextCompat.getDrawable(requireActivity(), R.drawable.ic_dummy_brand)?.let {
-                CarBrand(
-                    "Brand $i", it
-                )
-            }?.let {
-                brandList.add(
-                    i, it
-                )
-            }
-        }
-
-        addCarBrandViewModel.postLiveData(brandList)
-
-        carBrandsAdapter =
-            GenericDataAdapter(requireActivity(), R.layout.brand_list_item, { carBrand: CarBrand ->
-                addCarViewModel.carBrand.value = carBrand
-                findNavController().navigate(R.id.action_addCarBrandFragment_to_addCarModelFragment)
-            }) { item, itemView ->
-                val carBrandImage = itemView.findViewById<ImageView>(R.id.brandImage)
-                val carBrandName = itemView.findViewById<TextView>(R.id.brandName)
-                with(item) {
-                    carBrandImage.setImageDrawable(this.carBrandImage)
-                    carBrandName.text = this.carBrandName
-                }
-            }
-
-        carBrandsAdapter.addData(brandList)
+        initViewModel()
+        initRecyclerView()
 
         addCarBrandBinding.carBrandRV.apply {
             layoutManager = GridLayoutManager(requireActivity(), 3)
@@ -92,6 +63,29 @@ class AddCarBrandFragment : Fragment() {
                 }
             )
         }
+    }
+
+    private fun initRecyclerView() {
+        carBrandsAdapter =
+            GenericDataAdapter(brandList, R.layout.brand_list_item) { carBrand: CarBrand ->
+                addCarViewModel.carBrand.value = carBrand
+                findNavController().navigate(R.id.action_addCarBrandFragment_to_addCarModelFragment)
+            }
+    }
+
+    private fun initViewModel() {
+        for (i in 0..100) {
+            ContextCompat.getDrawable(requireActivity(), R.drawable.ic_dummy_brand)?.let {
+                CarBrand(
+                    "Brand $i", it
+                )
+            }?.let {
+                brandList.add(
+                    i, it
+                )
+            }
+        }
+        addCarBrandViewModel.postLiveData(brandList)
     }
 
     private fun filter(text: String) {

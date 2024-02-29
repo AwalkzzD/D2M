@@ -7,14 +7,14 @@
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/transparent">
+        android:background="@color/green">
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:textAlignment="center"
-            app:theme="@style/ToolbarTheme" />
+            android:gravity="center_horizontal"
+            app:theme="@style/AddCarToolbarTheme" />
 
     </com.google.android.material.appbar.AppBarLayout>
 

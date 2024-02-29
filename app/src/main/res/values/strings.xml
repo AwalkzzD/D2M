@@ -44,4 +44,6 @@
     <string name="enter_otp_text">Please enter the OTP</string>
     <string name="resend_code_text">Resend code?</string>
     <string name="available_services_text">Available Services</string>
+    <string name="regular_service_text">Regular Service</string>
+    <string name="data_not_specified">Not Specified!</string>
 </resources>

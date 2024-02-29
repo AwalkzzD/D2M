@@ -8,7 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.example.d2m.R
 import com.example.d2m.data.models.car.CarRegistration
@@ -18,6 +18,9 @@ import com.example.d2m.screens.addcar.AddCarViewModel
 class AddCarRegistrationFragment : Fragment() {
 
     private lateinit var addCarRegistrationBinding: FragmentAddCarRegistrationBinding
+    private val addCarRegistrationViewModel: AddCarRegistrationViewModel by activityViewModels()
+    private val addCarViewModel: AddCarViewModel by activityViewModels()
+    private lateinit var carRegistration: CarRegistration
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
@@ -28,20 +31,11 @@ class AddCarRegistrationFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val addCarViewModel = ViewModelProvider(requireActivity())[AddCarViewModel::class.java]
-        val addCarRegistrationViewModel =
-            ViewModelProvider(requireActivity())[AddCarRegistrationViewModel::class.java]
-
-        var carRegistration: CarRegistration
-
         addCarRegistrationBinding.addCar.apply {
             setOnClickListener {
                 carRegistration =
                     CarRegistration(addCarRegistrationBinding.vehicleNumber.text.toString())
-                addCarRegistrationViewModel.carRegistration.postValue(carRegistration)
-
-                addCarViewModel.carRegistration.value = carRegistration
-                addCarViewModel.vehicleColor.value = "xyz"
+                initViewModel()
                 findNavController().navigate(R.id.action_addCarRegistrationFragment_to_addCarBrandFragment)
             }
         }
@@ -69,5 +63,11 @@ class AddCarRegistrationFragment : Fragment() {
                 }
             }
         }
+    }
+
+    private fun initViewModel() {
+        addCarRegistrationViewModel.carRegistration.postValue(carRegistration)
+        addCarViewModel.carRegistration.value = carRegistration
+        addCarViewModel.vehicleColor.value = "xyz"
     }
 }

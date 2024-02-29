@@ -6,13 +6,14 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.example.d2m.R
 import com.example.d2m.databinding.FragmentLoginDetailsBinding
 
 class LoginDetailsFragment : Fragment() {
     private lateinit var loginDetailsBinding: FragmentLoginDetailsBinding
+    private val loginDetailsViewModel: LoginDetailsViewModel by activityViewModels()
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
@@ -22,9 +23,6 @@ class LoginDetailsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        val loginDetailsViewModel =
-            ViewModelProvider(requireActivity())[LoginDetailsViewModel::class.java]
 
         loginDetailsBinding.getOtp.setOnClickListener {
 
@@ -41,14 +39,11 @@ class LoginDetailsFragment : Fragment() {
                     it.phoneNum.value = loginDetailsBinding.userPhoneNumber.text.toString()
                     it.getWhatsappUpdates.value = getWhatsappUpdates
                 }
-
                 findNavController().navigate(R.id.action_loginDetailsFragment_to_otpFragment)
 
             } else {
-
                 Toast.makeText(requireActivity(), "Enter a valid phone number", Toast.LENGTH_SHORT)
                     .show()
-
             }
 
 //            ----> bypass login

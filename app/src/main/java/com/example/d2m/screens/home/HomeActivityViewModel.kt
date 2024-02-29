@@ -1,4 +1,4 @@
-package com.example.d2m.screens.home.dashboard
+package com.example.d2m.screens.home
 
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
@@ -12,7 +12,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class HomeViewModel : ViewModel() {
+class HomeActivityViewModel : ViewModel() {
     var userLiveData: MutableLiveData<UserHome> = MutableLiveData<UserHome>()
 
     fun requestUserData(userId: String) {

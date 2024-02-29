@@ -6,9 +6,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.d2m.R
 import com.example.d2m.data.models.car.FuelType
@@ -22,6 +21,8 @@ class AddFuelTypeFragment : Fragment() {
     private lateinit var addFuelTypeBinding: FragmentAddFuelTypeBinding
     private val fuelTypeList: ArrayList<FuelType> = arrayListOf()
     private lateinit var fuelTypeAdapter: GenericDataAdapter<FuelType>
+    private val addFuelTypeViewModel: AddFuelTypeViewModel by activityViewModels()
+    private val addCarViewModel: AddCarViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -33,9 +34,8 @@ class AddFuelTypeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val addCarViewModel = ViewModelProvider(requireActivity())[AddCarViewModel::class.java]
-        val addFuelTypeViewModel =
-            ViewModelProvider(requireActivity())[AddFuelTypeViewModel::class.java]
+        initViewModel()
+        initRecyclerView()
 
         addFuelTypeBinding.selectedBrandModel.text = getString(
             R.string.selected_brand_model_text,
@@ -43,36 +43,11 @@ class AddFuelTypeFragment : Fragment() {
             addCarViewModel.carModel.value?.carModelName ?: "null"
         )
 
-        for (i in 0..50) {
-            fuelTypeList.add(
-                i, FuelType(
-                    "$i"
-                )
-            )
-        }
-
-        addFuelTypeViewModel.postLiveData(fuelTypeList)
-
-        fuelTypeAdapter = GenericDataAdapter(
-            requireActivity(),
-            R.layout.fuel_list_item,
-            { fuelType: FuelType ->
-                addCarViewModel.fuelType.value = fuelType
-            }) { item, itemView ->
-
-            val fuelName = itemView.findViewById<TextView>(R.id.fuelName)
-            with(item) {
-                fuelName.text = "Fuel Type ${this.fuelName}"
-            }
-        }
-        fuelTypeAdapter.addData(fuelTypeList)
-
         addFuelTypeBinding.fuelTypeRV.apply {
             layoutManager = GridLayoutManager(requireActivity(), 2)
             adapter = fuelTypeAdapter
         }
 
-        addCarViewModel.isDefault.value = "0"
         addFuelTypeBinding.setAsDefaultCar.setOnCheckedChangeListener { _, isChecked ->
             when {
                 isChecked -> {
@@ -101,4 +76,26 @@ class AddFuelTypeFragment : Fragment() {
             }
         }
     }
+
+    private fun initRecyclerView() {
+        fuelTypeAdapter = GenericDataAdapter(
+            fuelTypeList,
+            R.layout.fuel_list_item
+        ) { fuelType: FuelType ->
+            addCarViewModel.fuelType.value = fuelType
+        }
+    }
+
+    private fun initViewModel() {
+        for (i in 0..50) {
+            fuelTypeList.add(
+                i, FuelType(
+                    "$i"
+                )
+            )
+        }
+        addFuelTypeViewModel.postLiveData(fuelTypeList)
+        addCarViewModel.isDefault.value = "0"
+    }
+
 }

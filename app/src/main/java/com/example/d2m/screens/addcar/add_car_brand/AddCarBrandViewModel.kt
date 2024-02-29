@@ -10,6 +10,4 @@ class AddCarBrandViewModel : ViewModel() {
     fun postLiveData(carBrandList: List<CarBrand>) {
         carBrandLiveData.postValue(carBrandList)
     }
-
-    fun getLiveData(): MutableLiveData<List<CarBrand>> = carBrandLiveData
 }

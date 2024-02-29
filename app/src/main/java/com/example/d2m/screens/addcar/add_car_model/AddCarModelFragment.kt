@@ -6,12 +6,10 @@ import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.TextView
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.d2m.R
@@ -24,8 +22,10 @@ import com.example.d2m.screens.utils.GenericDataAdapter
 class AddCarModelFragment : Fragment() {
 
     private lateinit var addCarModelBinding: FragmentAddCarModelBinding
-    private val modelList: ArrayList<CarModel> = arrayListOf()
+    private val modelList: MutableList<CarModel> = mutableListOf()
     private lateinit var carModelsAdapter: GenericDataAdapter<CarModel>
+    private val addCarModelViewModel: AddCarModelViewModel by activityViewModels()
+    private val addCarViewModel: AddCarViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -36,46 +36,16 @@ class AddCarModelFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val addCarViewModel = ViewModelProvider(requireActivity())[AddCarViewModel::class.java]
-        val addCarModelViewModel =
-            ViewModelProvider(requireActivity())[AddCarModelViewModel::class.java]
 
-        addCarModelBinding.selectedBrand.text =
-            addCarViewModel.carBrand.value?.carBrandName ?: "null"
-
-        for (i in 0..100) {
-            ContextCompat.getDrawable(requireActivity(), R.drawable.ic_car_dummy)?.let {
-                CarModel(
-                    "Model $i", it
-                )
-            }?.let {
-                modelList.add(
-                    i, it
-                )
-            }
-        }
-
-        addCarModelViewModel.postLiveData(modelList)
-
-        carModelsAdapter =
-            GenericDataAdapter(requireActivity(), R.layout.model_list_item, { carModel: CarModel ->
-                addCarViewModel.carModel.value = carModel
-                findNavController().navigate(R.id.action_addCarModelFragment_to_addFuelTypeFragment)
-            }) { item, itemView ->
-                val carModelImage = itemView.findViewById<ImageView>(R.id.modelImage)
-                val carModelName = itemView.findViewById<TextView>(R.id.modelName)
-                with(item) {
-                    carModelImage.setImageDrawable(this.carModelImage)
-                    carModelName.text = this.carModelName
-                }
-            }
-
-        carModelsAdapter.addData(modelList)
+        initViewModel()
+        initRecyclerView()
 
         addCarModelBinding.carModelRV.apply {
             layoutManager = GridLayoutManager(requireActivity(), 2)
             adapter = carModelsAdapter
         }
+
+        addCarModelBinding.selectedBrand.text = addCarViewModel.carBrand.value?.carBrandName
 
         addCarModelBinding.searchModel.apply {
             addTextChangedListener(object : TextWatcher {
@@ -92,6 +62,30 @@ class AddCarModelFragment : Fragment() {
                 override fun afterTextChanged(s: Editable?) = filter(s.toString().lowercase())
             })
         }
+    }
+
+    private fun initRecyclerView() {
+        carModelsAdapter =
+            GenericDataAdapter(modelList, R.layout.model_list_item) { carModel: CarModel ->
+                addCarViewModel.carModel.value = carModel
+                findNavController().navigate(R.id.action_addCarModelFragment_to_addFuelTypeFragment)
+            }
+    }
+
+    private fun initViewModel() {
+        for (i in 0..100) {
+            ContextCompat.getDrawable(requireActivity(), R.drawable.ic_car_dummy)?.let {
+                CarModel(
+                    "Model $i", it
+                )
+            }?.let {
+                modelList.add(
+                    i, it
+                )
+            }
+        }
+
+        addCarModelViewModel.postLiveData(modelList)
     }
 
     private fun filter(text: String) {
