@@ -10,19 +10,23 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.d2m.R
-import com.example.d2m.data.models.car.FuelType
+import com.example.d2m.data.local.car.FuelType
 import com.example.d2m.databinding.FragmentAddFuelTypeBinding
 import com.example.d2m.screens.addcar.AddCarViewModel
 import com.example.d2m.screens.home.HomeActivity
 import com.example.d2m.screens.utils.GenericDataAdapter
 
+private const val TAG = "AddFuelTypeFragment"
+
 class AddFuelTypeFragment : Fragment() {
 
     private lateinit var addFuelTypeBinding: FragmentAddFuelTypeBinding
-    private val fuelTypeList: ArrayList<FuelType> = arrayListOf()
     private lateinit var fuelTypeAdapter: GenericDataAdapter<FuelType>
+
     private val addFuelTypeViewModel: AddFuelTypeViewModel by activityViewModels()
     private val addCarViewModel: AddCarViewModel by activityViewModels()
+
+    private val fuelTypeList: ArrayList<FuelType> = arrayListOf()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -43,7 +47,7 @@ class AddFuelTypeFragment : Fragment() {
             addCarViewModel.carModel.value?.carModelName ?: "null"
         )
 
-        addFuelTypeBinding.fuelTypeRV.apply {
+        addFuelTypeBinding.fuelTypeRv.apply {
             layoutManager = GridLayoutManager(requireActivity(), 2)
             adapter = fuelTypeAdapter
         }

@@ -14,7 +14,7 @@
         app:cardCornerRadius="10dp">
 
         <ImageView
-            android:id="@+id/serviceImage"
+            android:id="@+id/service_image"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:scaleType="fitXY"
@@ -23,7 +23,7 @@
     </com.google.android.material.card.MaterialCardView>
 
     <TextView
-        android:id="@+id/regularServiceTV"
+        android:id="@+id/regular_service_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
@@ -32,7 +32,7 @@
         android:textSize="25sp" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/servicesRV"
+        android:id="@+id/services_rv"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginBottom="20dp"

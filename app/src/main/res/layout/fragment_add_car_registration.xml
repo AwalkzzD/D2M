@@ -9,7 +9,6 @@
     android:weightSum="4"
     tools:context=".screens.addcar.add_car_registration.AddCarRegistrationFragment">
 
-
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -25,7 +24,7 @@
         android:gravity="top">
 
         <TextView
-            android:id="@+id/addCarTitle"
+            android:id="@+id/add_car_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/car_registration_heading"
@@ -34,10 +33,10 @@
             android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/enterVehicleNum"
+            android:id="@+id/enter_vehicle_num"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/addCarTitle"
+            android:layout_below="@id/add_car_title"
             android:layout_marginTop="15dp"
             android:text="@string/enter_vehicle_num_text"
             android:textColor="@color/black"
@@ -45,10 +44,10 @@
 
 
         <EditText
-            android:id="@+id/vehicleNumber"
+            android:id="@+id/vehicle_number"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/enterVehicleNum"
+            android:layout_below="@id/enter_vehicle_num"
             android:layout_marginTop="20dp"
             android:background="@drawable/rounded_rectangle_button"
             android:hint="@string/car_registration_hint"
@@ -61,10 +60,10 @@
             android:textSize="20sp" />
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/addCar"
+            android:id="@+id/add_car"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/vehicleNumber"
+            android:layout_below="@id/vehicle_number"
             android:layout_marginTop="20dp"
             android:backgroundTint="@color/white"
             android:padding="15dp"

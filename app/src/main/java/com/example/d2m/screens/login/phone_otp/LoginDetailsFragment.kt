@@ -12,8 +12,11 @@ import com.example.d2m.R
 import com.example.d2m.databinding.FragmentLoginDetailsBinding
 
 class LoginDetailsFragment : Fragment() {
+
     private lateinit var loginDetailsBinding: FragmentLoginDetailsBinding
+
     private val loginDetailsViewModel: LoginDetailsViewModel by activityViewModels()
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
@@ -29,7 +32,7 @@ class LoginDetailsFragment : Fragment() {
 //            ----> login code
             var getWhatsappUpdates = "0"
 
-            if (loginDetailsBinding.getWhatsAppUpdates.isChecked) {
+            if (loginDetailsBinding.getWhatsappUpdates.isChecked) {
                 getWhatsappUpdates = "1"
             }
 
@@ -47,7 +50,7 @@ class LoginDetailsFragment : Fragment() {
             }
 
 //            ----> bypass login
-//            startActivity(Intent(activity, HomeActivity::class.java))
+//            startActivity(Intent(activity, AddCarActivity::class.java))
         }
     }
 }

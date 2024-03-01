@@ -7,12 +7,12 @@ import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.RecyclerView
 import com.example.d2m.BR
-import com.example.d2m.data.models.car.CarBrand
-import com.example.d2m.data.models.car.CarModel
-import com.example.d2m.data.models.car.FuelType
-import com.example.d2m.data.models.home.Banner
-import com.example.d2m.data.models.home.Service
-import com.example.d2m.data.models.home.ServiceX
+import com.example.d2m.data.local.car.CarBrand
+import com.example.d2m.data.local.car.CarModel
+import com.example.d2m.data.local.car.FuelType
+import com.example.d2m.data.local.home.Banner
+import com.example.d2m.data.local.home.Service
+import com.example.d2m.data.local.home.ServiceX
 
 class GenericDataAdapter<T : Any>(
     private var dataList: List<T>,

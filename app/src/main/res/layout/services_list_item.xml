@@ -6,7 +6,7 @@
 
         <variable
             name="services"
-            type="com.example.d2m.data.models.home.Service" />
+            type="com.example.d2m.data.local.home.Service" />
     </data>
 
     <com.google.android.material.card.MaterialCardView
@@ -25,7 +25,7 @@
             android:padding="10dp">
 
             <ImageView
-                android:id="@+id/serviceImage"
+                android:id="@+id/service_image"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_gravity="center"
@@ -33,14 +33,14 @@
                 app:imageUrl="@{services.image}" />
 
             <TextView
-                android:id="@+id/serviceName"
+                android:id="@+id/service_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_alignBottom="@id/serviceImage"
+                android:layout_alignBottom="@id/service_image"
                 android:layout_centerHorizontal="true"
                 android:layout_marginBottom="40dp"
                 android:background="@color/green"
-                android:text="@{services.service_category_name}"
+                android:text="@{services.serviceCategoryName}"
                 android:textAlignment="center"
                 android:textColor="@color/white"
                 android:textSize="20sp" />

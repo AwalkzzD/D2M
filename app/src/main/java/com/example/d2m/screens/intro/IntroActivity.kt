@@ -11,9 +11,11 @@ import com.example.d2m.screens.login.LoginActivity
 import com.example.d2m.screens.utils.IntroPagerAdapter
 import com.google.android.material.tabs.TabLayoutMediator
 
+private const val TAG = "IntroActivity"
+
 class IntroActivity : AppCompatActivity() {
+
     private lateinit var introBinding: ActivityIntroBinding
-    private val TAG = "IntroActivity"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -21,10 +23,13 @@ class IntroActivity : AppCompatActivity() {
         setContentView(introBinding.root)
 
         introBinding.apply {
+
             introViewPager.adapter = IntroPagerAdapter()
-            TabLayoutMediator(intoTabLayout, introViewPager) { tab, position -> }.attach()
+
+            TabLayoutMediator(intoTabLayout, introViewPager) { _, _ -> }.attach()
 
             nextIntroPage.setOnClickListener { introViewPager.currentItem = 1 }
+
             introViewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
                 override fun onPageSelected(position: Int) {
                     if (position == 1) {

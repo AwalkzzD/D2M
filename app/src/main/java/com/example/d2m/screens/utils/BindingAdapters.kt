@@ -15,6 +15,7 @@ fun ImageView.loadImage(url: String) {
 
 @BindingAdapter("hrsText")
 fun TextView.convertTimeToHrs(text: String) {
+
     val parts = text.split(":")
     val hours = parts[0].toInt()
     val minutes = parts[1].toInt()
@@ -31,24 +32,29 @@ fun TextView.convertTimeToHrs(text: String) {
         append(minutes)
         append("min*")
     }
+
 }
 
 @BindingAdapter("recommendedText")
 fun TextView.setRecommendedDuration(text: Int) {
+
     this.text = buildString {
         append("Recommended: Every ")
         append(text)
         append(" months")
     }
+
 }
 
 @BindingAdapter("priceText")
 fun TextView.setPriceText(text: Double) {
+
     this.apply {
         setText(buildString {
             append("₹ ")
-            append(text.toInt())
+            append(text.toInt() ?: "Unspecified")
         })
         setTextColor(ContextCompat.getColor(context, R.color.green))
     }
+
 }

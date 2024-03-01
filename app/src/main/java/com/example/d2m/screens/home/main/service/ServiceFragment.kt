@@ -8,7 +8,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.example.d2m.R
-import com.example.d2m.data.models.home.ServiceX
+import com.example.d2m.data.local.home.ServiceX
 import com.example.d2m.databinding.FragmentServiceBinding
 import com.example.d2m.screens.utils.GenericDataAdapter
 
@@ -16,8 +16,11 @@ class ServiceFragment : Fragment() {
 
     private lateinit var serviceBinding: FragmentServiceBinding
     private lateinit var serviceXAdapter: GenericDataAdapter<ServiceX>
+
     private val serviceViewModel: ServiceViewModel by activityViewModels()
+
     private var serviceXList: MutableList<ServiceX> = mutableListOf()
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
@@ -30,7 +33,7 @@ class ServiceFragment : Fragment() {
         initViewModel()
         initRecyclerView()
 
-        serviceBinding.servicesRV.apply {
+        serviceBinding.servicesRv.apply {
             adapter = serviceXAdapter
         }
 
@@ -41,7 +44,7 @@ class ServiceFragment : Fragment() {
             serviceXList, R.layout.servicex_list_item
         ) { serviceX: ServiceX ->
             Toast.makeText(
-                requireActivity(), serviceX.service_title, Toast.LENGTH_SHORT
+                requireActivity(), serviceX.serviceTitle, Toast.LENGTH_SHORT
             ).show()
         }
     }

@@ -24,7 +24,7 @@
         android:gravity="top">
 
         <TextView
-            android:id="@+id/loginTitle"
+            android:id="@+id/login_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/login_heading"
@@ -33,27 +33,27 @@
             android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/enterOtp"
+            android:id="@+id/enter_otp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/loginTitle"
+            android:layout_below="@id/login_title"
             android:layout_marginTop="15dp"
             android:text="@string/enter_otp_text"
             android:textColor="@color/black"
             android:textSize="20sp" />
 
         <LinearLayout
-            android:id="@+id/otpLayout"
+            android:id="@+id/otp_layout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/enterOtp"
+            android:layout_below="@id/enter_otp"
             android:layout_marginTop="10dp"
             android:gravity="start"
             android:orientation="horizontal"
             android:weightSum="4">
 
             <EditText
-                android:id="@+id/otpDigit1"
+                android:id="@+id/otp_digit_1"
                 android:layout_width="60dp"
                 android:layout_height="60dp"
                 android:layout_marginEnd="10dp"
@@ -67,7 +67,7 @@
                 android:textSize="20sp" />
 
             <EditText
-                android:id="@+id/otpDigit2"
+                android:id="@+id/otp_digit_2"
                 android:layout_width="60dp"
                 android:layout_height="60dp"
                 android:layout_marginEnd="10dp"
@@ -81,7 +81,7 @@
                 android:textSize="20sp" />
 
             <EditText
-                android:id="@+id/otpDigit3"
+                android:id="@+id/otp_digit_3"
                 android:layout_width="60dp"
                 android:layout_height="60dp"
                 android:layout_marginEnd="10dp"
@@ -95,7 +95,7 @@
                 android:textSize="20sp" />
 
             <EditText
-                android:id="@+id/otpDigit4"
+                android:id="@+id/otp_digit_4"
                 android:layout_width="60dp"
                 android:layout_height="60dp"
                 android:layout_weight="1"
@@ -109,33 +109,33 @@
         </LinearLayout>
 
         <TextView
-            android:id="@+id/resendCodeLink"
+            android:id="@+id/resend_code_link"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/otpLayout"
+            android:layout_below="@id/otp_layout"
             android:layout_marginTop="10dp"
             android:text="@string/resend_code_text"
             android:textColor="@color/gray"
             android:textSize="20sp" />
 
         <TextView
-            android:id="@+id/resendCodeTimer"
+            android:id="@+id/resend_code_timer"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/otpLayout"
+            android:layout_below="@id/otp_layout"
             android:layout_alignParentEnd="true"
             android:layout_marginStart="15dp"
             android:layout_marginTop="10dp"
-            android:layout_toEndOf="@+id/resendCodeLink"
+            android:layout_toEndOf="@+id/resend_code_link"
             android:textColor="@color/gray"
             android:textSize="20sp"
             android:textStyle="bold" />
 
         <Button
-            android:id="@+id/signIn"
+            android:id="@+id/sign_in"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/resendCodeLink"
+            android:layout_below="@id/resend_code_link"
             android:layout_marginTop="20dp"
             android:background="@drawable/rounded_rectangle_button"
             android:text="@string/login_next_button_text"

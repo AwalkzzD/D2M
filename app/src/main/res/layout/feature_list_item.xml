@@ -7,7 +7,7 @@
 
         <variable
             name="banners"
-            type="com.example.d2m.data.models.home.Banner" />
+            type="com.example.d2m.data.local.home.Banner" />
     </data>
 
     <com.google.android.material.card.MaterialCardView
@@ -17,11 +17,11 @@
         app:cardCornerRadius="20dp">
 
         <ImageView
-            android:id="@+id/featureBanner"
+            android:id="@+id/feature_banner"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:scaleType="fitXY"
-            app:imageUrl="@{banners.banner_url}" />
+            app:imageUrl="@{banners.bannerUrl}" />
 
     </com.google.android.material.card.MaterialCardView>
 </layout>

@@ -8,17 +8,17 @@
     tools:context=".screens.intro.IntroActivity">
 
     <androidx.viewpager2.widget.ViewPager2
-        android:id="@+id/introViewPager"
+        android:id="@+id/intro_view_pager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_constraintBottom_toTopOf="@id/bottomActions" />
+        app:layout_constraintBottom_toTopOf="@id/bottom_actions" />
 
     <RelativeLayout
-        android:id="@+id/bottomActions"
+        android:id="@+id/bottom_actions"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="10dp"
-        app:layout_constraintBottom_toTopOf="@+id/getStartedButton"
+        app:layout_constraintBottom_toTopOf="@+id/get_started_button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
 
@@ -33,7 +33,7 @@
             app:tabIndicatorHeight="0dp" />
 
         <ImageButton
-            android:id="@+id/nextIntroPage"
+            android:id="@+id/next_intro_page"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
@@ -46,7 +46,7 @@
     </RelativeLayout>
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/getStartedButton"
+        android:id="@+id/get_started_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"

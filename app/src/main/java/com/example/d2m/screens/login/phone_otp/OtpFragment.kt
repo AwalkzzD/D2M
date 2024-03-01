@@ -19,12 +19,15 @@ import com.example.d2m.databinding.FragmentOtpBinding
 import com.example.d2m.screens.addcar.AddCarActivity
 import java.util.concurrent.TimeUnit
 
+private const val TAG = "OtpFragment"
+
 class OtpFragment : Fragment() {
+
     private lateinit var otpBinding: FragmentOtpBinding
     private lateinit var timer: CountDownTimer
-    private val otpViewModel: OtpViewModel by viewModels()
+
     private val loginDetailsViewModel: LoginDetailsViewModel by activityViewModels()
-    private val TAG = "OtpFragment"
+    private val otpViewModel: OtpViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -37,20 +40,16 @@ class OtpFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         initViewModel()
-        otpViewModel.sendOtp(
-            loginDetailsViewModel.phoneNum.value.toString(),
-            loginDetailsViewModel.getWhatsappUpdates.value.toString()
-        )
+
+        sendOtp()
+
         startResendTimer()
 
         (activity as AppCompatActivity?)?.supportActionBar?.setDisplayHomeAsUpEnabled(true)
         (activity as AppCompatActivity?)?.supportActionBar?.setDisplayShowHomeEnabled(true)
 
         otpBinding.resendCodeLink.setOnClickListener {
-            otpViewModel.sendOtp(
-                loginDetailsViewModel.phoneNum.value.toString(),
-                loginDetailsViewModel.getWhatsappUpdates.value.toString()
-            )
+            sendOtp()
         }
 
         otpBinding.signIn.setOnClickListener {
@@ -58,15 +57,27 @@ class OtpFragment : Fragment() {
                 loginDetailsViewModel.phoneNum.value.toString(), getOtp()
             )
         }
+
+    }
+
+    private fun sendOtp() {
+        otpViewModel.sendOtp(
+            loginDetailsViewModel.phoneNum.value.toString(),
+            loginDetailsViewModel.getWhatsappUpdates.value.toString()
+        )
     }
 
     private fun initViewModel() {
+
         otpViewModel.otpSendLiveData.observe(viewLifecycleOwner) {
             if (it.success) {
                 otpBinding.otpLayout.isEnabled = true
-                Toast.makeText(
-                    requireActivity(), it.data.otp.toString(), Toast.LENGTH_LONG
-                ).show()
+
+                it.sendOtpResponseData?.let { otpVerifyObj ->
+                    Toast.makeText(
+                        requireActivity(), otpVerifyObj.otp.toString(), Toast.LENGTH_LONG
+                    ).show()
+                }
             } else {
                 Toast.makeText(
                     requireActivity(), it.message, Toast.LENGTH_LONG
@@ -74,15 +85,19 @@ class OtpFragment : Fragment() {
             }
         }
 
-        otpViewModel.otpVerifyLiveData.observe(viewLifecycleOwner) {
+        otpViewModel.verifyOtpResponseLiveData.observe(viewLifecycleOwner) {
             if (it.success) {
+
                 Toast.makeText(
                     requireActivity(), "Verification Successful", Toast.LENGTH_LONG
                 ).show()
 
                 setSharedPrefs(
-                    it.data.id.toString(), it.data.token
+                    it.verifyOtpResponseData?.id.toString(), it.verifyOtpResponseData?.token ?: ""
                 )
+
+                startActivity(Intent(activity, AddCarActivity::class.java))
+
             } else {
                 Toast.makeText(
                     requireActivity(), it.message, Toast.LENGTH_LONG
@@ -100,7 +115,6 @@ class OtpFragment : Fragment() {
             editor.putString("token", token)
             editor.apply()
         }
-        startActivity(Intent(activity, AddCarActivity::class.java))
     }
 
     private fun getOtp(): String {

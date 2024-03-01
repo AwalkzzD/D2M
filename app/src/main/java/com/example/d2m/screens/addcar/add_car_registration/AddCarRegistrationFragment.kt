@@ -11,16 +11,18 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.example.d2m.R
-import com.example.d2m.data.models.car.CarRegistration
+import com.example.d2m.data.local.car.CarRegistration
 import com.example.d2m.databinding.FragmentAddCarRegistrationBinding
 import com.example.d2m.screens.addcar.AddCarViewModel
 
 class AddCarRegistrationFragment : Fragment() {
 
     private lateinit var addCarRegistrationBinding: FragmentAddCarRegistrationBinding
+    private lateinit var carRegistration: CarRegistration
+
     private val addCarRegistrationViewModel: AddCarRegistrationViewModel by activityViewModels()
     private val addCarViewModel: AddCarViewModel by activityViewModels()
-    private lateinit var carRegistration: CarRegistration
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
@@ -31,11 +33,10 @@ class AddCarRegistrationFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        initViewModel()
+
         addCarRegistrationBinding.addCar.apply {
             setOnClickListener {
-                carRegistration =
-                    CarRegistration(addCarRegistrationBinding.vehicleNumber.text.toString())
-                initViewModel()
                 findNavController().navigate(R.id.action_addCarRegistrationFragment_to_addCarBrandFragment)
             }
         }
@@ -66,7 +67,10 @@ class AddCarRegistrationFragment : Fragment() {
     }
 
     private fun initViewModel() {
+        carRegistration = CarRegistration(addCarRegistrationBinding.vehicleNumber.text.toString())
+
         addCarRegistrationViewModel.carRegistration.postValue(carRegistration)
+
         addCarViewModel.carRegistration.value = carRegistration
         addCarViewModel.vehicleColor.value = "xyz"
     }

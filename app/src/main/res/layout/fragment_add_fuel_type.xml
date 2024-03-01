@@ -9,7 +9,7 @@
 
 
     <TextView
-        android:id="@+id/selectedBrandModel"
+        android:id="@+id/selected_brand_model"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
@@ -19,31 +19,31 @@
         android:textStyle="bold" />
 
     <TextView
-        android:id="@+id/selectionCategory"
+        android:id="@+id/selection_category"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/selectedBrandModel"
+        android:layout_below="@id/selected_brand_model"
         android:layout_margin="10dp"
         android:text="@string/select_fuel_type_text"
         android:textColor="@color/black"
         android:textSize="20sp" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/fuelTypeRV"
+        android:id="@+id/fuel_type_rv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/setAsDefaultCar"
-        android:layout_below="@id/selectionCategory"
+        android:layout_above="@+id/set_as_default_car"
+        android:layout_below="@id/selection_category"
         android:layout_margin="10dp"
         app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
         app:spanCount="2"
         tools:listitem="@layout/fuel_list_item" />
 
     <CheckBox
-        android:id="@+id/setAsDefaultCar"
+        android:id="@+id/set_as_default_car"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@id/addCar"
+        android:layout_above="@id/add_car"
         android:layout_margin="10dp"
         android:layout_marginStart="8dp"
         android:text="@string/default_car_checkbox_text"
@@ -51,7 +51,7 @@
         android:textSize="20sp" />
 
     <Button
-        android:id="@+id/addCar"
+        android:id="@+id/add_car"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"

@@ -6,7 +6,7 @@
 
         <variable
             name="carBrand"
-            type="com.example.d2m.data.models.car.CarBrand" />
+            type="com.example.d2m.data.local.car.CarBrand" />
     </data>
 
     <com.google.android.material.card.MaterialCardView
@@ -23,7 +23,7 @@
             android:layout_height="match_parent">
 
             <ImageView
-                android:id="@+id/brandImage"
+                android:id="@+id/brand_image"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -31,10 +31,10 @@
                 android:src="@{carBrand.carBrandImage}" />
 
             <TextView
-                android:id="@+id/brandName"
+                android:id="@+id/brand_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/brandImage"
+                android:layout_below="@id/brand_image"
                 android:layout_centerHorizontal="true"
                 android:text="@{carBrand.carBrandName}"
                 android:textColor="@color/black" />

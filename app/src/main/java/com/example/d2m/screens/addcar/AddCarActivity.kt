@@ -10,19 +10,27 @@ import com.example.d2m.R
 import com.example.d2m.databinding.ActivityAddCarBinding
 
 class AddCarActivity : AppCompatActivity() {
+
     private lateinit var addCarBinding: ActivityAddCarBinding
     private lateinit var navController: NavController
     private lateinit var appBarConfiguration: AppBarConfiguration
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         addCarBinding = ActivityAddCarBinding.inflate(layoutInflater)
         setContentView(addCarBinding.root)
 
-        navController = findNavController(R.id.navHostFragmentContainer)
+        setupActionBar()
+
+        NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration)
+    }
+
+    private fun setupActionBar() {
+        navController = findNavController(R.id.nav_host_fragment_container)
         setSupportActionBar(addCarBinding.appBar.toolbar)
+
         appBarConfiguration = AppBarConfiguration(navController.graph)
         supportActionBar?.setDisplayShowTitleEnabled(true)
-        NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration)
     }
 
     override fun onSupportNavigateUp(): Boolean {

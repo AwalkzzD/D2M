@@ -13,7 +13,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.d2m.R
-import com.example.d2m.data.models.car.CarBrand
+import com.example.d2m.data.local.car.CarBrand
 import com.example.d2m.databinding.FragmentAddCarBrandBinding
 import com.example.d2m.screens.addcar.AddCarViewModel
 import com.example.d2m.screens.utils.GenericDataAdapter
@@ -21,10 +21,12 @@ import com.example.d2m.screens.utils.GenericDataAdapter
 class AddCarBrandFragment : Fragment() {
 
     private lateinit var addCarBrandBinding: FragmentAddCarBrandBinding
-    private var brandList: MutableList<CarBrand> = mutableListOf()
     private lateinit var carBrandsAdapter: GenericDataAdapter<CarBrand>
+
     private val addCarBrandViewModel: AddCarBrandViewModel by activityViewModels()
     private val addCarViewModel: AddCarViewModel by activityViewModels()
+
+    private val brandList: MutableList<CarBrand> = mutableListOf()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -39,12 +41,13 @@ class AddCarBrandFragment : Fragment() {
         initViewModel()
         initRecyclerView()
 
-        addCarBrandBinding.carBrandRV.apply {
+        addCarBrandBinding.carBrandRv.apply {
             layoutManager = GridLayoutManager(requireActivity(), 3)
             adapter = carBrandsAdapter
         }
 
-        addCarBrandBinding.searchBrand.apply {
+        addCarBrandBinding.brandSearchView.searchItem.apply {
+            hint = "Search Brand"
             addTextChangedListener(
                 object : TextWatcher {
                     override fun beforeTextChanged(
@@ -74,6 +77,7 @@ class AddCarBrandFragment : Fragment() {
     }
 
     private fun initViewModel() {
+
         for (i in 0..100) {
             ContextCompat.getDrawable(requireActivity(), R.drawable.ic_dummy_brand)?.let {
                 CarBrand(
@@ -86,9 +90,11 @@ class AddCarBrandFragment : Fragment() {
             }
         }
         addCarBrandViewModel.postLiveData(brandList)
+
     }
 
     private fun filter(text: String) {
+
         val filteredList = ArrayList<CarBrand>()
         for (carBrand in brandList) {
             if (carBrand.carBrandName.lowercase().contains(text)) {
@@ -97,13 +103,13 @@ class AddCarBrandFragment : Fragment() {
         }
         if (filteredList == emptyList<CarBrand>()) {
             Toast.makeText(requireActivity(), "No Data found", Toast.LENGTH_SHORT).show()
-            addCarBrandBinding.carBrandRV.visibility = View.GONE
-            addCarBrandBinding.noResultFound.visibility = View.VISIBLE
+            addCarBrandBinding.carBrandRv.visibility = View.GONE
+            addCarBrandBinding.result.noResultFound.visibility = View.VISIBLE
         } else {
-            addCarBrandBinding.carBrandRV.visibility = View.VISIBLE
-            addCarBrandBinding.noResultFound.visibility = View.GONE
+            addCarBrandBinding.carBrandRv.visibility = View.VISIBLE
+            addCarBrandBinding.result.noResultFound.visibility = View.GONE
             carBrandsAdapter.filterList(filteredList)
+
         }
     }
-
 }

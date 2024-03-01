@@ -6,7 +6,7 @@
 
         <variable
             name="serviceX"
-            type="com.example.d2m.data.models.home.ServiceX" />
+            type="com.example.d2m.data.local.home.ServiceX" />
 
     </data>
 
@@ -27,7 +27,7 @@
             android:padding="10dp">
 
             <ImageView
-                android:id="@+id/serviceImage"
+                android:id="@+id/service_image"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
                 android:layout_alignParentStart="true"
@@ -38,36 +38,36 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_toEndOf="@id/serviceImage"
+                android:layout_toEndOf="@id/service_image"
                 android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/serviceTitle"
+                    android:id="@+id/service_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@{serviceX.service_title}"
+                    android:text="@{serviceX.serviceTitle}"
                     android:textColor="@color/black"
                     android:textSize="25sp"
                     android:textStyle="bold" />
 
                 <TextView
-                    android:id="@+id/serviceDuration"
+                    android:id="@+id/service_duration"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@color/black"
                     android:textSize="20sp"
-                    app:hrsText="@{serviceX.time_taken}" />
+                    app:hrsText="@{serviceX.timeTaken}" />
 
                 <TextView
-                    android:id="@+id/serviceRecommended"
+                    android:id="@+id/service_recommended"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@color/black"
                     android:textSize="20sp"
-                    app:recommendedText="@{serviceX.service_required_time_month}" />
+                    app:recommendedText="@{serviceX.serviceRequiredTimeMonth}" />
 
                 <TextView
-                    android:id="@+id/servicePrice"
+                    android:id="@+id/service_price"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@color/black"

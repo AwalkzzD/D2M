@@ -13,8 +13,8 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.d2m.R
-import com.example.d2m.data.models.car.CarBrand
-import com.example.d2m.data.models.car.CarModel
+import com.example.d2m.data.local.car.CarBrand
+import com.example.d2m.data.local.car.CarModel
 import com.example.d2m.databinding.FragmentAddCarModelBinding
 import com.example.d2m.screens.addcar.AddCarViewModel
 import com.example.d2m.screens.utils.GenericDataAdapter
@@ -22,10 +22,13 @@ import com.example.d2m.screens.utils.GenericDataAdapter
 class AddCarModelFragment : Fragment() {
 
     private lateinit var addCarModelBinding: FragmentAddCarModelBinding
-    private val modelList: MutableList<CarModel> = mutableListOf()
     private lateinit var carModelsAdapter: GenericDataAdapter<CarModel>
+
     private val addCarModelViewModel: AddCarModelViewModel by activityViewModels()
     private val addCarViewModel: AddCarViewModel by activityViewModels()
+
+    private val modelList: MutableList<CarModel> = mutableListOf()
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -40,14 +43,15 @@ class AddCarModelFragment : Fragment() {
         initViewModel()
         initRecyclerView()
 
-        addCarModelBinding.carModelRV.apply {
+        addCarModelBinding.carModelRv.apply {
             layoutManager = GridLayoutManager(requireActivity(), 2)
             adapter = carModelsAdapter
         }
 
         addCarModelBinding.selectedBrand.text = addCarViewModel.carBrand.value?.carBrandName
 
-        addCarModelBinding.searchModel.apply {
+        addCarModelBinding.modelSearchView.searchItem.apply {
+            hint = "Search Model"
             addTextChangedListener(object : TextWatcher {
                 override fun beforeTextChanged(
                     s: CharSequence?, start: Int, count: Int, after: Int
@@ -73,22 +77,25 @@ class AddCarModelFragment : Fragment() {
     }
 
     private fun initViewModel() {
-        for (i in 0..100) {
-            ContextCompat.getDrawable(requireActivity(), R.drawable.ic_car_dummy)?.let {
-                CarModel(
-                    "Model $i", it
-                )
-            }?.let {
-                modelList.add(
-                    i, it
-                )
-            }
-        }
 
+        for (i in 0..100) {
+            ContextCompat.getDrawable(requireActivity(), R.drawable.ic_car_dummy)
+                ?.let { carDrawable ->
+                    CarModel(
+                        "Model $i", carDrawable
+                    )
+                }?.let { carModel ->
+                    modelList.add(
+                        i, carModel
+                    )
+                }
+        }
         addCarModelViewModel.postLiveData(modelList)
+
     }
 
     private fun filter(text: String) {
+
         val filteredList = ArrayList<CarModel>()
         for (carModel in modelList) {
             if (carModel.carModelName.lowercase().contains(text)) {
@@ -97,12 +104,13 @@ class AddCarModelFragment : Fragment() {
         }
         if (filteredList == emptyList<CarBrand>()) {
             Toast.makeText(requireActivity(), "No Data found", Toast.LENGTH_SHORT).show()
-            addCarModelBinding.carModelRV.visibility = View.GONE
-            addCarModelBinding.noResultFound.visibility = View.VISIBLE
+            addCarModelBinding.carModelRv.visibility = View.GONE
+            addCarModelBinding.result.noResultFound.visibility = View.VISIBLE
         } else {
-            addCarModelBinding.carModelRV.visibility = View.VISIBLE
-            addCarModelBinding.noResultFound.visibility = View.GONE
+            addCarModelBinding.carModelRv.visibility = View.VISIBLE
+            addCarModelBinding.result.noResultFound.visibility = View.GONE
             carModelsAdapter.filterList(filteredList)
         }
+
     }
 }

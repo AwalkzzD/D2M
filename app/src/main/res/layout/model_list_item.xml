@@ -6,7 +6,7 @@
 
         <variable
             name="carModel"
-            type="com.example.d2m.data.models.car.CarModel" />
+            type="com.example.d2m.data.local.car.CarModel" />
     </data>
 
     <com.google.android.material.card.MaterialCardView
@@ -24,17 +24,17 @@
             android:padding="20dp">
 
             <ImageView
-                android:id="@+id/modelImage"
+                android:id="@+id/model_image"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:src="@{carModel.carModelImage}" />
 
             <TextView
-                android:id="@+id/modelName"
+                android:id="@+id/model_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/modelImage"
+                android:layout_below="@id/model_image"
                 android:layout_centerHorizontal="true"
                 android:text="@{carModel.carModelName}"
                 android:textColor="@color/black" />

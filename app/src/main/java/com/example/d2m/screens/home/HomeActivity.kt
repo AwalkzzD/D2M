@@ -17,23 +17,28 @@ class HomeActivity : AppCompatActivity() {
     private lateinit var homeBinding: ActivityHomeBinding
     private lateinit var navController: NavController
     private lateinit var appBarConfiguration: AppBarConfiguration
+
     private val homeActivityViewModel: HomeActivityViewModel by viewModels()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        initViewModel()
-
         homeBinding = ActivityHomeBinding.inflate(layoutInflater)
         setContentView(homeBinding.root)
 
-        navController = findNavController(R.id.navHostFragmentContainer)
+        initViewModel()
+        setupActionBar()
+
+        NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration)
+
+        homeBinding.bottomNav.setupWithNavController(navController)
+    }
+
+    private fun setupActionBar() {
+        navController = findNavController(R.id.nav_host_fragment_container)
         setSupportActionBar(homeBinding.appBar.toolbar)
 
         appBarConfiguration = AppBarConfiguration(navController.graph)
         supportActionBar?.setDisplayShowTitleEnabled(true)
-        NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration)
-
-        homeBinding.bottomNav.setupWithNavController(navController)
     }
 
     private fun initViewModel() {

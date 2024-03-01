@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -8,47 +7,15 @@
     android:orientation="vertical"
     tools:context=".screens.addcar.add_car_model.AddCarModelFragment">
 
-
-    <com.google.android.material.card.MaterialCardView
+    <include
+        android:id="@+id/model_search_view"
+        layout="@layout/search_view_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        app:cardBackgroundColor="@color/white"
-        app:cardCornerRadius="25dp"
-        app:strokeColor="@color/white"
-        app:strokeWidth="0dp">
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/rounded_rectangle_button">
-
-            <ImageView
-                android:id="@+id/searchIcon"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_centerVertical="true"
-                android:src="@drawable/search" />
-
-            <EditText
-                android:id="@+id/searchModel"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:layout_toEndOf="@id/searchIcon"
-                android:background="@color/white"
-                android:hint="@string/search_model_hint"
-                android:imeOptions="actionSearch"
-                android:inputType="text"
-                android:textAlignment="textStart"
-                android:textColor="@color/black"
-                android:textColorHint="@color/gray"
-                android:textSize="20sp" />
-        </RelativeLayout>
-    </com.google.android.material.card.MaterialCardView>
+        android:layout_margin="10dp" />
 
     <TextView
-        android:id="@+id/selectedBrand"
+        android:id="@+id/selected_brand"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
@@ -57,7 +24,7 @@
 
 
     <TextView
-        android:id="@+id/selectionCategory"
+        android:id="@+id/selection_category"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
@@ -66,21 +33,16 @@
         android:textSize="20sp" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/carModelRV"
+        android:id="@+id/car_model_rv"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_margin="20dp"
         tools:listitem="@layout/model_list_item" />
 
-    <TextView
-        android:id="@+id/noResultFound"
+    <include
+        android:id="@+id/result"
+        layout="@layout/no_result_layout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_gravity="center"
-        android:layout_margin="20dp"
-        android:gravity="center"
-        android:text="@string/no_result_text"
-        android:textColor="@color/gray"
-        android:textSize="20sp"
-        android:visibility="gone" />
+        android:layout_height="match_parent" />
+
 </LinearLayout>

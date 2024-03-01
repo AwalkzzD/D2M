@@ -3,9 +3,10 @@ package com.example.d2m.screens.home
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.d2m.data.models.home.UserHome
-import com.example.d2m.data.services.api.ApiClient
-import com.example.d2m.data.services.api.RequestUserData
+import com.example.d2m.data.local.home.UserHome
+import com.example.d2m.network_utils.ApiClient
+import com.example.d2m.network_utils.api_services.RequestUserData
+import com.google.gson.GsonBuilder
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import retrofit2.Call
@@ -13,6 +14,7 @@ import retrofit2.Callback
 import retrofit2.Response
 
 class HomeActivityViewModel : ViewModel() {
+
     var userLiveData: MutableLiveData<UserHome> = MutableLiveData<UserHome>()
 
     fun requestUserData(userId: String) {
@@ -27,6 +29,11 @@ class HomeActivityViewModel : ViewModel() {
         retrofitData.enqueue(object : Callback<UserHome?> {
             override fun onResponse(call: Call<UserHome?>, response: Response<UserHome?>) {
                 userLiveData.postValue(response.body())
+                Log.d(
+                    "TAG",
+                    "onResponse: " + GsonBuilder().setPrettyPrinting().create()
+                        .toJson(response.body())
+                )
             }
 
             override fun onFailure(call: Call<UserHome?>, t: Throwable) {
