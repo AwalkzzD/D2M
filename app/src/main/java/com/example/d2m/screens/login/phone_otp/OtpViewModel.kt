@@ -8,7 +8,6 @@ import com.example.d2m.data.remote.otp.verify.VerifyOtpResponse
 import com.example.d2m.network_utils.ApiClient
 import com.example.d2m.network_utils.api_services.SendOtpService
 import com.example.d2m.network_utils.api_services.VerifyOtpService
-import com.google.gson.GsonBuilder
 
 class OtpViewModel : ViewModel() {
 
