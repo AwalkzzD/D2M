@@ -15,6 +15,9 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
+import androidx.navigation.ui.AppBarConfiguration
+import androidx.navigation.ui.setupActionBarWithNavController
 import com.example.d2m.databinding.FragmentOtpBinding
 import com.example.d2m.screens.addcar.AddCarActivity
 import com.example.d2m.screens.home.HomeActivity
@@ -34,6 +37,7 @@ class OtpFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
         otpBinding = FragmentOtpBinding.inflate(inflater)
+        setupActionBar()
         return otpBinding.root
     }
 
@@ -46,9 +50,6 @@ class OtpFragment : Fragment() {
 
         startResendTimer()
 
-        (activity as AppCompatActivity?)?.supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        (activity as AppCompatActivity?)?.supportActionBar?.setDisplayShowHomeEnabled(true)
-
         otpBinding.resendCodeLink.setOnClickListener {
             sendOtp()
         }
@@ -59,6 +60,14 @@ class OtpFragment : Fragment() {
             )
         }
 
+    }
+
+    private fun setupActionBar() {
+        (activity as AppCompatActivity).setSupportActionBar(otpBinding.appBar.toolbar)
+        (activity as AppCompatActivity).supportActionBar?.setDisplayShowTitleEnabled(false)
+        (activity as AppCompatActivity).setupActionBarWithNavController(
+            findNavController(), AppBarConfiguration(findNavController().graph)
+        )
     }
 
     private fun sendOtp() {

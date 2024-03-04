@@ -13,6 +13,7 @@ import com.example.d2m.screens.intro.IntroActivity
 import com.example.d2m.screens.login.LoginActivity
 
 class SplashScreen : AppCompatActivity() {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash_screen)
@@ -29,9 +30,9 @@ class SplashScreen : AppCompatActivity() {
 
         } else {
 
-            startActivity(Intent(this, LoginActivity::class.java))
+//            startActivity(Intent(this, LoginActivity::class.java))
 //            startActivity(Intent(this, AddCarActivity::class.java))
-//            startActivity(Intent(this, HomeActivity::class.java))
+            startActivity(Intent(this, HomeActivity::class.java))
 
             finish()
 

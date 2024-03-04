@@ -8,6 +8,12 @@
     android:weightSum="4"
     tools:context=".screens.login.phone_otp.OtpFragment">
 
+    <include
+        android:id="@+id/app_bar"
+        layout="@layout/login_app_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"

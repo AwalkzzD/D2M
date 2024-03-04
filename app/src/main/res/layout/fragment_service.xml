@@ -7,6 +7,12 @@
     android:orientation="vertical"
     tools:context=".screens.home.main.service.ServiceFragment">
 
+    <include
+        android:id="@+id/app_bar"
+        layout="@layout/add_car_app_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
     <com.google.android.material.card.MaterialCardView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

@@ -11,7 +11,6 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
-import com.example.d2m.R
 import com.example.d2m.data.local.car.CarBrand
 import com.example.d2m.data.local.home.Banner
 import com.example.d2m.data.local.home.Service
@@ -42,6 +41,7 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         initViewModel()
         initRecyclerView()
 
@@ -75,7 +75,7 @@ class HomeFragment : Fragment() {
 
     private fun initRecyclerView() {
         bannerAdapter = GenericDataAdapter(
-            bannerList, R.layout.feature_list_item
+            bannerList, com.example.d2m.R.layout.feature_list_item
         ) { banner: Banner ->
             Toast.makeText(
                 requireActivity(), banner.bannerName, Toast.LENGTH_SHORT
@@ -83,8 +83,11 @@ class HomeFragment : Fragment() {
         }
 
         serviceAdapter =
-            GenericDataAdapter(servicesList, R.layout.services_list_item) { service: Service ->
-                findNavController().navigate(R.id.action_homeFragment_to_serviceFragment)
+            GenericDataAdapter(
+                servicesList,
+                com.example.d2m.R.layout.services_list_item
+            ) { service: Service ->
+                findNavController().navigate(com.example.d2m.R.id.action_homeFragment_to_serviceFragment)
                 serviceViewModel.serviceXLiveData.postValue(service.services)
             }
 
@@ -99,23 +102,26 @@ class HomeFragment : Fragment() {
         homeViewModel.bannerLiveData.observe(viewLifecycleOwner) {
             bannerList.clear()
             bannerList.addAll(it)
-            bannerAdapter.notifyDataSetChanged()
+            bannerAdapter.notifyItemRangeChanged(0, it.size)
         }
 
         homeViewModel.serviceLiveData.observe(viewLifecycleOwner) {
             servicesList.clear()
             servicesList.addAll(it)
-            serviceAdapter.notifyDataSetChanged()
+            serviceAdapter.notifyItemRangeChanged(0, it.size)
         }
     }
 
     private fun filter(text: String) {
+
         val filteredList = ArrayList<Service>()
+
         for (service in servicesList) {
             if (service.serviceCategoryName.lowercase().contains(text)) {
                 filteredList.add(service)
             }
         }
+
         if (filteredList == emptyList<CarBrand>()) {
             Toast.makeText(requireActivity(), "No Data found", Toast.LENGTH_SHORT).show()
             homeBinding.servicesRv.visibility = View.GONE
@@ -125,5 +131,6 @@ class HomeFragment : Fragment() {
             homeBinding.result.noResultFound.visibility = View.GONE
             serviceAdapter.filterList(filteredList)
         }
+
     }
 }

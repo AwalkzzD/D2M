@@ -96,11 +96,13 @@ class AddCarBrandFragment : Fragment() {
     private fun filter(text: String) {
 
         val filteredList = ArrayList<CarBrand>()
+
         for (carBrand in brandList) {
             if (carBrand.carBrandName.lowercase().contains(text)) {
                 filteredList.add(carBrand)
             }
         }
+
         if (filteredList == emptyList<CarBrand>()) {
             Toast.makeText(requireActivity(), "No Data found", Toast.LENGTH_SHORT).show()
             addCarBrandBinding.carBrandRv.visibility = View.GONE

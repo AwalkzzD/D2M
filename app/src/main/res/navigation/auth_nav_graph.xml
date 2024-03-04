@@ -8,7 +8,7 @@
     <fragment
         android:id="@+id/loginDetailsFragment"
         android:name="com.example.d2m.screens.login.phone_otp.LoginDetailsFragment"
-        android:label="fragment_login_details"
+        android:label="Login"
         tools:layout="@layout/fragment_login_details">
         <action
             android:id="@+id/action_loginDetailsFragment_to_otpFragment"
@@ -17,6 +17,6 @@
     <fragment
         android:id="@+id/otpFragment"
         android:name="com.example.d2m.screens.login.phone_otp.OtpFragment"
-        android:label="fragment_otp"
+        android:label="Otp"
         tools:layout="@layout/fragment_otp" />
 </navigation>

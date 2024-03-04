@@ -14,7 +14,7 @@
             android:layout_width="match_parent"
             android:layout_height="?actionBarSize"
             android:textAlignment="center"
-            app:theme="@style/HomeToolbarTheme">
+            android:theme="@style/HomeToolbarTheme">
 
             <RelativeLayout
                 android:layout_width="match_parent"

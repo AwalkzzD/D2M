@@ -21,15 +21,11 @@ class LoginActivity : AppCompatActivity() {
         setContentView(loginBinding.root)
 
         setupActionBar()
-
-        NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration)
     }
 
     private fun setupActionBar() {
         navController = findNavController(R.id.nav_host_fragment_container)
-        setSupportActionBar(loginBinding.appBar.toolbar)
         appBarConfiguration = AppBarConfiguration(navController.graph)
-        supportActionBar?.setDisplayShowTitleEnabled(false)
     }
 
     override fun onSupportNavigateUp(): Boolean {

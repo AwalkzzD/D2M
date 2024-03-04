@@ -19,6 +19,7 @@ class IntroActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         introBinding = ActivityIntroBinding.inflate(layoutInflater)
         setContentView(introBinding.root)
 
@@ -39,15 +40,19 @@ class IntroActivity : AppCompatActivity() {
                     }
                 }
             })
+
         }
 
         introBinding.getStartedButton.setOnClickListener {
-            val sharedPreferences = getSharedPreferences("newUserTrack", Context.MODE_PRIVATE)
-            var editor = sharedPreferences.edit()
-            editor.putBoolean("isNewUser", false)
-            editor.apply()
-
+            setSharedPrefs()
             startActivity(Intent(this, LoginActivity::class.java))
         }
+    }
+
+    private fun setSharedPrefs() {
+        val sharedPreferences = getSharedPreferences("newUserTrack", Context.MODE_PRIVATE)
+        val editor = sharedPreferences.edit()
+        editor.putBoolean("isNewUser", false)
+        editor.apply()
     }
 }

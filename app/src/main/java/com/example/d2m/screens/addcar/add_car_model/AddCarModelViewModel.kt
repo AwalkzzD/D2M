@@ -5,9 +5,11 @@ import androidx.lifecycle.ViewModel
 import com.example.d2m.data.local.car.CarModel
 
 class AddCarModelViewModel : ViewModel() {
+
     private var carModelLiveData: MutableLiveData<List<CarModel>> = MutableLiveData()
 
     fun postLiveData(carModelList: List<CarModel>) {
         carModelLiveData.postValue(carModelList)
     }
+
 }

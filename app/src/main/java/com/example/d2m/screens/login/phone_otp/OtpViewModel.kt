@@ -11,6 +11,7 @@ import com.example.d2m.network_utils.api_services.VerifyOtpService
 import com.google.gson.GsonBuilder
 
 class OtpViewModel : ViewModel() {
+
     var otpSendLiveData: MutableLiveData<SendOtpResponse> = MutableLiveData<SendOtpResponse>()
     var verifyOtpResponseLiveData: MutableLiveData<VerifyOtpResponse> =
         MutableLiveData<VerifyOtpResponse>()
@@ -43,6 +44,7 @@ class OtpViewModel : ViewModel() {
     }
 
     fun verifyOtp(userPhoneNumber: String?, otpCode: String) {
+
         val retrofitInstance =
             ApiClient.createService(VerifyOtpService::class.java) as VerifyOtpService
 
@@ -69,5 +71,6 @@ class OtpViewModel : ViewModel() {
             })
             ApiClient.destroyInstance()
         }
+
     }
 }

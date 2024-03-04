@@ -8,8 +8,8 @@ import com.example.d2m.data.local.car.CarBrand
 import com.example.d2m.data.local.car.CarModel
 import com.example.d2m.data.local.car.CarRegistration
 import com.example.d2m.data.local.car.FuelType
-import com.example.d2m.network_utils.api_services.AddVehicleService
 import com.example.d2m.network_utils.ApiClient
+import com.example.d2m.network_utils.api_services.AddVehicleService
 import com.google.gson.GsonBuilder
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -29,14 +29,11 @@ class AddCarViewModel : ViewModel() {
     var token = MutableLiveData<String>()
     var vehicleColor = MutableLiveData<String>()
 
-    /**
-     * description
-     *
-     * @param para1 : Int - description
-     * @return : Int - description
-     * */
-    fun addCar() {
 
+    fun addCar() {
+        /**
+         * requestbody using multipartbody to pass car details as form-data type in request
+         **/
         val reqBody: RequestBody = MultipartBody.Builder().setType(MultipartBody.FORM)
             .addFormDataPart("user_id", userID.value.toString())
             .addFormDataPart(

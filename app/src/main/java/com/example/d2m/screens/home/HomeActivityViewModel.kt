@@ -12,15 +12,17 @@ import okhttp3.RequestBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.net.SocketTimeoutException
 
 class HomeActivityViewModel : ViewModel() {
 
     var userLiveData: MutableLiveData<UserHome> = MutableLiveData<UserHome>()
 
     fun requestUserData(userId: String) {
-        val reqBody: RequestBody = MultipartBody.Builder().setType(MultipartBody.FORM)
-            .addFormDataPart("user_id", userId)
-            .build()
+
+        val reqBody: RequestBody =
+            MultipartBody.Builder().setType(MultipartBody.FORM).addFormDataPart("user_id", userId)
+                .build()
 
         val retrofitInstance =
             ApiClient.createService(RequestUserData::class.java) as RequestUserData
@@ -37,9 +39,18 @@ class HomeActivityViewModel : ViewModel() {
             }
 
             override fun onFailure(call: Call<UserHome?>, t: Throwable) {
-                Log.d("TAG", "onFailure: Failed to get User Data --> $t")
+                when (t) {
+                    is SocketTimeoutException -> {
+                        Log.d("TAG", "Server Timeout --> $t")
+                    }
+
+                    else -> {
+                        Log.d("TAG", "onFailure: Failed to get User Data --> $t")
+                    }
+                }
             }
         })
         ApiClient.destroyInstance()
+
     }
 }

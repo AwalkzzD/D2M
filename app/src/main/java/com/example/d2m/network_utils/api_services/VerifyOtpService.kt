@@ -8,6 +8,7 @@ import retrofit2.http.Headers
 import retrofit2.http.POST
 
 interface VerifyOtpService {
+
     @Headers("Content-Type: application/x-www-form-urlencoded")
     @FormUrlEncoded
     @POST("api/v1/user/verify-otp")
@@ -17,4 +18,5 @@ interface VerifyOtpService {
         @Field("device_token") deviceToken: String,
         @Field("device_type") deviceType: String,
     ): Call<VerifyOtpResponse>
+
 }

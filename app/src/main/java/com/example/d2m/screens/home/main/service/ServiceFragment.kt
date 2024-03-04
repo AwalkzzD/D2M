@@ -5,8 +5,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.fragment.findNavController
+import androidx.navigation.ui.AppBarConfiguration
+import androidx.navigation.ui.setupActionBarWithNavController
 import com.example.d2m.R
 import com.example.d2m.data.local.home.ServiceX
 import com.example.d2m.databinding.FragmentServiceBinding
@@ -25,11 +29,21 @@ class ServiceFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
         serviceBinding = FragmentServiceBinding.inflate(inflater)
+        setupActionBar()
         return serviceBinding.root
+    }
+
+    private fun setupActionBar() {
+        (activity as AppCompatActivity).setSupportActionBar(serviceBinding.appBar.toolbar)
+        (activity as AppCompatActivity).supportActionBar?.setDisplayShowTitleEnabled(true)
+        (activity as AppCompatActivity).setupActionBarWithNavController(
+            findNavController(), AppBarConfiguration(findNavController().graph)
+        )
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         initViewModel()
         initRecyclerView()
 
@@ -53,7 +67,7 @@ class ServiceFragment : Fragment() {
         serviceViewModel.serviceXLiveData.observe(viewLifecycleOwner) {
             serviceXList.clear()
             serviceXList.addAll(it)
-            serviceXAdapter.notifyDataSetChanged()
+            serviceXAdapter.notifyItemRangeChanged(0, it.size)
         }
     }
 }

@@ -4,7 +4,8 @@ object AppConstants {
 
     const val BASE_URL = "http://d2m.php.dev.drcsystems.ooo/"
 
-    const val writeTimeOut = 10000
-    const val readTimeOut = 10000
+    const val WRITE_TIME_OUT = 10000
+    const val CONNECTION_TIME_OUT = 10000
+    const val READ_TIME_OUT = 10000
 
 }

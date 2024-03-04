@@ -8,6 +8,7 @@ import retrofit2.http.Headers
 import retrofit2.http.POST
 
 interface SendOtpService {
+
     @Headers("Content-Type: application/x-www-form-urlencoded")
     @FormUrlEncoded
     @POST("api/v1/user/send-otp")
@@ -15,4 +16,5 @@ interface SendOtpService {
         @Field("phone") userPhoneNum: String,
         @Field("whatsapp_updates") whatsappUpdates: String
     ): Call<SendOtpResponse>
+
 }

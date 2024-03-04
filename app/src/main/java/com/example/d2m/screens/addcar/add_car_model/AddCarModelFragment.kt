@@ -97,11 +97,13 @@ class AddCarModelFragment : Fragment() {
     private fun filter(text: String) {
 
         val filteredList = ArrayList<CarModel>()
+
         for (carModel in modelList) {
             if (carModel.carModelName.lowercase().contains(text)) {
                 filteredList.add(carModel)
             }
         }
+
         if (filteredList == emptyList<CarBrand>()) {
             Toast.makeText(requireActivity(), "No Data found", Toast.LENGTH_SHORT).show()
             addCarModelBinding.carModelRv.visibility = View.GONE

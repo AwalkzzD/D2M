@@ -8,9 +8,11 @@ import retrofit2.http.Header
 import retrofit2.http.POST
 
 interface AddVehicleService {
+
     @POST("api/v1/user/add-vehicle-information")
     fun addVehicle(
         @Body body: RequestBody,
         @Header("Authorization") token: String
     ): Call<CarAdded>
+
 }

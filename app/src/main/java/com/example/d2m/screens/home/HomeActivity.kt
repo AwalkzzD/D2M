@@ -28,17 +28,12 @@ class HomeActivity : AppCompatActivity() {
         initViewModel()
         setupActionBar()
 
-        NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration)
-
         homeBinding.bottomNav.setupWithNavController(navController)
     }
 
     private fun setupActionBar() {
         navController = findNavController(R.id.nav_host_fragment_container)
-        setSupportActionBar(homeBinding.appBar.toolbar)
-
         appBarConfiguration = AppBarConfiguration(navController.graph)
-        supportActionBar?.setDisplayShowTitleEnabled(true)
     }
 
     private fun initViewModel() {
