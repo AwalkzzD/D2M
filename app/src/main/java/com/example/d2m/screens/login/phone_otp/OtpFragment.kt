@@ -17,6 +17,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import com.example.d2m.databinding.FragmentOtpBinding
 import com.example.d2m.screens.addcar.AddCarActivity
+import com.example.d2m.screens.home.HomeActivity
 import java.util.concurrent.TimeUnit
 
 private const val TAG = "OtpFragment"
@@ -96,7 +97,13 @@ class OtpFragment : Fragment() {
                     it.verifyOtpResponseData?.id.toString(), it.verifyOtpResponseData?.token ?: ""
                 )
 
-                startActivity(Intent(activity, AddCarActivity::class.java))
+                if (it.verifyOtpResponseData != null) {
+                    if (it.verifyOtpResponseData.totalCars > 0) {
+                        startActivity(Intent(activity, HomeActivity::class.java))
+                    } else {
+                        startActivity(Intent(activity, AddCarActivity::class.java))
+                    }
+                }
 
             } else {
                 Toast.makeText(

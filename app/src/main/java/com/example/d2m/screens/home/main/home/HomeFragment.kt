@@ -21,6 +21,7 @@ import com.example.d2m.screens.home.main.service.ServiceViewModel
 import com.example.d2m.screens.utils.GenericDataAdapter
 
 class HomeFragment : Fragment() {
+
     private lateinit var homeBinding: FragmentHomeBinding
     private lateinit var bannerAdapter: GenericDataAdapter<Banner>
     private lateinit var serviceAdapter: GenericDataAdapter<Service>
