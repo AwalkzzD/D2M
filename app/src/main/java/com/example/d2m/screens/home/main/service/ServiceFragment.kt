@@ -34,11 +34,13 @@ class ServiceFragment : Fragment() {
     }
 
     private fun setupActionBar() {
-        (activity as AppCompatActivity).setSupportActionBar(serviceBinding.appBar.toolbar)
-        (activity as AppCompatActivity).supportActionBar?.setDisplayShowTitleEnabled(true)
-        (activity as AppCompatActivity).setupActionBarWithNavController(
-            findNavController(), AppBarConfiguration(findNavController().graph)
-        )
+        (activity as AppCompatActivity).apply {
+            setSupportActionBar(serviceBinding.appBar.toolbar)
+            supportActionBar?.setDisplayShowTitleEnabled(true)
+            setupActionBarWithNavController(
+                findNavController(), AppBarConfiguration(findNavController().graph)
+            )
+        }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -61,6 +63,8 @@ class ServiceFragment : Fragment() {
                 requireActivity(), serviceX.serviceTitle, Toast.LENGTH_SHORT
             ).show()
         }
+
+        serviceXAdapter.setVM(serviceViewModel)
     }
 
     private fun initViewModel() {

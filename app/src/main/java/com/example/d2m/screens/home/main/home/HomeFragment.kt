@@ -9,7 +9,10 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.ui.AppBarConfiguration
+import androidx.navigation.ui.setupWithNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.d2m.data.local.car.CarBrand
 import com.example.d2m.data.local.home.Banner
@@ -22,8 +25,12 @@ import com.example.d2m.screens.utils.GenericDataAdapter
 class HomeFragment : Fragment() {
 
     private lateinit var homeBinding: FragmentHomeBinding
+
     private lateinit var bannerAdapter: GenericDataAdapter<Banner>
     private lateinit var serviceAdapter: GenericDataAdapter<Service>
+
+    private lateinit var navController: NavController
+    private lateinit var appBarConfiguration: AppBarConfiguration
 
     private val homeViewModel: HomeViewModel by activityViewModels()
     private val homeActivityViewModel: HomeActivityViewModel by activityViewModels()
@@ -36,6 +43,7 @@ class HomeFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
         homeBinding = FragmentHomeBinding.inflate(inflater)
+        setupActionBar()
         return homeBinding.root
     }
 
@@ -82,14 +90,12 @@ class HomeFragment : Fragment() {
             ).show()
         }
 
-        serviceAdapter =
-            GenericDataAdapter(
-                servicesList,
-                com.example.d2m.R.layout.services_list_item
-            ) { service: Service ->
-                findNavController().navigate(com.example.d2m.R.id.action_homeFragment_to_serviceFragment)
-                serviceViewModel.serviceXLiveData.postValue(service.services)
-            }
+        serviceAdapter = GenericDataAdapter(
+            servicesList, com.example.d2m.R.layout.services_list_item
+        ) { service: Service ->
+            findNavController().navigate(com.example.d2m.R.id.action_homeFragment_to_serviceFragment)
+            serviceViewModel.serviceXLiveData.postValue(service.services)
+        }
 
     }
 
@@ -132,5 +138,11 @@ class HomeFragment : Fragment() {
             serviceAdapter.filterList(filteredList)
         }
 
+    }
+
+    private fun setupActionBar() {
+        navController = findNavController()
+        appBarConfiguration = AppBarConfiguration(navController.graph)
+        homeBinding.bottomNav.setupWithNavController(navController)
     }
 }

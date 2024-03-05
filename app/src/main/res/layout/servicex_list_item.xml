@@ -8,6 +8,10 @@
             name="serviceX"
             type="com.example.d2m.data.local.home.ServiceX" />
 
+        <variable
+            name="serviceVM"
+            type="com.example.d2m.screens.home.main.service.ServiceViewModel" />
+
     </data>
 
     <com.google.android.material.card.MaterialCardView
@@ -77,14 +81,16 @@
             </LinearLayout>
 
             <Button
+                android:id="@+id/addToCart"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentBottom="true"
                 android:background="@drawable/rounded_rectangle_button"
-                android:text="Add"
                 android:textColor="@color/white"
-                android:textSize="20sp" />
+                android:textSize="20sp"
+                app:addService="@{serviceX}"
+                app:toVM="@{serviceVM}" />
 
         </RelativeLayout>
 

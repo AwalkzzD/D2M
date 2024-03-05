@@ -8,38 +8,12 @@
     android:orientation="vertical"
     tools:context=".screens.home.HomeActivity">
 
-<!--    <include
-        android:id="@+id/app_bar"
-        layout="@layout/home_app_bar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentTop="true" />
-
-    android:layout_below="@id/app_bar"-->
-
     <fragment
         android:id="@+id/nav_host_fragment_container"
         android:name="androidx.navigation.fragment.NavHostFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@id/bottom_nav"
-
         app:defaultNavHost="true"
         app:navGraph="@navigation/home_nav_graph" />
-
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/bottom_nav"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
-        android:background="@color/white"
-        app:itemActiveIndicatorStyle="@color/bnv_tab_item"
-        app:itemIconTint="@color/bnv_tab_item"
-        app:itemTextColor="@color/bnv_tab_item"
-        app:labelVisibilityMode="labeled"
-        app:menu="@menu/bottom_nav_view" />
 
 </RelativeLayout>
