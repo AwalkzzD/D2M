@@ -1,17 +1,16 @@
 package com.example.d2m.screens.utils
 
-import android.util.Log
-import android.view.View
 import android.widget.Button
+import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.core.net.toUri
 import androidx.databinding.BindingAdapter
+import androidx.databinding.ObservableArrayList
 import com.example.d2m.R
 import com.example.d2m.data.local.home.ServiceX
 import com.example.d2m.screens.home.main.service.ServiceViewModel
-import com.google.android.material.card.MaterialCardView
 import com.squareup.picasso.Picasso
 
 @BindingAdapter("imageUrl")
@@ -69,27 +68,47 @@ fun TextView.setPriceText(text: Double?) {
 
 @BindingAdapter(value = ["addService", "toVM"], requireAll = true)
 fun Button.addToCart(serviceX: ServiceX, serviceViewModel: ServiceViewModel) {
-    this.text = "Add"
-    this.setOnClickListener {
-        text = if (text.equals("Add")) {
-            serviceViewModel.addService(serviceX)
+
+    this.text = if (serviceViewModel.addedServiceX.size == 0) {
+        "Add"
+    } else {
+        if (serviceViewModel.addedServiceX.contains(serviceX)) {
             "Remove"
         } else {
-            serviceViewModel.removeService(serviceX)
             "Add"
         }
     }
-}
-
-@BindingAdapter("isVisible")
-fun MaterialCardView.setVisibility(totalItems: Int?) {
-    if (totalItems != null) {
-        visibility = if (totalItems > 0) {
-            View.VISIBLE
-            Log.d("TAG", "setVisibility: VISIBLE")
+    this.setOnClickListener {
+        text = if (serviceViewModel.addedServiceX.contains(serviceX)) {
+            serviceViewModel.removeService(serviceX)
+            "Add"
         } else {
-            View.GONE
-            Log.d("TAG", "setVisibility: GONE")
+            serviceViewModel.addService(serviceX)
+            "Remove"
         }
     }
+
+}
+
+@BindingAdapter("cartTotal")
+fun TextView.setCartTotal(addedServiceX: ObservableArrayList<ServiceX>) {
+
+    var cartTotal = 0.0
+    for (serviceX in addedServiceX) {
+        cartTotal += serviceX.price
+    }
+    this.text = buildString {
+        append("₹")
+        append(cartTotal)
+    }
+
+}
+
+@BindingAdapter("removeAll")
+fun ImageButton.removeAllService(serviceViewModel: ServiceViewModel) {
+
+    this.setOnClickListener {
+        serviceViewModel.removeAllServices()
+    }
+
 }

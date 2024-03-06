@@ -75,7 +75,6 @@ class GenericDataAdapter<T : Any>(
                 is ServiceX -> {
                     binding.setVariable(BR.serviceX, item)
                     binding.setVariable(BR.serviceVM, serviceViewModel)
-                    binding.setVariable(BR.cart, serviceViewModel)
                 }
             }
             binding.executePendingBindings()

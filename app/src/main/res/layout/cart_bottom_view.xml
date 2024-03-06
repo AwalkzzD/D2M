@@ -16,9 +16,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:backgroundTint="@color/green"
-        android:visibility="gone"
-        app:cardCornerRadius="10dp"
-        app:isVisible="@{cart.addedServiceX.size()}">
+        android:visibility="@{(cart.addedServiceX.size() &gt; 0) ? View.VISIBLE : View.GONE}"
+        app:cardCornerRadius="10dp">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -46,6 +45,7 @@
                     android:id="@+id/cart_service_count"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:text="@{String.valueOf(cart.addedServiceX.size() + ` Service Added`)}"
                     android:textColor="@color/white"
                     android:textSize="17sp" />
 
@@ -55,7 +55,8 @@
                     android:layout_height="wrap_content"
                     android:textColor="@color/white"
                     android:textSize="20sp"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    app:cartTotal="@{cart.addedServiceX}" />
 
             </LinearLayout>
 
@@ -69,18 +70,19 @@
                 android:clickable="true"
                 android:text="@string/view_cart_text"
                 android:textColor="@color/white"
-                android:textSize="25sp"
+                android:textSize="20sp"
                 android:textStyle="bold" />
 
             <ImageButton
                 android:id="@+id/discard_card_items"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
                 android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true"
                 android:backgroundTint="@color/transparent"
                 android:scaleType="centerInside"
-                android:src="@drawable/ic_cancel" />
+                android:src="@drawable/ic_cancel"
+                app:removeAll="@{cart}" />
 
         </RelativeLayout>
 

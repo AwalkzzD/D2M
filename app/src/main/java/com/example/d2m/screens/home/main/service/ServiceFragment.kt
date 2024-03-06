@@ -73,5 +73,13 @@ class ServiceFragment : Fragment() {
             serviceXList.addAll(it)
             serviceXAdapter.notifyItemRangeChanged(0, it.size)
         }
+
+        serviceViewModel.isEmpty.observe(viewLifecycleOwner) {
+            if (it) {
+                serviceXAdapter.notifyDataSetChanged()
+            }
+        }
+
+        serviceBinding.cartBottomDialog.cart = serviceViewModel
     }
 }
