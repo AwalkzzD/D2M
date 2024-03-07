@@ -3,45 +3,31 @@ package com.example.d2m.screens.home
 import android.content.Context
 import android.os.Bundle
 import androidx.activity.viewModels
-import androidx.appcompat.app.AppCompatActivity
-import androidx.navigation.NavController
-import androidx.navigation.findNavController
-import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.NavigationUI
 import com.example.d2m.R
 import com.example.d2m.databinding.ActivityHomeBinding
+import com.example.d2m.screens.utils.BaseActivity
 
-class HomeActivity : AppCompatActivity() {
+class HomeActivity : BaseActivity<ActivityHomeBinding>() {
 
-    private lateinit var homeBinding: ActivityHomeBinding
-    private lateinit var navController: NavController
-    private lateinit var appBarConfiguration: AppBarConfiguration
+    override fun inflateBinding(): ActivityHomeBinding {
+        return ActivityHomeBinding.inflate(layoutInflater)
+    }
+
+    override fun getLayoutRes(): Int {
+        return R.id.nav_host_fragment_container
+    }
 
     private val homeActivityViewModel: HomeActivityViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        homeBinding = ActivityHomeBinding.inflate(layoutInflater)
-        setContentView(homeBinding.root)
-
         initViewModel()
-        setupActionBar()
-    }
-
-    private fun setupActionBar() {
-        navController = findNavController(R.id.nav_host_fragment_container)
-        appBarConfiguration = AppBarConfiguration(navController.graph)
     }
 
     private fun initViewModel() {
-        val userID = getSharedPreferences("userData", Context.MODE_PRIVATE)
-            ?.getString("userID", "")
+        val userID = getSharedPreferences("userData", Context.MODE_PRIVATE)?.getString("userID", "")
         if (userID != null) {
             homeActivityViewModel.requestUserData(userID)
         }
-    }
-
-    override fun onSupportNavigateUp(): Boolean {
-        return NavigationUI.navigateUp(navController, appBarConfiguration)
     }
 }
