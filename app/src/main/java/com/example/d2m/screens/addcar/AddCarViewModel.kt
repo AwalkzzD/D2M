@@ -2,7 +2,6 @@ package com.example.d2m.screens.addcar
 
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import com.example.d2m.data.local.car.CarAdded
 import com.example.d2m.data.local.car.CarBrand
 import com.example.d2m.data.local.car.CarModel
@@ -10,6 +9,7 @@ import com.example.d2m.data.local.car.CarRegistration
 import com.example.d2m.data.local.car.FuelType
 import com.example.d2m.network_utils.ApiClient
 import com.example.d2m.network_utils.api_services.AddVehicleService
+import com.example.d2m.screens.utils.BaseViewModel
 import com.google.gson.GsonBuilder
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -17,7 +17,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class AddCarViewModel : ViewModel() {
+class AddCarViewModel : BaseViewModel() {
 
     var carAdded: MutableLiveData<CarAdded> = MutableLiveData<CarAdded>()
     var carBrand: MutableLiveData<CarBrand> = MutableLiveData()

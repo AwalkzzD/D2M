@@ -47,19 +47,15 @@ class AddCarRegistrationFragment : Fragment() {
                     override fun beforeTextChanged(
                         s: CharSequence?, start: Int, count: Int, after: Int
                     ) {
-                        addCarRegistrationBinding.addCar.isEnabled = false
                     }
 
                     override fun onTextChanged(
                         s: CharSequence?, start: Int, before: Int, count: Int
                     ) {
-
                     }
 
                     override fun afterTextChanged(s: Editable) {
-                        if (s.length == 10) {
-                            addCarRegistrationBinding.addCar.isEnabled = true
-                        }
+
                     }
                 }
             }

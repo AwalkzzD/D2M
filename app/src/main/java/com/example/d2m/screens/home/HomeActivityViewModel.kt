@@ -2,10 +2,10 @@ package com.example.d2m.screens.home
 
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import com.example.d2m.data.local.home.UserHome
 import com.example.d2m.network_utils.ApiClient
 import com.example.d2m.network_utils.api_services.RequestUserData
+import com.example.d2m.screens.utils.BaseViewModel
 import com.google.gson.GsonBuilder
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -14,7 +14,7 @@ import retrofit2.Callback
 import retrofit2.Response
 import java.net.SocketTimeoutException
 
-class HomeActivityViewModel : ViewModel() {
+class HomeActivityViewModel : BaseViewModel() {
 
     var userLiveData: MutableLiveData<UserHome> = MutableLiveData<UserHome>()
 

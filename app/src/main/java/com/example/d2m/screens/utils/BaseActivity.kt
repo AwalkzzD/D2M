@@ -1,10 +1,10 @@
 package com.example.d2m.screens.utils
 
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.widget.Toast
+import androidx.annotation.LayoutRes
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.ViewModel
+import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
@@ -13,8 +13,8 @@ import androidx.navigation.ui.NavigationUI
 import androidx.viewbinding.ViewBinding
 import com.example.d2m.R
 
-abstract class BaseActivity<VB : ViewBinding, VM : ViewModel>(
-    private val inflate: (LayoutInflater) -> VB, private val viewModelClass: Class<VM>
+abstract class BaseActivity<VB : ViewBinding, VM : BaseViewModel>(
+    @LayoutRes private val layoutId: Int, private val viewModelClass: Class<VM>
 ) : AppCompatActivity() {
 
     private lateinit var binding: VB
@@ -30,9 +30,10 @@ abstract class BaseActivity<VB : ViewBinding, VM : ViewModel>(
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = inflate(layoutInflater)
-        setContentView(binding.root)
-        setUpNavigation()
+
+        binding = DataBindingUtil.setContentView(this, layoutId)
+
+        initNavComponents()
         initViewModel()
     }
 
@@ -40,7 +41,7 @@ abstract class BaseActivity<VB : ViewBinding, VM : ViewModel>(
         viewModel = ViewModelProvider(this)[viewModelClass]
     }
 
-    private fun setUpNavigation() {
+    private fun initNavComponents() {
         navController = Navigation.findNavController(this, R.id.nav_host_fragment_container)
         appBarConfiguration = AppBarConfiguration(navController.graph)
     }
@@ -53,6 +54,11 @@ abstract class BaseActivity<VB : ViewBinding, VM : ViewModel>(
 
     fun showToast(message: String, duration: Int) {
         Toast.makeText(this, message, duration).show()
+    }
+
+    fun setUpActionBarNavigation() {
+        setSupportActionBar(findViewById(R.id.toolbar))
+        NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration)
     }
 
 }

@@ -44,8 +44,7 @@ class LoginDetailsFragment : Fragment() {
                 findNavController().navigate(R.id.action_loginDetailsFragment_to_otpFragment)
 
             } else {
-                Toast.makeText(requireActivity(), "Enter a valid phone number", Toast.LENGTH_SHORT)
-                    .show()
+                Toast.makeText(requireActivity(), "Enter a valid phone number", Toast.LENGTH_SHORT).show()
             }
 
         }

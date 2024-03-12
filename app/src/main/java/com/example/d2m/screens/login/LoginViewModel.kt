@@ -1,5 +1,5 @@
 package com.example.d2m.screens.login
 
-import androidx.lifecycle.ViewModel
+import com.example.d2m.screens.utils.BaseViewModel
 
-class LoginViewModel : ViewModel()
+class LoginViewModel : BaseViewModel()

@@ -8,6 +8,9 @@ import com.example.d2m.data.remote.otp.verify.VerifyOtpResponse
 import com.example.d2m.network_utils.ApiClient
 import com.example.d2m.network_utils.api_services.SendOtpService
 import com.example.d2m.network_utils.api_services.VerifyOtpService
+import com.google.gson.GsonBuilder
+
+private const val TAG = "OtpViewModel"
 
 class OtpViewModel : ViewModel() {
 
@@ -16,6 +19,7 @@ class OtpViewModel : ViewModel() {
         MutableLiveData<VerifyOtpResponse>()
 
     fun sendOtp(userPhoneNumber: String?, getWhatsappUpdates: String?) {
+
         val retrofitInstance = ApiClient.createService(SendOtpService::class.java) as SendOtpService
 
         if (userPhoneNumber != null && getWhatsappUpdates != null) {
@@ -27,19 +31,24 @@ class OtpViewModel : ViewModel() {
                     call: retrofit2.Call<SendOtpResponse?>,
                     response: retrofit2.Response<SendOtpResponse?>
                 ) {
-
                     if (response.body()?.success == true) {
                         otpSendLiveData.postValue(response.body())
+                        Log.d(
+                            TAG, "onResponse: " + GsonBuilder().setPrettyPrinting().create()
+                                .toJson(response.body())
+                        )
                     }
 
                 }
 
                 override fun onFailure(call: retrofit2.Call<SendOtpResponse?>, t: Throwable) {
-                    Log.d("TAG", "onFailure: Failed to send OTP -> $t")
+                    Log.d(TAG, "onFailure: Failed to send OTP -> $t")
                 }
             })
+
             ApiClient.destroyInstance()
         }
+
     }
 
     fun verifyOtp(userPhoneNumber: String?, otpCode: String) {
