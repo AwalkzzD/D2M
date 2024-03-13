@@ -1,75 +1,82 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <include
-        android:id="@+id/app_bar"
-        layout="@layout/home_app_bar"
+    <data>
+
+    </data>
+
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_height="wrap_content">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/features_rv"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/app_bar"
-        android:orientation="horizontal"
-        android:scrollbars="horizontal"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        tools:listitem="@layout/feature_list_item" />
+        <include
+            android:id="@+id/app_bar"
+            layout="@layout/home_app_bar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true" />
 
-    <include
-        android:id="@+id/service_search_view"
-        layout="@layout/search_view_layout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/features_rv"
-        android:layout_margin="10dp" />
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/features_rv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/app_bar"
+            android:orientation="horizontal"
+            android:scrollbars="horizontal"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            tools:listitem="@layout/feature_list_item" />
 
-    <TextView
-        android:id="@+id/available_services_tv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/service_search_view"
-        android:layout_margin="10dp"
-        android:text="@string/available_services_text"
-        android:textColor="@color/black"
-        android:textSize="20sp" />
+        <include
+            android:id="@+id/service_search_view"
+            layout="@layout/search_view_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/features_rv"
+            android:layout_margin="10dp" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/services_rv"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@id/available_services_tv"
-        android:layout_marginBottom="?attr/actionBarSize"
-        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-        app:spanCount="2"
-        tools:itemCount="20"
-        tools:listitem="@layout/services_list_item" />
+        <TextView
+            android:id="@+id/available_services_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/service_search_view"
+            android:layout_margin="10dp"
+            android:text="@string/available_services_text"
+            android:textColor="@color/black"
+            android:textSize="20sp" />
 
-    <include
-        android:id="@+id/result"
-        layout="@layout/no_result_layout"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@id/available_services_tv" />
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/services_rv"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/available_services_tv"
+            android:layout_marginBottom="?attr/actionBarSize"
+            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+            app:spanCount="2"
+            tools:itemCount="20"
+            tools:listitem="@layout/services_list_item" />
 
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/bottom_nav"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:background="@color/white"
-        app:itemActiveIndicatorStyle="@color/bnv_tab_item"
-        app:itemIconTint="@color/bnv_tab_item"
-        app:itemTextColor="@color/bnv_tab_item"
-        app:labelVisibilityMode="labeled"
-        app:menu="@menu/bottom_nav_view" />
+        <include
+            android:id="@+id/result"
+            layout="@layout/no_result_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/available_services_tv" />
 
-</RelativeLayout>
+        <com.google.android.material.bottomnavigation.BottomNavigationView
+            android:id="@+id/bottom_nav"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:background="@color/white"
+            app:itemActiveIndicatorStyle="@color/bnv_tab_item"
+            app:itemIconTint="@color/bnv_tab_item"
+            app:itemTextColor="@color/bnv_tab_item"
+            app:labelVisibilityMode="labeled"
+            app:menu="@menu/bottom_nav_view" />
+
+    </RelativeLayout>
+</layout>

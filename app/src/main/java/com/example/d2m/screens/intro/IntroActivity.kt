@@ -11,8 +11,6 @@ import com.example.d2m.screens.login.LoginActivity
 import com.example.d2m.screens.utils.IntroPagerAdapter
 import com.google.android.material.tabs.TabLayoutMediator
 
-private const val TAG = "IntroActivity"
-
 class IntroActivity : AppCompatActivity() {
 
     private lateinit var introBinding: ActivityIntroBinding

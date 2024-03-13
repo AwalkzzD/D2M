@@ -2,10 +2,10 @@ package com.example.d2m.screens.home.main.service
 
 import androidx.databinding.ObservableArrayList
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import com.example.d2m.data.local.home.ServiceX
+import com.example.d2m.screens.utils.BaseViewModel
 
-class ServiceViewModel : ViewModel() {
+class ServiceViewModel : BaseViewModel() {
 
     var serviceXLiveData: MutableLiveData<List<ServiceX>> = MutableLiveData<List<ServiceX>>()
     var addedServiceX: ObservableArrayList<ServiceX> = ObservableArrayList<ServiceX>()

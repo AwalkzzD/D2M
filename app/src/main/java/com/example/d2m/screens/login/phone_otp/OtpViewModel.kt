@@ -2,17 +2,19 @@ package com.example.d2m.screens.login.phone_otp
 
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
+import com.example.d2m.common_utils.AppConstants.DEVICE_TOKEN
+import com.example.d2m.common_utils.AppConstants.DEVICE_TYPE
 import com.example.d2m.data.remote.otp.request.SendOtpResponse
 import com.example.d2m.data.remote.otp.verify.VerifyOtpResponse
 import com.example.d2m.network_utils.ApiClient
 import com.example.d2m.network_utils.api_services.SendOtpService
 import com.example.d2m.network_utils.api_services.VerifyOtpService
+import com.example.d2m.screens.utils.BaseViewModel
 import com.google.gson.GsonBuilder
 
 private const val TAG = "OtpViewModel"
 
-class OtpViewModel : ViewModel() {
+class OtpViewModel : BaseViewModel() {
 
     var otpSendLiveData: MutableLiveData<SendOtpResponse> = MutableLiveData<SendOtpResponse>()
     var verifyOtpResponseLiveData: MutableLiveData<VerifyOtpResponse> =
@@ -58,7 +60,7 @@ class OtpViewModel : ViewModel() {
 
         if (userPhoneNumber != null) {
             val retrofitData = retrofitInstance.verifyOtp(
-                userPhoneNumber, otpCode, "123ASDFSFFSAFSSSSS", "android"
+                userPhoneNumber, otpCode, DEVICE_TOKEN, DEVICE_TYPE
             )
 
             retrofitData.enqueue(object : retrofit2.Callback<VerifyOtpResponse?> {

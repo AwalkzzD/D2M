@@ -7,7 +7,6 @@ import android.os.Handler
 import android.os.Looper
 import androidx.appcompat.app.AppCompatActivity
 import com.example.d2m.R
-import com.example.d2m.screens.home.HomeActivity
 import com.example.d2m.screens.intro.IntroActivity
 import com.example.d2m.screens.login.LoginActivity
 

@@ -1,67 +1,74 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/white_gray"
-    tools:context=".screens.addcar.add_fuel_type.AddFuelTypeFragment">
+    xmlns:tools="http://schemas.android.com/tools">
 
+    <data>
 
-    <TextView
-        android:id="@+id/selected_brand_model"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_margin="10dp"
-        android:textColor="@color/green"
-        android:textSize="20sp"
-        android:textStyle="bold" />
+    </data>
 
-    <TextView
-        android:id="@+id/selection_category"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/selected_brand_model"
-        android:layout_margin="10dp"
-        android:text="@string/select_fuel_type_text"
-        android:textColor="@color/black"
-        android:textSize="20sp" />
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/fuel_type_rv"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/set_as_default_car"
-        android:layout_below="@id/selection_category"
-        android:layout_margin="10dp"
-        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-        app:spanCount="2"
-        tools:listitem="@layout/fuel_list_item" />
+        android:layout_height="match_parent"
+        android:background="@color/white_gray"
+        tools:context=".screens.add_car.add_fuel_type.AddFuelTypeFragment">
 
-    <CheckBox
-        android:id="@+id/set_as_default_car"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_above="@id/add_car"
-        android:layout_margin="10dp"
-        android:layout_marginStart="8dp"
-        android:text="@string/default_car_checkbox_text"
-        android:textColor="@color/black"
-        android:textSize="20sp" />
 
-    <Button
-        android:id="@+id/add_car"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="10dp"
-        android:layout_marginBottom="10dp"
-        android:background="@drawable/rounded_rectangle_button"
-        android:text="@string/add_car_button_text"
-        android:textColor="@color/white"
-        android:textSize="20sp" />
+        <TextView
+            android:id="@+id/selected_brand_model"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_margin="10dp"
+            android:textColor="@color/green"
+            android:textSize="20sp"
+            android:textStyle="bold" />
 
-</RelativeLayout>
+        <TextView
+            android:id="@+id/selection_category"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/selected_brand_model"
+            android:layout_margin="10dp"
+            android:text="@string/select_fuel_type_text"
+            android:textColor="@color/black"
+            android:textSize="20sp" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/fuel_type_rv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/set_as_default_car"
+            android:layout_below="@id/selection_category"
+            android:layout_margin="10dp"
+            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+            app:spanCount="2"
+            tools:listitem="@layout/fuel_list_item" />
+
+        <CheckBox
+            android:id="@+id/set_as_default_car"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@id/add_car"
+            android:layout_margin="10dp"
+            android:layout_marginStart="8dp"
+            android:text="@string/default_car_checkbox_text"
+            android:textColor="@color/black"
+            android:textSize="20sp" />
+
+        <Button
+            android:id="@+id/add_car"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/rounded_rectangle_button"
+            android:text="@string/add_car_button_text"
+            android:textColor="@color/white"
+            android:textSize="20sp" />
+
+    </RelativeLayout>
+</layout>

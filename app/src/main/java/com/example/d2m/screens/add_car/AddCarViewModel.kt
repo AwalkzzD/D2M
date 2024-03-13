@@ -1,4 +1,4 @@
-package com.example.d2m.screens.addcar
+package com.example.d2m.screens.add_car
 
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
@@ -29,8 +29,8 @@ class AddCarViewModel : BaseViewModel() {
     var token = MutableLiveData<String>()
     var vehicleColor = MutableLiveData<String>()
 
-
     fun addCar() {
+
         /**
          * requestbody using multipartbody to pass car details as form-data type in request
          **/

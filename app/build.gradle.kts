@@ -42,7 +42,7 @@ android {
 
 dependencies {
 
-    val nav_version = "2.7.7"
+    val navVersion = "2.7.7"
 
     implementation("androidx.core:core-ktx:1.12.0")
     implementation("androidx.appcompat:appcompat:1.6.1")
@@ -54,9 +54,9 @@ dependencies {
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
-    api("androidx.navigation:navigation-fragment-ktx:$nav_version")
-    api("androidx.navigation:navigation-ui-ktx:$nav_version")
-    api("androidx.navigation:navigation-dynamic-features-fragment:$nav_version")
+    api("androidx.navigation:navigation-fragment-ktx:$navVersion")
+    api("androidx.navigation:navigation-ui-ktx:$navVersion")
+    api("androidx.navigation:navigation-dynamic-features-fragment:$navVersion")
 //    Retrofit
     implementation("com.squareup.retrofit2:retrofit:2.9.0")
 //    GsonConverter

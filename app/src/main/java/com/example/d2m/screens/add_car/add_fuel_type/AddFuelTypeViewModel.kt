@@ -1,10 +1,10 @@
-package com.example.d2m.screens.addcar.add_fuel_type
+package com.example.d2m.screens.add_car.add_fuel_type
 
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import com.example.d2m.data.local.car.FuelType
+import com.example.d2m.screens.utils.BaseViewModel
 
-class AddFuelTypeViewModel : ViewModel() {
+class AddFuelTypeViewModel : BaseViewModel() {
 
     private var fuelTypeLiveData: MutableLiveData<List<FuelType>> = MutableLiveData()
 

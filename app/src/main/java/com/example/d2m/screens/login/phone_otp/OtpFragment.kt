@@ -4,74 +4,65 @@ import android.content.Context.MODE_PRIVATE
 import android.content.Intent
 import android.graphics.Color
 import android.graphics.Typeface
-import android.os.Bundle
 import android.os.CountDownTimer
 import android.util.Log
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
+import com.example.d2m.R
 import com.example.d2m.databinding.FragmentOtpBinding
-import com.example.d2m.screens.addcar.AddCarActivity
+import com.example.d2m.screens.add_car.AddCarActivity
 import com.example.d2m.screens.home.HomeActivity
+import com.example.d2m.screens.utils.BaseFragment
 import java.util.concurrent.TimeUnit
 
 private const val TAG = "OtpFragment"
 
-class OtpFragment : Fragment() {
-
-    private lateinit var otpBinding: FragmentOtpBinding
+class OtpFragment : BaseFragment<FragmentOtpBinding, OtpViewModel>(
+    R.layout.fragment_otp, OtpViewModel::class.java
+) {
     private lateinit var timer: CountDownTimer
-
     private val loginDetailsViewModel: LoginDetailsViewModel by activityViewModels()
-    private val otpViewModel: OtpViewModel by viewModels()
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
-    ): View {
-        otpBinding = FragmentOtpBinding.inflate(inflater)
+    override fun onCreateSetup() {
+        super.onCreateSetup()
         setupActionBar()
-        return otpBinding.root
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
+    override fun setUpView() {
         initViewModel()
-
         sendOtp()
-
         startResendTimer()
+        setupClickListener()
+    }
 
-        otpBinding.resendCodeLink.setOnClickListener {
+    private fun setupClickListener() {
+        fragmentBinding.resendCodeLink.setOnClickListener {
             sendOtp()
         }
 
-        otpBinding.signIn.setOnClickListener {
-            otpViewModel.verifyOtp(
+        fragmentBinding.signIn.setOnClickListener {
+            fragmentViewModel.verifyOtp(
                 loginDetailsViewModel.phoneNum.value.toString(), getOtp()
             )
         }
-
     }
 
     private fun setupActionBar() {
-        (activity as AppCompatActivity).setSupportActionBar(otpBinding.appBar.toolbar)
-        (activity as AppCompatActivity).supportActionBar?.setDisplayShowTitleEnabled(false)
-        (activity as AppCompatActivity).setupActionBarWithNavController(
-            findNavController(), AppBarConfiguration(findNavController().graph)
-        )
+        (activity as AppCompatActivity).apply {
+            setSupportActionBar(fragmentBinding.appBar.toolbar)
+            supportActionBar?.setDisplayShowTitleEnabled(false)
+            setupActionBarWithNavController(
+                findNavController(), AppBarConfiguration(findNavController().graph)
+            )
+        }
     }
 
     private fun sendOtp() {
-        otpViewModel.sendOtp(
+        fragmentViewModel.sendOtp(
             loginDetailsViewModel.phoneNum.value.toString(),
             loginDetailsViewModel.getWhatsappUpdates.value.toString()
         )
@@ -79,9 +70,9 @@ class OtpFragment : Fragment() {
 
     private fun initViewModel() {
 
-        otpViewModel.otpSendLiveData.observe(viewLifecycleOwner) {
+        fragmentViewModel.otpSendLiveData.observe(viewLifecycleOwner) {
             if (it.success) {
-                otpBinding.otpLayout.isEnabled = true
+                fragmentBinding.otpLayout.isEnabled = true
 
                 it.sendOtpResponseData?.let { otpVerifyObj ->
                     Toast.makeText(
@@ -95,7 +86,7 @@ class OtpFragment : Fragment() {
             }
         }
 
-        otpViewModel.verifyOtpResponseLiveData.observe(viewLifecycleOwner) {
+        fragmentViewModel.verifyOtpResponseLiveData.observe(viewLifecycleOwner) {
             if (it.success) {
 
                 Toast.makeText(
@@ -125,17 +116,16 @@ class OtpFragment : Fragment() {
     private fun setSharedPrefs(userID: String, token: String) {
         Log.d(TAG, "setSharedPrefs: $userID")
         val sharedPreferences = activity?.getSharedPreferences("userData", MODE_PRIVATE)
-        val editor = sharedPreferences?.edit()
-        if (editor != null) {
-            editor.putString("userID", userID)
-            editor.putString("token", token)
-            editor.apply()
+        sharedPreferences?.edit()?.run {
+            putString("userID", userID)
+            putString("token", token)
+            apply()
         }
     }
 
     private fun getOtp(): String {
         var otpCode = ""
-        otpBinding.apply {
+        fragmentBinding.apply {
             otpCode = otpCode.plus(otpDigit1.text.toString())
             otpCode = otpCode.plus(otpDigit2.text.toString())
             otpCode = otpCode.plus(otpDigit3.text.toString())
@@ -145,11 +135,11 @@ class OtpFragment : Fragment() {
     }
 
     private fun startResendTimer() {
-        otpBinding.resendCodeLink.isEnabled = false
+        fragmentBinding.resendCodeLink.isEnabled = false
 
         timer = object : CountDownTimer(60000, 1000) {
             override fun onTick(millisUntilFinished: Long) {
-                otpBinding.resendCodeTimer.text = String.format(
+                fragmentBinding.resendCodeTimer.text = String.format(
                     "%02d:%02d",
                     TimeUnit.MILLISECONDS.toMinutes(millisUntilFinished) - TimeUnit.HOURS.toMinutes(
                         TimeUnit.MILLISECONDS.toHours(millisUntilFinished)
@@ -161,9 +151,9 @@ class OtpFragment : Fragment() {
             }
 
             override fun onFinish() {
-                otpBinding.resendCodeLink.isEnabled = true
-                otpBinding.resendCodeLink.setTextColor(Color.BLACK)
-                otpBinding.resendCodeLink.setTypeface(null, Typeface.ITALIC)
+                fragmentBinding.resendCodeLink.isEnabled = true
+                fragmentBinding.resendCodeLink.setTextColor(Color.BLACK)
+                fragmentBinding.resendCodeLink.setTypeface(null, Typeface.ITALIC)
             }
         }.start()
     }

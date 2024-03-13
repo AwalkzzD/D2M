@@ -1,10 +1,10 @@
-package com.example.d2m.screens.addcar.add_car_brand
+package com.example.d2m.screens.add_car.add_car_brand
 
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import com.example.d2m.data.local.car.CarBrand
+import com.example.d2m.screens.utils.BaseViewModel
 
-class AddCarBrandViewModel : ViewModel() {
+class AddCarBrandViewModel : BaseViewModel() {
 
     private var carBrandLiveData: MutableLiveData<List<CarBrand>> = MutableLiveData()
 

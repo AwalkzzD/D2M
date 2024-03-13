@@ -1,30 +1,29 @@
 package com.example.d2m.screens.home.main.home
 
-import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.widget.Toast
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupWithNavController
 import androidx.recyclerview.widget.GridLayoutManager
+import com.example.d2m.R
 import com.example.d2m.data.local.car.CarBrand
 import com.example.d2m.data.local.home.Banner
 import com.example.d2m.data.local.home.Service
 import com.example.d2m.databinding.FragmentHomeBinding
 import com.example.d2m.screens.home.HomeActivityViewModel
 import com.example.d2m.screens.home.main.service.ServiceViewModel
+import com.example.d2m.screens.utils.BaseFragment
 import com.example.d2m.screens.utils.GenericDataAdapter
 
-class HomeFragment : Fragment() {
-
-    private lateinit var homeBinding: FragmentHomeBinding
+class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(
+    R.layout.fragment_home,
+    HomeViewModel::class.java
+) {
 
     private lateinit var bannerAdapter: GenericDataAdapter<Banner>
     private lateinit var serviceAdapter: GenericDataAdapter<Service>
@@ -32,37 +31,25 @@ class HomeFragment : Fragment() {
     private lateinit var navController: NavController
     private lateinit var appBarConfiguration: AppBarConfiguration
 
-    private val homeViewModel: HomeViewModel by activityViewModels()
     private val homeActivityViewModel: HomeActivityViewModel by activityViewModels()
     private val serviceViewModel: ServiceViewModel by activityViewModels()
 
     private val bannerList: MutableList<Banner> = mutableListOf()
     private val servicesList: MutableList<Service> = mutableListOf()
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
-    ): View {
-        homeBinding = FragmentHomeBinding.inflate(inflater)
+    override fun onCreateSetup() {
+        super.onCreateSetup()
         setupActionBar()
-        return homeBinding.root
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
+    override fun setUpView() {
         initViewModel()
         initRecyclerView()
+        setupListeners()
+    }
 
-        homeBinding.featuresRv.apply {
-            adapter = bannerAdapter
-        }
-
-        homeBinding.servicesRv.apply {
-            layoutManager = GridLayoutManager(activity, 2)
-            adapter = serviceAdapter
-        }
-
-        homeBinding.serviceSearchView.searchItem.apply {
+    private fun setupListeners() {
+        fragmentBinding.serviceSearchView.searchItem.apply {
             hint = "Search Service"
             addTextChangedListener(object : TextWatcher {
                 override fun beforeTextChanged(
@@ -78,40 +65,54 @@ class HomeFragment : Fragment() {
                 override fun afterTextChanged(s: Editable?) = filter(s.toString().lowercase())
             })
         }
-
     }
 
     private fun initRecyclerView() {
+        /**
+         * features/banners adapter & recycler view setup
+         * */
         bannerAdapter = GenericDataAdapter(
-            bannerList, com.example.d2m.R.layout.feature_list_item
+            bannerList, R.layout.feature_list_item
         ) { banner: Banner ->
             Toast.makeText(
                 requireActivity(), banner.bannerName, Toast.LENGTH_SHORT
             ).show()
         }
 
+        fragmentBinding.featuresRv.apply {
+            adapter = bannerAdapter
+        }
+
+        /**
+         * services adapter & recycler view setup
+         * */
         serviceAdapter = GenericDataAdapter(
-            servicesList, com.example.d2m.R.layout.services_list_item
+            servicesList, R.layout.services_list_item
         ) { service: Service ->
-            findNavController().navigate(com.example.d2m.R.id.action_homeFragment_to_serviceFragment)
+            findNavController().navigate(R.id.action_homeFragment_to_serviceFragment)
             serviceViewModel.serviceXLiveData.postValue(service.services)
+        }
+
+        fragmentBinding.servicesRv.apply {
+            layoutManager = GridLayoutManager(activity, 2)
+            adapter = serviceAdapter
         }
 
     }
 
     private fun initViewModel() {
         homeActivityViewModel.userLiveData.observe(viewLifecycleOwner) {
-            homeViewModel.bannerLiveData.value = it.userData?.banners
-            homeViewModel.serviceLiveData.value = it.userData?.services
+            fragmentViewModel.bannerLiveData.value = it.userData?.banners
+            fragmentViewModel.serviceLiveData.value = it.userData?.services
         }
 
-        homeViewModel.bannerLiveData.observe(viewLifecycleOwner) {
+        fragmentViewModel.bannerLiveData.observe(viewLifecycleOwner) {
             bannerList.clear()
             bannerList.addAll(it)
             bannerAdapter.notifyItemRangeChanged(0, it.size)
         }
 
-        homeViewModel.serviceLiveData.observe(viewLifecycleOwner) {
+        fragmentViewModel.serviceLiveData.observe(viewLifecycleOwner) {
             servicesList.clear()
             servicesList.addAll(it)
             serviceAdapter.notifyItemRangeChanged(0, it.size)
@@ -130,11 +131,11 @@ class HomeFragment : Fragment() {
 
         if (filteredList == emptyList<CarBrand>()) {
             Toast.makeText(requireActivity(), "No Data found", Toast.LENGTH_SHORT).show()
-            homeBinding.servicesRv.visibility = View.GONE
-            homeBinding.result.noResultFound.visibility = View.VISIBLE
+            fragmentBinding.servicesRv.visibility = View.GONE
+            fragmentBinding.result.noResultFound.visibility = View.VISIBLE
         } else {
-            homeBinding.servicesRv.visibility = View.VISIBLE
-            homeBinding.result.noResultFound.visibility = View.GONE
+            fragmentBinding.servicesRv.visibility = View.VISIBLE
+            fragmentBinding.result.noResultFound.visibility = View.GONE
             serviceAdapter.filterList(filteredList)
         }
 
@@ -143,6 +144,6 @@ class HomeFragment : Fragment() {
     private fun setupActionBar() {
         navController = findNavController()
         appBarConfiguration = AppBarConfiguration(navController.graph)
-        homeBinding.bottomNav.setupWithNavController(navController)
+        fragmentBinding.bottomNav.setupWithNavController(navController)
     }
 }

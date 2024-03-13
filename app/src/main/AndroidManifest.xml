@@ -20,7 +20,7 @@
             android:exported="false"
             android:windowSoftInputMode="adjustPan" />
         <activity
-            android:name=".screens.addcar.AddCarActivity"
+            android:name=".screens.add_car.AddCarActivity"
             android:exported="false" />
         <activity
             android:name=".screens.login.LoginActivity"

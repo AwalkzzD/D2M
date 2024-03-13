@@ -8,4 +8,7 @@ object AppConstants {
     const val CONNECTION_TIME_OUT = 10000
     const val READ_TIME_OUT = 10000
 
+    const val DEVICE_TOKEN = "123ASDFSFFSAFSSSSS"
+    const val DEVICE_TYPE = "android"
+
 }

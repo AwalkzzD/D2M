@@ -1,58 +1,46 @@
-package com.example.d2m.screens.addcar.add_fuel_type
+package com.example.d2m.screens.add_car.add_fuel_type
 
 import android.content.Context.MODE_PRIVATE
 import android.content.Intent
-import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import androidx.fragment.app.Fragment
+import android.util.Log
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.d2m.R
 import com.example.d2m.data.local.car.FuelType
 import com.example.d2m.databinding.FragmentAddFuelTypeBinding
-import com.example.d2m.screens.addcar.AddCarViewModel
+import com.example.d2m.screens.add_car.AddCarViewModel
 import com.example.d2m.screens.home.HomeActivity
+import com.example.d2m.screens.utils.BaseFragment
 import com.example.d2m.screens.utils.GenericDataAdapter
 
 private const val TAG = "AddFuelTypeFragment"
 
-class AddFuelTypeFragment : Fragment() {
+class AddFuelTypeFragment : BaseFragment<FragmentAddFuelTypeBinding, AddFuelTypeViewModel>(
+    R.layout.fragment_add_fuel_type,
+    AddFuelTypeViewModel::class.java
+) {
 
-    private lateinit var addFuelTypeBinding: FragmentAddFuelTypeBinding
     private lateinit var fuelTypeAdapter: GenericDataAdapter<FuelType>
 
-    private val addFuelTypeViewModel: AddFuelTypeViewModel by activityViewModels()
     private val addCarViewModel: AddCarViewModel by activityViewModels()
 
     private val fuelTypeList: ArrayList<FuelType> = arrayListOf()
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
-    ): View {
-        addFuelTypeBinding = FragmentAddFuelTypeBinding.inflate(inflater)
-        return addFuelTypeBinding.root
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
+    override fun setUpView() {
         initViewModel()
         initRecyclerView()
+        setupListeners()
 
-        addFuelTypeBinding.selectedBrandModel.text = getString(
+        fragmentBinding.selectedBrandModel.text = getString(
             R.string.selected_brand_model_text,
             addCarViewModel.carBrand.value?.carBrandName ?: "null",
             addCarViewModel.carModel.value?.carModelName ?: "null"
         )
+    }
 
-        addFuelTypeBinding.fuelTypeRv.apply {
-            layoutManager = GridLayoutManager(requireActivity(), 2)
-            adapter = fuelTypeAdapter
-        }
+    private fun setupListeners() {
 
-        addFuelTypeBinding.setAsDefaultCar.setOnCheckedChangeListener { _, isChecked ->
+        fragmentBinding.setAsDefaultCar.setOnCheckedChangeListener { _, isChecked ->
             when {
                 isChecked -> {
                     addCarViewModel.isDefault.value = "1"
@@ -64,21 +52,17 @@ class AddFuelTypeFragment : Fragment() {
             }
         }
 
-        addFuelTypeBinding.addCar.setOnClickListener {
+        fragmentBinding.addCar.setOnClickListener {
             val sharedPreferences = activity?.getSharedPreferences("userData", MODE_PRIVATE)
 
             addCarViewModel.apply {
                 userID.value = sharedPreferences?.getString("userID", "")
                 token.value = sharedPreferences?.getString("token", "")
+                Log.d(TAG, "setupListeners: ${userID.value} ${token.value}")
                 addCar()
             }
         }
 
-        addCarViewModel.carAdded.observe(viewLifecycleOwner) {
-            if (it.success) {
-                startActivity(Intent(activity, HomeActivity::class.java))
-            }
-        }
     }
 
     private fun initRecyclerView() {
@@ -87,6 +71,11 @@ class AddFuelTypeFragment : Fragment() {
             R.layout.fuel_list_item
         ) { fuelType: FuelType ->
             addCarViewModel.fuelType.value = fuelType
+        }
+
+        fragmentBinding.fuelTypeRv.apply {
+            layoutManager = GridLayoutManager(requireActivity(), 2)
+            adapter = fuelTypeAdapter
         }
     }
 
@@ -98,8 +87,14 @@ class AddFuelTypeFragment : Fragment() {
                 )
             )
         }
-        addFuelTypeViewModel.postLiveData(fuelTypeList)
+        fragmentViewModel.postLiveData(fuelTypeList)
         addCarViewModel.isDefault.value = "0"
+
+        addCarViewModel.carAdded.observe(viewLifecycleOwner) {
+            if (it.success) {
+                startActivity(Intent(activity, HomeActivity::class.java))
+            }
+        }
     }
 
 }

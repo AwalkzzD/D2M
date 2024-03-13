@@ -1,4 +1,4 @@
-package com.example.d2m.screens.addcar
+package com.example.d2m.screens.add_car
 
 import android.os.Bundle
 import com.example.d2m.R

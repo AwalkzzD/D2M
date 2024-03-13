@@ -1,52 +1,42 @@
 package com.example.d2m.screens.login.phone_otp
 
-import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import android.widget.Toast
-import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.example.d2m.R
 import com.example.d2m.databinding.FragmentLoginDetailsBinding
+import com.example.d2m.screens.utils.BaseFragment
 
-class LoginDetailsFragment : Fragment() {
+class LoginDetailsFragment : BaseFragment<FragmentLoginDetailsBinding, LoginDetailsViewModel>(
+    R.layout.fragment_login_details, LoginDetailsViewModel::class.java
+) {
 
-    private lateinit var loginDetailsBinding: FragmentLoginDetailsBinding
-
-    private val loginDetailsViewModel: LoginDetailsViewModel by activityViewModels()
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
-    ): View {
-        loginDetailsBinding = FragmentLoginDetailsBinding.inflate(inflater)
-        return loginDetailsBinding.root
+    override fun setUpView() {
+        setupClickListener()
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-        loginDetailsBinding.getOtp.setOnClickListener {
+    private fun setupClickListener() {
+        fragmentBinding.getOtp.setOnClickListener {
 
             var getWhatsappUpdates = "0"
 
-            if (loginDetailsBinding.getWhatsappUpdates.isChecked) {
+            if (fragmentBinding.getWhatsappUpdates.isChecked) {
                 getWhatsappUpdates = "1"
             }
 
-            if (loginDetailsBinding.userPhoneNumber.text.toString().length == 10) {
+            if (fragmentBinding.userPhoneNumber.text.toString().length == 10) {
 
-                loginDetailsViewModel.let {
-                    it.phoneNum.value = loginDetailsBinding.userPhoneNumber.text.toString()
+                fragmentViewModel.let {
+                    it.phoneNum.value = fragmentBinding.userPhoneNumber.text.toString()
                     it.getWhatsappUpdates.value = getWhatsappUpdates
                 }
                 findNavController().navigate(R.id.action_loginDetailsFragment_to_otpFragment)
 
             } else {
-                Toast.makeText(requireActivity(), "Enter a valid phone number", Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireActivity(), "Enter a valid phone number", Toast.LENGTH_SHORT)
+                    .show()
             }
 
         }
     }
+
 }

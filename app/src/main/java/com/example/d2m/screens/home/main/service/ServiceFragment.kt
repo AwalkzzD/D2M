@@ -1,58 +1,43 @@
 package com.example.d2m.screens.home.main.service
 
-import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import com.example.d2m.R
 import com.example.d2m.data.local.home.ServiceX
 import com.example.d2m.databinding.FragmentServiceBinding
+import com.example.d2m.screens.utils.BaseFragment
 import com.example.d2m.screens.utils.GenericDataAdapter
 
-class ServiceFragment : Fragment() {
+class ServiceFragment : BaseFragment<FragmentServiceBinding, ServiceViewModel>(
+    R.layout.fragment_service,
+    ServiceViewModel::class.java
+) {
 
-    private lateinit var serviceBinding: FragmentServiceBinding
     private lateinit var serviceXAdapter: GenericDataAdapter<ServiceX>
-
-    private val serviceViewModel: ServiceViewModel by activityViewModels()
 
     private var serviceXList: MutableList<ServiceX> = mutableListOf()
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
-    ): View {
-        serviceBinding = FragmentServiceBinding.inflate(inflater)
+    override fun onCreateSetup() {
+        super.onCreateSetup()
         setupActionBar()
-        return serviceBinding.root
+    }
+
+    override fun setUpView() {
+        initViewModel()
+        initRecyclerView()
     }
 
     private fun setupActionBar() {
         (activity as AppCompatActivity).apply {
-            setSupportActionBar(serviceBinding.appBar.toolbar)
+            setSupportActionBar(fragmentBinding.appBar.toolbar)
             supportActionBar?.setDisplayShowTitleEnabled(true)
             setupActionBarWithNavController(
                 findNavController(), AppBarConfiguration(findNavController().graph)
             )
         }
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-        initViewModel()
-        initRecyclerView()
-
-        serviceBinding.servicesRv.apply {
-            adapter = serviceXAdapter
-        }
-
     }
 
     private fun initRecyclerView() {
@@ -64,22 +49,26 @@ class ServiceFragment : Fragment() {
             ).show()
         }
 
-        serviceXAdapter.setVM(serviceViewModel)
+        serviceXAdapter.setVM(fragmentViewModel)
+
+        fragmentBinding.servicesRv.apply {
+            adapter = serviceXAdapter
+        }
     }
 
     private fun initViewModel() {
-        serviceViewModel.serviceXLiveData.observe(viewLifecycleOwner) {
+        fragmentViewModel.serviceXLiveData.observe(viewLifecycleOwner) {
             serviceXList.clear()
             serviceXList.addAll(it)
             serviceXAdapter.notifyItemRangeChanged(0, it.size)
         }
 
-        serviceViewModel.isEmpty.observe(viewLifecycleOwner) {
+        fragmentViewModel.isEmpty.observe(viewLifecycleOwner) {
             if (it) {
                 serviceXAdapter.notifyDataSetChanged()
             }
         }
 
-        serviceBinding.cartBottomDialog.cart = serviceViewModel
+        fragmentBinding.cartBottomDialog.cart = fragmentViewModel
     }
 }

@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/addCarRegistrationFragment"
-        android:name="com.example.d2m.screens.addcar.add_car_registration.AddCarRegistrationFragment"
+        android:name="com.example.d2m.screens.add_car.add_car_registration.AddCarRegistrationFragment"
         android:label="Add Car"
         tools:layout="@layout/fragment_add_car_registration">
         <action
@@ -17,7 +17,7 @@
     </fragment>
     <fragment
         android:id="@+id/addCarBrandFragment"
-        android:name="com.example.d2m.screens.addcar.add_car_brand.AddCarBrandFragment"
+        android:name="com.example.d2m.screens.add_car.add_car_brand.AddCarBrandFragment"
         android:label="Select Brand"
         tools:layout="@layout/fragment_add_car_brand">
         <action
@@ -27,7 +27,7 @@
     </fragment>
     <fragment
         android:id="@+id/addCarModelFragment"
-        android:name="com.example.d2m.screens.addcar.add_car_model.AddCarModelFragment"
+        android:name="com.example.d2m.screens.add_car.add_car_model.AddCarModelFragment"
         android:label="Select Model"
         tools:layout="@layout/fragment_add_car_model">
         <action
@@ -37,7 +37,7 @@
     </fragment>
     <fragment
         android:id="@+id/addFuelTypeFragment"
-        android:name="com.example.d2m.screens.addcar.add_fuel_type.AddFuelTypeFragment"
+        android:name="com.example.d2m.screens.add_car.add_fuel_type.AddFuelTypeFragment"
         android:label="Select Fuel Type"
         tools:layout="@layout/fragment_add_fuel_type" />
 
