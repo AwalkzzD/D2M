@@ -95,7 +95,7 @@ class AddCarBrandFragment : BaseFragment<FragmentAddCarBrandBinding, AddCarBrand
         }
 
         if (filteredList == emptyList<CarBrand>()) {
-            Toast.makeText(requireActivity(), "No Data found", Toast.LENGTH_SHORT).show()
+            showToast("No Data found", Toast.LENGTH_SHORT)
             fragmentBinding.carBrandRv.visibility = View.GONE
             fragmentBinding.result.noResultFound.visibility = View.VISIBLE
         } else {

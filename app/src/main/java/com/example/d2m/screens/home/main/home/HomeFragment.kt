@@ -77,9 +77,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(
         bannerAdapter = GenericDataAdapter(
             bannerList, R.layout.feature_list_item
         ) { banner: Banner ->
-            Toast.makeText(
-                requireActivity(), banner.bannerName, Toast.LENGTH_SHORT
-            ).show()
+            showToast(banner.bannerName, Toast.LENGTH_SHORT)
         }
 
         fragmentBinding.featuresRv.apply {
@@ -130,7 +128,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(
         }
 
         if (filteredList == emptyList<CarBrand>()) {
-            Toast.makeText(requireActivity(), "No Data found", Toast.LENGTH_SHORT).show()
+            showToast("No Data found", Toast.LENGTH_SHORT)
             fragmentBinding.servicesRv.visibility = View.GONE
             fragmentBinding.result.noResultFound.visibility = View.VISIBLE
         } else {

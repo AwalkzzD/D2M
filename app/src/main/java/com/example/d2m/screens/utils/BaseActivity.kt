@@ -1,7 +1,6 @@
 package com.example.d2m.screens.utils
 
 import android.os.Bundle
-import android.util.Log
 import android.widget.Toast
 import androidx.annotation.LayoutRes
 import androidx.appcompat.app.AppCompatActivity
@@ -64,8 +63,6 @@ abstract class BaseActivity<VB : ViewDataBinding, VM : BaseViewModel>(
             setDisplayHomeAsUpEnabled(backButtonEnabled)
             setTitle(title)
         }
-
-        Log.d(TAG, "customiseToolbar: Customization Done")
     }
 
     fun showToast(message: String, duration: Int) {

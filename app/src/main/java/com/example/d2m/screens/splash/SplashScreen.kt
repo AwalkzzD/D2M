@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.d2m.R
 import com.example.d2m.screens.home.HomeActivity
 import com.example.d2m.screens.intro.IntroActivity
+import com.example.d2m.screens.login.LoginActivity
 
 class SplashScreen : AppCompatActivity() {
 
@@ -28,9 +29,9 @@ class SplashScreen : AppCompatActivity() {
 
         } else {
 
-//            startActivity(Intent(this, LoginActivity::class.java))
+            startActivity(Intent(this, LoginActivity::class.java))
 //            startActivity(Intent(this, AddCarActivity::class.java))
-            startActivity(Intent(this, HomeActivity::class.java))
+//            startActivity(Intent(this, HomeActivity::class.java))
 //            startActivity(Intent(this, IntroActivity::class.java))
 
             finish()

@@ -50,9 +50,7 @@ class ServiceFragment : BaseFragment<FragmentServiceBinding, ServiceViewModel>(
         serviceXAdapter = GenericDataAdapter(
             serviceXList, R.layout.servicex_list_item
         ) { serviceX: ServiceX ->
-            Toast.makeText(
-                requireActivity(), serviceX.serviceTitle, Toast.LENGTH_SHORT
-            ).show()
+            showToast(serviceX.serviceTitle, Toast.LENGTH_SHORT)
         }
 
         serviceXAdapter.setVM(fragmentViewModel)
