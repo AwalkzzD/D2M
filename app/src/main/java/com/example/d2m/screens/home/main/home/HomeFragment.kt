@@ -7,7 +7,6 @@ import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
-import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupWithNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.d2m.R
@@ -17,53 +16,57 @@ import com.example.d2m.data.local.home.Service
 import com.example.d2m.databinding.FragmentHomeBinding
 import com.example.d2m.screens.home.HomeActivityViewModel
 import com.example.d2m.screens.home.main.service.ServiceViewModel
+import com.example.d2m.screens.utils.BaseActivity
 import com.example.d2m.screens.utils.BaseFragment
 import com.example.d2m.screens.utils.GenericDataAdapter
 
 class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(
-    R.layout.fragment_home,
-    HomeViewModel::class.java
+    R.layout.fragment_home, HomeViewModel::class.java
 ) {
 
     private lateinit var bannerAdapter: GenericDataAdapter<Banner>
     private lateinit var serviceAdapter: GenericDataAdapter<Service>
 
     private lateinit var navController: NavController
-    private lateinit var appBarConfiguration: AppBarConfiguration
 
-    private val homeActivityViewModel: HomeActivityViewModel by activityViewModels()
     private val serviceViewModel: ServiceViewModel by activityViewModels()
 
     private val bannerList: MutableList<Banner> = mutableListOf()
     private val servicesList: MutableList<Service> = mutableListOf()
 
-    override fun onCreateSetup() {
-        super.onCreateSetup()
-        setupActionBar()
-    }
-
     override fun setUpView() {
+        setUpToolBar()
+        setupBottomNavBar()
         initViewModel()
         initRecyclerView()
         setupListeners()
     }
 
-    private fun setupListeners() {
-        fragmentBinding.serviceSearchView.searchItem.apply {
-            hint = "Search Service"
-            addTextChangedListener(object : TextWatcher {
-                override fun beforeTextChanged(
-                    s: CharSequence?, start: Int, count: Int, after: Int
-                ) {
+    private fun setUpToolBar() {
+        (activity as BaseActivity<*, *>).setupToolbar(fragmentBinding.appBar.toolbar, "", false)
+    }
 
-                }
+    private fun setupBottomNavBar() {
+        navController = findNavController()
+        fragmentBinding.bottomNav.setupWithNavController(navController)
+    }
 
-                override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+    private fun initViewModel() {
+        (getActivityViewModel() as HomeActivityViewModel).userLiveData.observe(viewLifecycleOwner) {
+            fragmentViewModel.bannerLiveData.value = it.userData?.banners
+            fragmentViewModel.serviceLiveData.value = it.userData?.services
+        }
 
-                }
+        fragmentViewModel.bannerLiveData.observe(viewLifecycleOwner) {
+            bannerList.clear()
+            bannerList.addAll(it)
+            bannerAdapter.notifyItemRangeChanged(0, it.size)
+        }
 
-                override fun afterTextChanged(s: Editable?) = filter(s.toString().lowercase())
-            })
+        fragmentViewModel.serviceLiveData.observe(viewLifecycleOwner) {
+            servicesList.clear()
+            servicesList.addAll(it)
+            serviceAdapter.notifyItemRangeChanged(0, it.size)
         }
     }
 
@@ -100,22 +103,19 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(
 
     }
 
-    private fun initViewModel() {
-        homeActivityViewModel.userLiveData.observe(viewLifecycleOwner) {
-            fragmentViewModel.bannerLiveData.value = it.userData?.banners
-            fragmentViewModel.serviceLiveData.value = it.userData?.services
-        }
+    private fun setupListeners() {
+        fragmentBinding.serviceSearchView.searchItem.apply {
+            hint = "Search Service"
+            addTextChangedListener(object : TextWatcher {
+                override fun beforeTextChanged(
+                    s: CharSequence?, start: Int, count: Int, after: Int
+                ) = Unit
 
-        fragmentViewModel.bannerLiveData.observe(viewLifecycleOwner) {
-            bannerList.clear()
-            bannerList.addAll(it)
-            bannerAdapter.notifyItemRangeChanged(0, it.size)
-        }
+                override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) =
+                    Unit
 
-        fragmentViewModel.serviceLiveData.observe(viewLifecycleOwner) {
-            servicesList.clear()
-            servicesList.addAll(it)
-            serviceAdapter.notifyItemRangeChanged(0, it.size)
+                override fun afterTextChanged(s: Editable?) = filter(s.toString().lowercase())
+            })
         }
     }
 
@@ -139,11 +139,5 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(
             serviceAdapter.filterList(filteredList)
         }
 
-    }
-
-    private fun setupActionBar() {
-        navController = findNavController()
-        appBarConfiguration = AppBarConfiguration(navController.graph)
-        fragmentBinding.bottomNav.setupWithNavController(navController)
     }
 }

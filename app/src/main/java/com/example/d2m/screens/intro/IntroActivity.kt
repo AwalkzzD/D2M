@@ -4,24 +4,23 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
-import androidx.appcompat.app.AppCompatActivity
 import androidx.viewpager2.widget.ViewPager2
+import com.example.d2m.R
 import com.example.d2m.databinding.ActivityIntroBinding
 import com.example.d2m.screens.login.LoginActivity
+import com.example.d2m.screens.utils.BaseActivity
+import com.example.d2m.screens.utils.BaseViewModel
 import com.example.d2m.screens.utils.IntroPagerAdapter
 import com.google.android.material.tabs.TabLayoutMediator
 
-class IntroActivity : AppCompatActivity() {
-
-    private lateinit var introBinding: ActivityIntroBinding
+class IntroActivity : BaseActivity<ActivityIntroBinding, BaseViewModel>(
+    R.layout.activity_intro, BaseViewModel::class.java
+) {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        introBinding = ActivityIntroBinding.inflate(layoutInflater)
-        setContentView(introBinding.root)
-
-        introBinding.apply {
+        activityBinding.apply {
 
             introViewPager.adapter = IntroPagerAdapter()
 
@@ -41,7 +40,7 @@ class IntroActivity : AppCompatActivity() {
 
         }
 
-        introBinding.getStartedButton.setOnClickListener {
+        activityBinding.getStartedButton.setOnClickListener {
             setSharedPrefs()
             startActivity(Intent(this, LoginActivity::class.java))
         }

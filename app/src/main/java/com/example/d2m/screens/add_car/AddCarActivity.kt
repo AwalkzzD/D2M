@@ -10,7 +10,6 @@ class AddCarActivity : BaseActivity<ActivityAddCarBinding, AddCarViewModel>(
 ) {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        setUpActionBarNavigation()
+        setupToolbar(activityBinding.appBar.toolbar, "Add Car", false)
     }
 }

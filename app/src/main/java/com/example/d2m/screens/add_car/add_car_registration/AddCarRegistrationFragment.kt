@@ -6,6 +6,7 @@ import com.example.d2m.R
 import com.example.d2m.data.local.car.CarRegistration
 import com.example.d2m.databinding.FragmentAddCarRegistrationBinding
 import com.example.d2m.screens.add_car.AddCarViewModel
+import com.example.d2m.screens.utils.BaseActivity
 import com.example.d2m.screens.utils.BaseFragment
 
 class AddCarRegistrationFragment :
@@ -14,10 +15,16 @@ class AddCarRegistrationFragment :
     ) {
 
     private lateinit var carRegistration: CarRegistration
+
     private val addCarViewModel: AddCarViewModel by activityViewModels()
 
     override fun setUpView() {
+        setUpToolBar()
         setupListeners()
+    }
+
+    private fun setUpToolBar() {
+        (activity as BaseActivity<*, *>).customiseToolbar("Add Car", false)
     }
 
     private fun setupListeners() {

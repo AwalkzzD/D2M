@@ -13,11 +13,10 @@ class HomeActivity : BaseActivity<ActivityHomeBinding, HomeActivityViewModel>(
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        initViewModel()
-        setUpActionBarNavigation()
+        setSharedPrefs()
     }
 
-    private fun initViewModel() {
+    private fun setSharedPrefs() {
         val userID = getSharedPreferences("userData", Context.MODE_PRIVATE)?.getString("userID", "")
         if (userID != null) {
             activityViewModel.requestUserData(userID)

@@ -10,9 +10,10 @@ import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 
+private const val TAG = "BaseFragment"
+
 abstract class BaseFragment<VB : ViewDataBinding, VM : BaseViewModel>(
-    @LayoutRes private val layoutId: Int,
-    private val viewModelClass: Class<VM>
+    @LayoutRes private val layoutId: Int, private val viewModelClass: Class<VM>
 ) : Fragment() {
 
     private lateinit var binding: VB
@@ -21,30 +22,40 @@ abstract class BaseFragment<VB : ViewDataBinding, VM : BaseViewModel>(
     protected val fragmentBinding: VB get() = binding
     protected val fragmentViewModel: VM get() = viewModel
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        init()
-    }
-
-    private fun init() {
-        viewModel = ViewModelProvider(requireActivity())[viewModelClass]
+    private fun getViewModel(): VM {
+        if (!::viewModel.isInitialized) {
+            viewModel = ViewModelProvider(requireActivity())[viewModelClass]
+        }
+        return viewModel
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
-        binding = DataBindingUtil.inflate(inflater, layoutId, container, false)
-        onCreateSetup()
+
+        if (!::binding.isInitialized) {
+            binding = DataBindingUtil.inflate(inflater, layoutId, container, false)
+        }
         return binding.root
+
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        viewModel = getViewModel()
         setUpView()
+
     }
 
-    open fun onCreateSetup() {}
+    fun getActivityViewModel(): BaseViewModel {
+        return ((activity as BaseActivity<*, *>).getViewModel())
+    }
+
+    fun showToast(message: String, duration: Int) {
+        (activity as BaseActivity<*, *>).showToast(message, duration)
+    }
+
     open fun setUpView() {}
 
 }

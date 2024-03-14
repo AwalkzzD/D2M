@@ -11,4 +11,6 @@ object AppConstants {
     const val DEVICE_TOKEN = "123ASDFSFFSAFSSSSS"
     const val DEVICE_TYPE = "android"
 
+    const val PHONE_NUM_LENGTH = 10
+
 }

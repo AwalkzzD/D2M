@@ -7,15 +7,12 @@ import android.graphics.Typeface
 import android.os.CountDownTimer
 import android.util.Log
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.activityViewModels
-import androidx.navigation.fragment.findNavController
-import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.setupActionBarWithNavController
 import com.example.d2m.R
 import com.example.d2m.databinding.FragmentOtpBinding
 import com.example.d2m.screens.add_car.AddCarActivity
 import com.example.d2m.screens.home.HomeActivity
+import com.example.d2m.screens.utils.BaseActivity
 import com.example.d2m.screens.utils.BaseFragment
 import java.util.concurrent.TimeUnit
 
@@ -27,45 +24,16 @@ class OtpFragment : BaseFragment<FragmentOtpBinding, OtpViewModel>(
     private lateinit var timer: CountDownTimer
     private val loginDetailsViewModel: LoginDetailsViewModel by activityViewModels()
 
-    override fun onCreateSetup() {
-        super.onCreateSetup()
-        setupActionBar()
-    }
-
     override fun setUpView() {
+        setUpToolBar()
         initViewModel()
         sendOtp()
         startResendTimer()
         setupClickListener()
     }
 
-    private fun setupClickListener() {
-        fragmentBinding.resendCodeLink.setOnClickListener {
-            sendOtp()
-        }
-
-        fragmentBinding.signIn.setOnClickListener {
-            fragmentViewModel.verifyOtp(
-                loginDetailsViewModel.phoneNum.value.toString(), getOtp()
-            )
-        }
-    }
-
-    private fun setupActionBar() {
-        (activity as AppCompatActivity).apply {
-            setSupportActionBar(fragmentBinding.appBar.toolbar)
-            supportActionBar?.setDisplayShowTitleEnabled(false)
-            setupActionBarWithNavController(
-                findNavController(), AppBarConfiguration(findNavController().graph)
-            )
-        }
-    }
-
-    private fun sendOtp() {
-        fragmentViewModel.sendOtp(
-            loginDetailsViewModel.phoneNum.value.toString(),
-            loginDetailsViewModel.getWhatsappUpdates.value.toString()
-        )
+    private fun setUpToolBar() {
+        (activity as BaseActivity<*, *>).setupToolbar(fragmentBinding.appBar.toolbar, "", true)
     }
 
     private fun initViewModel() {
@@ -75,23 +43,16 @@ class OtpFragment : BaseFragment<FragmentOtpBinding, OtpViewModel>(
                 fragmentBinding.otpLayout.isEnabled = true
 
                 it.sendOtpResponseData?.let { otpVerifyObj ->
-                    Toast.makeText(
-                        requireActivity(), otpVerifyObj.otp.toString(), Toast.LENGTH_LONG
-                    ).show()
+                    showToast(otpVerifyObj.otp.toString(), Toast.LENGTH_LONG)
                 }
             } else {
-                Toast.makeText(
-                    requireActivity(), it.message, Toast.LENGTH_LONG
-                ).show()
+                showToast(it.message, Toast.LENGTH_LONG)
             }
         }
 
         fragmentViewModel.verifyOtpResponseLiveData.observe(viewLifecycleOwner) {
             if (it.success) {
-
-                Toast.makeText(
-                    requireActivity(), "Verification Successful", Toast.LENGTH_LONG
-                ).show()
+                showToast("Verification Successful", Toast.LENGTH_LONG)
 
                 setSharedPrefs(
                     it.verifyOtpResponseData?.id.toString(), it.verifyOtpResponseData?.token ?: ""
@@ -100,38 +61,24 @@ class OtpFragment : BaseFragment<FragmentOtpBinding, OtpViewModel>(
                 if (it.verifyOtpResponseData != null) {
                     if (it.verifyOtpResponseData.totalCars > 0) {
                         startActivity(Intent(activity, HomeActivity::class.java))
+                        requireActivity().finish()
                     } else {
                         startActivity(Intent(activity, AddCarActivity::class.java))
+                        requireActivity().finish()
                     }
                 }
 
             } else {
-                Toast.makeText(
-                    requireActivity(), it.message, Toast.LENGTH_LONG
-                ).show()
+                showToast(it.message, Toast.LENGTH_LONG)
             }
         }
     }
 
-    private fun setSharedPrefs(userID: String, token: String) {
-        Log.d(TAG, "setSharedPrefs: $userID")
-        val sharedPreferences = activity?.getSharedPreferences("userData", MODE_PRIVATE)
-        sharedPreferences?.edit()?.run {
-            putString("userID", userID)
-            putString("token", token)
-            apply()
-        }
-    }
-
-    private fun getOtp(): String {
-        var otpCode = ""
-        fragmentBinding.apply {
-            otpCode = otpCode.plus(otpDigit1.text.toString())
-            otpCode = otpCode.plus(otpDigit2.text.toString())
-            otpCode = otpCode.plus(otpDigit3.text.toString())
-            otpCode = otpCode.plus(otpDigit4.text.toString())
-        }
-        return otpCode
+    private fun sendOtp() {
+        fragmentViewModel.sendOtp(
+            loginDetailsViewModel.phoneNum.value.toString(),
+            loginDetailsViewModel.getWhatsappUpdates.value.toString()
+        )
     }
 
     private fun startResendTimer() {
@@ -156,5 +103,38 @@ class OtpFragment : BaseFragment<FragmentOtpBinding, OtpViewModel>(
                 fragmentBinding.resendCodeLink.setTypeface(null, Typeface.ITALIC)
             }
         }.start()
+    }
+
+    private fun setupClickListener() {
+        fragmentBinding.resendCodeLink.setOnClickListener {
+            sendOtp()
+        }
+
+        fragmentBinding.signIn.setOnClickListener {
+            fragmentViewModel.verifyOtp(
+                loginDetailsViewModel.phoneNum.value.toString(), getOtp()
+            )
+        }
+    }
+
+    private fun getOtp(): String {
+        var otpCode = ""
+        fragmentBinding.apply {
+            otpCode = otpCode.plus(otpDigit1.text.toString())
+            otpCode = otpCode.plus(otpDigit2.text.toString())
+            otpCode = otpCode.plus(otpDigit3.text.toString())
+            otpCode = otpCode.plus(otpDigit4.text.toString())
+        }
+        return otpCode
+    }
+
+    private fun setSharedPrefs(userID: String, token: String) {
+        Log.d(TAG, "setSharedPrefs: $userID")
+        val sharedPreferences = activity?.getSharedPreferences("userData", MODE_PRIVATE)
+        sharedPreferences?.edit()?.run {
+            putString("userID", userID)
+            putString("token", token)
+            apply()
+        }
     }
 }

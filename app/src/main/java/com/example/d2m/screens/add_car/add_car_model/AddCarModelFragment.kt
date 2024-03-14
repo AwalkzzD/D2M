@@ -13,12 +13,12 @@ import com.example.d2m.data.local.car.CarBrand
 import com.example.d2m.data.local.car.CarModel
 import com.example.d2m.databinding.FragmentAddCarModelBinding
 import com.example.d2m.screens.add_car.AddCarViewModel
+import com.example.d2m.screens.utils.BaseActivity
 import com.example.d2m.screens.utils.BaseFragment
 import com.example.d2m.screens.utils.GenericDataAdapter
 
 class AddCarModelFragment : BaseFragment<FragmentAddCarModelBinding, AddCarModelViewModel>(
-    R.layout.fragment_add_car_model,
-    AddCarModelViewModel::class.java
+    R.layout.fragment_add_car_model, AddCarModelViewModel::class.java
 ) {
 
     private lateinit var carModelsAdapter: GenericDataAdapter<CarModel>
@@ -28,43 +28,14 @@ class AddCarModelFragment : BaseFragment<FragmentAddCarModelBinding, AddCarModel
     private val modelList: MutableList<CarModel> = mutableListOf()
 
     override fun setUpView() {
+        setUpToolBar()
         initViewModel()
         initRecyclerView()
         setupListeners()
-
-        fragmentBinding.selectedBrand.text = addCarViewModel.carBrand.value?.carBrandName
     }
 
-    private fun setupListeners() {
-        fragmentBinding.modelSearchView.searchItem.apply {
-            hint = "Search Model"
-            addTextChangedListener(object : TextWatcher {
-                override fun beforeTextChanged(
-                    s: CharSequence?, start: Int, count: Int, after: Int
-                ) {
-
-                }
-
-                override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-
-                }
-
-                override fun afterTextChanged(s: Editable?) = filter(s.toString().lowercase())
-            })
-        }
-    }
-
-    private fun initRecyclerView() {
-        carModelsAdapter =
-            GenericDataAdapter(modelList, R.layout.model_list_item) { carModel: CarModel ->
-                addCarViewModel.carModel.value = carModel
-                findNavController().navigate(R.id.action_addCarModelFragment_to_addFuelTypeFragment)
-            }
-
-        fragmentBinding.carModelRv.apply {
-            layoutManager = GridLayoutManager(requireActivity(), 2)
-            adapter = carModelsAdapter
-        }
+    private fun setUpToolBar() {
+        (activity as BaseActivity<*, *>).customiseToolbar("Select Model", true)
     }
 
     private fun initViewModel() {
@@ -83,6 +54,37 @@ class AddCarModelFragment : BaseFragment<FragmentAddCarModelBinding, AddCarModel
         }
         fragmentViewModel.postLiveData(modelList)
 
+        fragmentBinding.selectedBrand.text = addCarViewModel.carBrand.value?.carBrandName
+
+    }
+
+    private fun initRecyclerView() {
+        carModelsAdapter =
+            GenericDataAdapter(modelList, R.layout.model_list_item) { carModel: CarModel ->
+                addCarViewModel.carModel.value = carModel
+                findNavController().navigate(R.id.action_addCarModelFragment_to_addFuelTypeFragment)
+            }
+
+        fragmentBinding.carModelRv.apply {
+            layoutManager = GridLayoutManager(requireActivity(), 2)
+            adapter = carModelsAdapter
+        }
+    }
+
+    private fun setupListeners() {
+        fragmentBinding.modelSearchView.searchItem.apply {
+            hint = "Search Model"
+            addTextChangedListener(object : TextWatcher {
+                override fun beforeTextChanged(
+                    s: CharSequence?, start: Int, count: Int, after: Int
+                ) = Unit
+
+                override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) =
+                    Unit
+
+                override fun afterTextChanged(s: Editable?) = filter(s.toString().lowercase())
+            })
+        }
     }
 
     private fun filter(text: String) {
