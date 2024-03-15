@@ -20,6 +20,9 @@ class SplashScreen : AppCompatActivity() {
         val sharedPreferences = getSharedPreferences("newUserTrack", Context.MODE_PRIVATE)
         val isNewUser = sharedPreferences.getBoolean("isNewUser", true)
 
+        val sharedPreferencesLogin = getSharedPreferences("userData", Context.MODE_PRIVATE)
+        val isLoggedIn = sharedPreferencesLogin.getBoolean("isLoggedIn", false)
+
         if (isNewUser) {
 
             Handler(Looper.getMainLooper()).postDelayed({
@@ -29,7 +32,13 @@ class SplashScreen : AppCompatActivity() {
 
         } else {
 
-            startActivity(Intent(this, LoginActivity::class.java))
+            if (isLoggedIn) {
+                startActivity(Intent(this, HomeActivity::class.java))
+            } else {
+                startActivity(Intent(this, LoginActivity::class.java))
+            }
+
+//            startActivity(Intent(this, LoginActivity::class.java))
 //            startActivity(Intent(this, AddCarActivity::class.java))
 //            startActivity(Intent(this, HomeActivity::class.java))
 //            startActivity(Intent(this, IntroActivity::class.java))

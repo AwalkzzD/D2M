@@ -17,7 +17,7 @@
         android:title="@string/orders" />
 
     <item
-        android:id="@+id/accountFragment"
+        android:id="@+id/profileFragment"
         android:icon="@drawable/img_account"
         android:title="@string/account" />
 

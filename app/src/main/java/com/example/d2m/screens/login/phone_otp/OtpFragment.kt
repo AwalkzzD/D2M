@@ -55,7 +55,14 @@ class OtpFragment : BaseFragment<FragmentOtpBinding, OtpViewModel>(
                 showToast("Verification Successful", Toast.LENGTH_LONG)
 
                 setSharedPrefs(
-                    it.verifyOtpResponseData?.id.toString(), it.verifyOtpResponseData?.token ?: ""
+                    it.verifyOtpResponseData?.id.toString(),
+                    it.verifyOtpResponseData?.token.toString(),
+                    it.verifyOtpResponseData?.email.toString(),
+                    it.verifyOtpResponseData?.totalCars.toString(),
+                    it.verifyOtpResponseData?.fullName.toString(),
+                    it.verifyOtpResponseData?.isSubscribedUser.toString(),
+                    it.verifyOtpResponseData?.subscribePlanName.toString()
+
                 )
 
                 if (it.verifyOtpResponseData != null) {
@@ -128,13 +135,27 @@ class OtpFragment : BaseFragment<FragmentOtpBinding, OtpViewModel>(
         return otpCode
     }
 
-    private fun setSharedPrefs(userID: String, token: String) {
-        Log.d(TAG, "setSharedPrefs: $userID")
+    private fun setSharedPrefs(
+        userID: String,
+        token: String,
+        email: String,
+        totalCars: String,
+        fullName: String,
+        isSubscribedUser: String,
+        subscribePlanName: String
+    ) {
         val sharedPreferences = activity?.getSharedPreferences("userData", MODE_PRIVATE)
         sharedPreferences?.edit()?.run {
+            putBoolean("isLoggedIn", true)
             putString("userID", userID)
             putString("token", token)
+            putString("email", email)
+            putString("totalCars", totalCars)
+            putString("fullName", fullName)
+            putString("isSubscribedUser", isSubscribedUser)
+            putString("subscribePlanName", subscribePlanName)
             apply()
         }
+        Log.d(TAG, "setSharedPrefs: $totalCars")
     }
 }

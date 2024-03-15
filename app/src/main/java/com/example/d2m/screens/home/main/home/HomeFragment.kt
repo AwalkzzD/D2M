@@ -1,7 +1,9 @@
 package com.example.d2m.screens.home.main.home
 
+import android.content.Context
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.fragment.app.activityViewModels
@@ -14,11 +16,14 @@ import com.example.d2m.data.local.car.CarBrand
 import com.example.d2m.data.local.home.Banner
 import com.example.d2m.data.local.home.Service
 import com.example.d2m.databinding.FragmentHomeBinding
+import com.example.d2m.screens.account.ProfileViewModel
 import com.example.d2m.screens.home.HomeActivityViewModel
 import com.example.d2m.screens.home.main.service.ServiceViewModel
 import com.example.d2m.screens.utils.BaseActivity
 import com.example.d2m.screens.utils.BaseFragment
 import com.example.d2m.screens.utils.GenericDataAdapter
+
+private const val TAG = "HomeFragment"
 
 class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(
     R.layout.fragment_home, HomeViewModel::class.java
@@ -30,6 +35,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(
     private lateinit var navController: NavController
 
     private val serviceViewModel: ServiceViewModel by activityViewModels()
+    private val profileViewModel: ProfileViewModel by activityViewModels()
 
     private val bannerList: MutableList<Banner> = mutableListOf()
     private val servicesList: MutableList<Service> = mutableListOf()
@@ -40,6 +46,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(
         initViewModel()
         initRecyclerView()
         setupListeners()
+        loadUserProfileData()
     }
 
     private fun setUpToolBar() {
@@ -138,4 +145,19 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(
         }
 
     }
+
+    private fun loadUserProfileData() {
+        val sharedPrefs = activity?.getSharedPreferences("userData", Context.MODE_PRIVATE)
+        profileViewModel.loadUserProfile(
+            sharedPrefs?.getString("userID", "").toString(),
+            sharedPrefs?.getString("token", "").toString(),
+            sharedPrefs?.getString("email", "").toString(),
+            sharedPrefs?.getString("totalCars", "").toString(),
+            sharedPrefs?.getString("fullName", "").toString(),
+            sharedPrefs?.getString("isSubscribedUser", "").toString(),
+            sharedPrefs?.getString("subscribePlanName", "").toString()
+        )
+        Log.d(TAG, "loadUserProfileData: ${sharedPrefs?.getString("userID", "").toString()}")
+    }
+
 }
