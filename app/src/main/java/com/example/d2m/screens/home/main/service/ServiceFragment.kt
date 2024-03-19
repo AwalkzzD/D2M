@@ -1,6 +1,7 @@
 package com.example.d2m.screens.home.main.service
 
 import android.widget.Toast
+import androidx.navigation.fragment.findNavController
 import com.example.d2m.R
 import com.example.d2m.data.local.home.ServiceX
 import com.example.d2m.databinding.FragmentServiceBinding
@@ -20,13 +21,12 @@ class ServiceFragment : BaseFragment<FragmentServiceBinding, ServiceViewModel>(
         setUpToolBar()
         initViewModel()
         initRecyclerView()
+        setUpListeners()
     }
 
     private fun setUpToolBar() {
         (activity as BaseActivity<*, *>).setupToolbar(
-            fragmentBinding.appBar.toolbar,
-            "Service",
-            true
+            fragmentBinding.appBar.toolbar, "Service", true
         )
     }
 
@@ -57,6 +57,12 @@ class ServiceFragment : BaseFragment<FragmentServiceBinding, ServiceViewModel>(
 
         fragmentBinding.servicesRv.apply {
             adapter = serviceXAdapter
+        }
+    }
+
+    private fun setUpListeners() {
+        fragmentBinding.cartBottomDialog.viewCart.setOnClickListener {
+            findNavController().navigate(R.id.action_serviceFragment_to_cartFragment)
         }
     }
 }

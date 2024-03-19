@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".screens.home.main.service.cart.CartFragment">
+
+    <data>
+
+        <variable
+            name="cart"
+            type="com.example.d2m.screens.home.main.service.ServiceViewModel" />
+    </data>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <include
+            android:id="@+id/app_bar"
+            layout="@layout/add_car_app_bar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/cart_items_rv"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:overScrollMode="never"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    tools:itemCount="2"
+                    tools:listitem="@layout/cart_list_item" />
+
+                <EditText
+                    android:id="@+id/services_instruction"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/cart_items_rv"
+                    android:layout_margin="10dp"
+                    android:background="@drawable/rounded_rectangle_button"
+                    android:hint="@string/services_instructions_text"
+                    android:inputType="text"
+                    android:textAlignment="textStart"
+                    android:textColor="@color/black"
+                    android:textColorHint="@color/gray"
+                    android:textSize="17sp" />
+
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/apply_coupon_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/services_instruction"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginEnd="10dp"
+                    android:backgroundTint="@color/white_gray"
+                    android:drawableRight="@drawable/ic_next"
+                    app:cornerRadius="5dp"
+                    app:strokeColor="@color/green"
+                    app:strokeWidth="2dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:padding="15dp">
+
+                        <ImageView
+                            android:layout_width="20dp"
+                            android:layout_height="match_parent"
+                            android:gravity="center_vertical"
+                            android:src="@drawable/ic_percentage" />
+
+                        <TextView
+                            android:id="@+id/apply_coupon_button"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginStart="20dp"
+                            android:drawableRight="@drawable/ic_next"
+                            android:gravity="center_vertical"
+                            android:text="@string/apply_coupon_button_text"
+                            android:textColor="@color/black"
+                            android:textSize="17sp" />
+
+                    </LinearLayout>
+
+                </com.google.android.material.card.MaterialCardView>
+
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/pay_using_reward_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/apply_coupon_layout"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:backgroundTint="@color/white_gray"
+                    android:textAlignment="viewStart"
+                    app:cornerRadius="5dp"
+                    app:strokeColor="@color/green"
+                    app:strokeWidth="2dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:padding="15dp">
+
+                        <CheckBox
+                            android:id="@+id/pay_using_reward_checkbox"
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:gravity="center_vertical" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginStart="20dp"
+                            android:gravity="center_vertical"
+                            android:text="@string/pay_using_reward_coin_text"
+                            android:textColor="@color/black"
+                            android:textSize="17sp" />
+
+                    </LinearLayout>
+
+                </com.google.android.material.card.MaterialCardView>
+
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/bill_details_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/pay_using_reward_layout"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginBottom="20dp"
+                    android:backgroundTint="@color/white_gray"
+                    android:textAlignment="viewStart"
+                    app:cornerRadius="5dp"
+                    app:strokeWidth="2dp">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:padding="20dp">
+
+                        <TextView
+                            android:id="@+id/bill_details_tv"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:text="@string/bill_details_text"
+                            android:textColor="@color/black"
+                            android:textSize="17sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/total_you_pay_tv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_below="@id/bill_details_tv"
+                            android:layout_alignParentStart="true"
+                            android:layout_marginTop="20dp"
+                            android:text="@string/total_you_pay_text"
+                            android:textColor="@color/black"
+                            android:textSize="17sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/total_cart_amount"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_below="@id/bill_details_tv"
+                            android:layout_alignParentEnd="true"
+                            android:layout_marginTop="20dp"
+                            android:layout_toEndOf="@id/total_you_pay_tv"
+                            android:textAlignment="viewEnd"
+                            android:textColor="@color/green"
+                            android:textSize="17sp"
+                            android:textStyle="bold"
+                            app:cartTotal="@{cart.addedServiceX}" />
+
+                    </RelativeLayout>
+
+                </com.google.android.material.card.MaterialCardView>
+            </RelativeLayout>
+        </ScrollView>
+    </LinearLayout>
+</layout>

@@ -26,8 +26,8 @@
 
             <ImageView
                 android:id="@+id/cart_image"
-                android:layout_width="48dp"
-                android:layout_height="48dp"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
                 android:layout_alignParentStart="true"
                 android:layout_margin="10dp"
                 android:scaleType="fitCenter"
@@ -71,12 +71,12 @@
                 android:text="@string/view_cart_text"
                 android:textColor="@color/white"
                 android:textSize="20sp"
-                android:textStyle="bold" />
+                android:textStyle="bold|italic" />
 
             <ImageButton
                 android:id="@+id/discard_card_items"
-                android:layout_width="70dp"
-                android:layout_height="70dp"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
                 android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true"
                 android:backgroundTint="@color/transparent"

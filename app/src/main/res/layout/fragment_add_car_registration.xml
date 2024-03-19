@@ -35,7 +35,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/car_registration_heading"
                 android:textColor="@color/black"
-                android:textSize="40sp"
+                android:textSize="35sp"
                 android:textStyle="bold" />
 
             <TextView
@@ -63,7 +63,7 @@
                 android:textAlignment="textStart"
                 android:textColor="@color/black"
                 android:textColorHint="@color/gray"
-                android:textSize="20sp" />
+                android:textSize="17sp" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/add_car"

@@ -37,7 +37,8 @@
                 android:layout_below="@id/model_image"
                 android:layout_centerHorizontal="true"
                 android:text="@{carModel.carModelName}"
-                android:textColor="@color/black" />
+                android:textColor="@color/black"
+                android:textSize="17sp" />
 
         </RelativeLayout>
 

@@ -44,4 +44,9 @@
     <string name="data_not_specified">Not Specified!</string>
     <string name="view_cart_text"><u>View Cart</u></string>
     <string name="logout_button_text">Logout</string>
+    <string name="services_instructions_text">Add Services Instructions (optional)</string>
+    <string name="apply_coupon_button_text">Apply Coupon</string>
+    <string name="pay_using_reward_coin_text">Pay Using Reward Coin</string>
+    <string name="total_you_pay_text">Total You Pay :</string>
+    <string name="bill_details_text">Bill Details</string>
 </resources>

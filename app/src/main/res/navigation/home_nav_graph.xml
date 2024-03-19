@@ -19,10 +19,20 @@
         android:id="@+id/serviceFragment"
         android:name="com.example.d2m.screens.home.main.service.ServiceFragment"
         android:label="Service"
-        tools:layout="@layout/fragment_service" />
+        tools:layout="@layout/fragment_service" >
+        <action
+            android:id="@+id/action_serviceFragment_to_cartFragment"
+            app:destination="@id/cartFragment"
+            app:popUpTo="@id/homeFragment" />
+    </fragment>
     <fragment
         android:id="@+id/profileFragment"
         android:name="com.example.d2m.screens.account.ProfileFragment"
         android:label="Account"
         tools:layout="@layout/fragment_profile" />
+    <fragment
+        android:id="@+id/cartFragment"
+        tools:layout="@layout/fragment_cart"
+        android:name="com.example.d2m.screens.home.main.service.cart.CartFragment"
+        android:label="CartFragment" />
 </navigation>

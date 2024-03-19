@@ -13,7 +13,6 @@ import com.example.d2m.data.local.car.FuelType
 import com.example.d2m.data.local.home.Banner
 import com.example.d2m.data.local.home.Service
 import com.example.d2m.data.local.home.ServiceX
-import com.example.d2m.screens.home.main.service.ServiceViewModel
 
 class GenericDataAdapter<T : Any>(
     private var dataList: List<T>,
@@ -21,7 +20,7 @@ class GenericDataAdapter<T : Any>(
     private val onItemClick: (T) -> Unit,
 ) : RecyclerView.Adapter<GenericDataAdapter<T>.ViewHolder>() {
 
-    lateinit var serviceViewModel: ServiceViewModel
+    lateinit var viewModel: BaseViewModel
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val inflater = LayoutInflater.from(parent.context)
@@ -37,8 +36,8 @@ class GenericDataAdapter<T : Any>(
         }
     }
 
-    fun setVM(viewModel: ServiceViewModel) {
-        serviceViewModel = viewModel
+    fun setVM(viewModel: BaseViewModel) {
+        this.viewModel = viewModel
     }
 
     fun filterList(filterList: List<T>) {
@@ -74,7 +73,7 @@ class GenericDataAdapter<T : Any>(
 
                 is ServiceX -> {
                     binding.setVariable(BR.serviceX, item)
-                    binding.setVariable(BR.serviceVM, serviceViewModel)
+                    binding.setVariable(BR.serviceVM, viewModel)
                 }
             }
             binding.executePendingBindings()

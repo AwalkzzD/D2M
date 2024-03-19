@@ -21,8 +21,7 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            >
+            android:layout_height="match_parent">
 
             <ImageView
                 android:id="@+id/service_image"
@@ -43,7 +42,7 @@
                 android:text="@{services.serviceCategoryName}"
                 android:textAlignment="center"
                 android:textColor="@color/white"
-                android:textSize="20sp" />
+                android:textSize="17sp" />
 
         </RelativeLayout>
 
