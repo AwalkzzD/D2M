@@ -2,30 +2,33 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".screens.home.main.service.cart.CartFragment">
+    tools:context=".screens.home.main.cart.CartFragment">
 
     <data>
 
         <variable
             name="cart"
-            type="com.example.d2m.screens.home.main.service.ServiceViewModel" />
+            type="com.example.d2m.screens.home.main.cart.CartViewModel" />
     </data>
 
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:orientation="vertical">
 
         <include
             android:id="@+id/app_bar"
             layout="@layout/add_car_app_bar"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true" />
 
         <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content"
+            android:layout_below="@id/app_bar"
+            android:layout_marginBottom="?attr/actionBarSize">
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -143,7 +146,7 @@
                     android:layout_marginStart="10dp"
                     android:layout_marginTop="20dp"
                     android:layout_marginEnd="10dp"
-                    android:layout_marginBottom="20dp"
+                    android:layout_marginBottom="?attr/actionBarSize"
                     android:backgroundTint="@color/white_gray"
                     android:textAlignment="viewStart"
                     app:cornerRadius="5dp"
@@ -187,13 +190,20 @@
                             android:textAlignment="viewEnd"
                             android:textColor="@color/green"
                             android:textSize="17sp"
-                            android:textStyle="bold"
-                            app:cartTotal="@{cart.addedServiceX}" />
+                            android:textStyle="bold" />
 
                     </RelativeLayout>
 
                 </com.google.android.material.card.MaterialCardView>
             </RelativeLayout>
         </ScrollView>
-    </LinearLayout>
+
+        <include
+            android:id="@+id/cart_order_bottom"
+            layout="@layout/cart_order_bottom"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true" />
+
+    </RelativeLayout>
 </layout>

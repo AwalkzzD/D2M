@@ -1,20 +1,22 @@
 package com.example.d2m.screens.home.main.service
 
+import android.content.Context
 import android.widget.Toast
 import androidx.navigation.fragment.findNavController
 import com.example.d2m.R
 import com.example.d2m.data.local.home.ServiceX
+import com.example.d2m.data.remote.otp.verify.VerifyOtpResponseData
 import com.example.d2m.databinding.FragmentServiceBinding
 import com.example.d2m.screens.utils.BaseActivity
 import com.example.d2m.screens.utils.BaseFragment
 import com.example.d2m.screens.utils.GenericDataAdapter
+import com.google.gson.Gson
 
 class ServiceFragment : BaseFragment<FragmentServiceBinding, ServiceViewModel>(
     R.layout.fragment_service, ServiceViewModel::class.java
 ) {
 
     private lateinit var serviceXAdapter: GenericDataAdapter<ServiceX>
-
     private var serviceXList: MutableList<ServiceX> = mutableListOf()
 
     override fun setUpView() {
@@ -43,6 +45,7 @@ class ServiceFragment : BaseFragment<FragmentServiceBinding, ServiceViewModel>(
             }
         }
 
+
         fragmentBinding.cartBottomDialog.cart = fragmentViewModel
     }
 
@@ -61,8 +64,16 @@ class ServiceFragment : BaseFragment<FragmentServiceBinding, ServiceViewModel>(
     }
 
     private fun setUpListeners() {
+        val sharedPreferences = activity?.getSharedPreferences("userData", Context.MODE_PRIVATE)
+        val userData = Gson().fromJson(
+            sharedPreferences?.getString("verifiedUser", ""), VerifyOtpResponseData::class.java
+        )
         fragmentBinding.cartBottomDialog.viewCart.setOnClickListener {
-            findNavController().navigate(R.id.action_serviceFragment_to_cartFragment)
+            if (userData.defaultAddress == null) {
+                findNavController().navigate(R.id.action_serviceFragment_to_addressDetails)
+            } else {
+                findNavController().navigate(R.id.action_serviceFragment_to_cartFragment)
+            }
         }
     }
 }

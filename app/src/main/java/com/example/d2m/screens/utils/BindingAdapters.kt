@@ -7,9 +7,9 @@ import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.core.net.toUri
 import androidx.databinding.BindingAdapter
-import androidx.databinding.ObservableArrayList
 import com.example.d2m.R
 import com.example.d2m.data.local.home.ServiceX
+import com.example.d2m.screens.home.main.cart.CartViewModel
 import com.example.d2m.screens.home.main.service.ServiceViewModel
 import com.squareup.picasso.Picasso
 
@@ -87,14 +87,13 @@ fun Button.addToCart(serviceX: ServiceX, serviceViewModel: ServiceViewModel) {
             "Remove"
         }
     }
-
 }
 
 @BindingAdapter("cartTotal")
-fun TextView.setCartTotal(addedServiceX: ObservableArrayList<ServiceX>) {
+fun TextView.setCartTotal(addedCartServices: List<ServiceX>) {
 
     var cartTotal = 0.0
-    for (serviceX in addedServiceX) {
+    for (serviceX in addedCartServices) {
         cartTotal += serviceX.price
     }
     this.text = buildString {
@@ -104,11 +103,9 @@ fun TextView.setCartTotal(addedServiceX: ObservableArrayList<ServiceX>) {
 
 }
 
-@BindingAdapter("removeAll")
-fun ImageButton.removeAllService(serviceViewModel: ServiceViewModel) {
-
+@BindingAdapter(value = ["removeService", "fromVM"], requireAll = true)
+fun ImageButton.removeFromCart(serviceX: ServiceX, cartViewModel: CartViewModel) {
     this.setOnClickListener {
-        serviceViewModel.removeAllServices()
+        cartViewModel.removeService(serviceX)
     }
-
 }

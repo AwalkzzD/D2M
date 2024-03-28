@@ -5,7 +5,6 @@ import android.content.Intent
 import android.graphics.Color
 import android.graphics.Typeface
 import android.os.CountDownTimer
-import android.util.Log
 import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import com.example.d2m.R
@@ -14,6 +13,7 @@ import com.example.d2m.screens.add_car.AddCarActivity
 import com.example.d2m.screens.home.HomeActivity
 import com.example.d2m.screens.utils.BaseActivity
 import com.example.d2m.screens.utils.BaseFragment
+import com.google.gson.Gson
 import java.util.concurrent.TimeUnit
 
 private const val TAG = "OtpFragment"
@@ -54,16 +54,7 @@ class OtpFragment : BaseFragment<FragmentOtpBinding, OtpViewModel>(
             if (it.success) {
                 showToast("Verification Successful", Toast.LENGTH_LONG)
 
-                setSharedPrefs(
-                    it.verifyOtpResponseData?.id.toString(),
-                    it.verifyOtpResponseData?.token.toString(),
-                    it.verifyOtpResponseData?.email.toString(),
-                    it.verifyOtpResponseData?.totalCars.toString(),
-                    it.verifyOtpResponseData?.fullName.toString(),
-                    it.verifyOtpResponseData?.isSubscribedUser.toString(),
-                    it.verifyOtpResponseData?.subscribePlanName.toString()
-
-                )
+                setSharedPrefs(Gson().toJson(it.verifyOtpResponseData))
 
                 if (it.verifyOtpResponseData != null) {
                     if (it.verifyOtpResponseData.totalCars > 0) {
@@ -136,26 +127,13 @@ class OtpFragment : BaseFragment<FragmentOtpBinding, OtpViewModel>(
     }
 
     private fun setSharedPrefs(
-        userID: String,
-        token: String,
-        email: String,
-        totalCars: String,
-        fullName: String,
-        isSubscribedUser: String,
-        subscribePlanName: String
+        verifyOtpResponseData: String
     ) {
         val sharedPreferences = activity?.getSharedPreferences("userData", MODE_PRIVATE)
         sharedPreferences?.edit()?.run {
+            putString("verifiedUser", verifyOtpResponseData)
             putBoolean("isLoggedIn", true)
-            putString("userID", userID)
-            putString("token", token)
-            putString("email", email)
-            putString("totalCars", totalCars)
-            putString("fullName", fullName)
-            putString("isSubscribedUser", isSubscribedUser)
-            putString("subscribePlanName", subscribePlanName)
             apply()
         }
-        Log.d(TAG, "setSharedPrefs: $totalCars")
     }
 }

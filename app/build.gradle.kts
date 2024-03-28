@@ -42,6 +42,8 @@ android {
 
 dependencies {
 
+    implementation("androidx.legacy:legacy-support-v4:1.0.0")
+    implementation("androidx.fragment:fragment-ktx:1.5.6")
     val navVersion = "2.7.7"
 
     implementation("androidx.core:core-ktx:1.12.0")

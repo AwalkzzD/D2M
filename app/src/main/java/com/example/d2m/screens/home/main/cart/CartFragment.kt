@@ -1,4 +1,4 @@
-package com.example.d2m.screens.home.main.service.cart
+package com.example.d2m.screens.home.main.cart
 
 import android.widget.Toast
 import androidx.fragment.app.activityViewModels
@@ -8,11 +8,12 @@ import com.example.d2m.databinding.FragmentCartBinding
 import com.example.d2m.screens.home.main.service.ServiceViewModel
 import com.example.d2m.screens.utils.BaseActivity
 import com.example.d2m.screens.utils.BaseFragment
-import com.example.d2m.screens.utils.BaseViewModel
 import com.example.d2m.screens.utils.GenericDataAdapter
 
-class CartFragment : BaseFragment<FragmentCartBinding, BaseViewModel>(
-    R.layout.fragment_cart, BaseViewModel::class.java
+private const val TAG = "CartFragment"
+
+class CartFragment : BaseFragment<FragmentCartBinding, CartViewModel>(
+    R.layout.fragment_cart, CartViewModel::class.java
 ) {
 
     private lateinit var cartServiceXAdapter: GenericDataAdapter<ServiceX>
@@ -25,6 +26,7 @@ class CartFragment : BaseFragment<FragmentCartBinding, BaseViewModel>(
         setUpToolBar()
         initViewModel()
         initRecyclerView()
+        seUpListeners()
     }
 
     private fun setUpToolBar() {
@@ -33,13 +35,37 @@ class CartFragment : BaseFragment<FragmentCartBinding, BaseViewModel>(
         )
     }
 
-    private fun initViewModel() {/*serviceViewModel.serviceXLiveData.observe(viewLifecycleOwner) {
+    private fun initViewModel() {
+
+        fragmentViewModel.addedCartServices.postValue(serviceViewModel.addedServiceX)
+
+        fragmentViewModel.addedCartServices.observe(viewLifecycleOwner) {
             cartServiceXList.clear()
             cartServiceXList.addAll(it)
             cartServiceXAdapter.notifyDataSetChanged()
-        }*/
 
-        fragmentBinding.cart = serviceViewModel
+            updateCartAmount(it)
+        }
+
+        fragmentBinding.cart = fragmentViewModel
+    }
+
+    private fun updateCartAmount(addedCartServices: ArrayList<ServiceX>) {
+        var cartTotal = 0.0
+        for (serviceX in addedCartServices) {
+            cartTotal += serviceX.price
+        }
+
+        fragmentBinding.totalCartAmount.text = buildString {
+            append("₹")
+            append(cartTotal)
+        }
+
+        fragmentBinding.cartOrderBottom.cartTotal.text = buildString {
+            append("₹ ")
+            append(cartTotal)
+        }
+
     }
 
     private fun initRecyclerView() {
@@ -49,14 +75,16 @@ class CartFragment : BaseFragment<FragmentCartBinding, BaseViewModel>(
             showToast(serviceX.serviceTitle, Toast.LENGTH_SHORT)
         }
 
-        cartServiceXAdapter.setVM(serviceViewModel)
-
-        cartServiceXList.clear()
-        cartServiceXList.addAll(serviceViewModel.addedServiceX)
-        cartServiceXAdapter.notifyDataSetChanged()
+        cartServiceXAdapter.setVM(fragmentViewModel)
 
         fragmentBinding.cartItemsRv.apply {
             adapter = cartServiceXAdapter
+        }
+    }
+
+    private fun seUpListeners() {
+        fragmentBinding.cartOrderBottom.payNowButton.setOnClickListener {
+            showToast("Redirecting to Payment Gateway", Toast.LENGTH_LONG)
         }
     }
 }

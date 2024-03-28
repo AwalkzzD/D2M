@@ -38,11 +38,6 @@ class SplashScreen : AppCompatActivity() {
                 startActivity(Intent(this, LoginActivity::class.java))
             }
 
-//            startActivity(Intent(this, LoginActivity::class.java))
-//            startActivity(Intent(this, AddCarActivity::class.java))
-//            startActivity(Intent(this, HomeActivity::class.java))
-//            startActivity(Intent(this, IntroActivity::class.java))
-
             finish()
 
         }

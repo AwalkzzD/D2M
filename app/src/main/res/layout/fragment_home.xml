@@ -7,20 +7,21 @@
 
     </data>
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:layout_height="wrap_content">
 
         <include
             android:id="@+id/app_bar"
             layout="@layout/home_app_bar"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true" />
 
         <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:layout_below="@id/app_bar">
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -63,7 +64,7 @@
                     android:overScrollMode="never"
                     app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
                     app:spanCount="2"
-                    tools:itemCount="20"
+                    tools:itemCount="4"
                     tools:listitem="@layout/services_list_item" />
 
                 <include
@@ -73,18 +74,20 @@
                     android:layout_height="match_parent"
                     android:layout_below="@id/available_services_tv" />
 
-                <com.google.android.material.bottomnavigation.BottomNavigationView
-                    android:id="@+id/bottom_nav"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentBottom="true"
-                    android:background="@color/white"
-                    app:itemActiveIndicatorStyle="@color/bnv_tab_item"
-                    app:itemIconTint="@color/bnv_tab_item"
-                    app:itemTextColor="@color/bnv_tab_item"
-                    app:labelVisibilityMode="labeled"
-                    app:menu="@menu/bottom_nav_view" />
             </RelativeLayout>
         </ScrollView>
-    </LinearLayout>
+
+        <com.google.android.material.bottomnavigation.BottomNavigationView
+            android:id="@+id/bottom_nav"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:background="@color/white"
+            app:itemActiveIndicatorStyle="@color/bnv_tab_item"
+            app:itemIconTint="@color/bnv_tab_item"
+            app:itemTextColor="@color/bnv_tab_item"
+            app:labelVisibilityMode="labeled"
+            app:menu="@menu/bottom_nav_view" />
+
+    </RelativeLayout>
 </layout>

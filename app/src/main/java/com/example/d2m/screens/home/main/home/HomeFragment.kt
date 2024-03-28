@@ -3,7 +3,6 @@ package com.example.d2m.screens.home.main.home
 import android.content.Context
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.fragment.app.activityViewModels
@@ -15,6 +14,7 @@ import com.example.d2m.R
 import com.example.d2m.data.local.car.CarBrand
 import com.example.d2m.data.local.home.Banner
 import com.example.d2m.data.local.home.Service
+import com.example.d2m.data.remote.otp.verify.VerifyOtpResponseData
 import com.example.d2m.databinding.FragmentHomeBinding
 import com.example.d2m.screens.account.ProfileViewModel
 import com.example.d2m.screens.home.HomeActivityViewModel
@@ -22,6 +22,7 @@ import com.example.d2m.screens.home.main.service.ServiceViewModel
 import com.example.d2m.screens.utils.BaseActivity
 import com.example.d2m.screens.utils.BaseFragment
 import com.example.d2m.screens.utils.GenericDataAdapter
+import com.google.gson.Gson
 
 private const val TAG = "HomeFragment"
 
@@ -148,16 +149,20 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(
 
     private fun loadUserProfileData() {
         val sharedPrefs = activity?.getSharedPreferences("userData", Context.MODE_PRIVATE)
-        profileViewModel.loadUserProfile(
-            sharedPrefs?.getString("userID", "").toString(),
-            sharedPrefs?.getString("token", "").toString(),
-            sharedPrefs?.getString("email", "").toString(),
-            sharedPrefs?.getString("totalCars", "").toString(),
-            sharedPrefs?.getString("fullName", "").toString(),
-            sharedPrefs?.getString("isSubscribedUser", "").toString(),
-            sharedPrefs?.getString("subscribePlanName", "").toString()
+        val userData = Gson().fromJson(
+            sharedPrefs?.getString("verifiedUser", ""),
+            VerifyOtpResponseData::class.java
         )
-        Log.d(TAG, "loadUserProfileData: ${sharedPrefs?.getString("userID", "").toString()}")
+        profileViewModel.loadUserProfile(
+            userData.id.toString(),
+            userData.token,
+            userData.email,
+            userData.totalCars.toString(),
+            userData.fullName,
+            userData.isSubscribedUser.toString(),
+            userData.subscribePlanName.toString()
+        )
+
     }
 
 }

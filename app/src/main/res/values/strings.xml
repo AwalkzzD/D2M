@@ -21,6 +21,7 @@
     <string name="car_registration_heading">Car Registration</string>
     <string name="select_fuel_type_text">Select Fuel Type</string>
     <string name="default_car_checkbox_text">Set as Default Car</string>
+    <string name="default_address_checkbox_text">Set as Default Address</string>
     <string name="add_car_button_text">Add Car</string>
     <string name="login_heading">LogIn</string>
     <string name="enter_your_mobile_number_text">Enter your Mobile number</string>
@@ -30,6 +31,8 @@
     <string name="login_next_button_text">Next</string>
     <string name="login_with_social_media_text">Login with Social Media</string>
     <string name="sign_in_button_text">Sign in</string>
+    <string name="save_address_button_text">Save Address</string>
+    <string name="submit_area_button_text">Submit</string>
     <string name="login_button_text">LogIn</string>
     <string name="selected_brand_model_text">%1$s - %2$s</string>
     <string name="home">Home</string>
@@ -49,4 +52,18 @@
     <string name="pay_using_reward_coin_text">Pay Using Reward Coin</string>
     <string name="total_you_pay_text">Total You Pay :</string>
     <string name="bill_details_text">Bill Details</string>
+    <string name="order_value_text">Order Value</string>
+    <string name="pay_now_button_text">Pay Now</string>
+    <string name="default_country">India</string>
+    <string name="default_state">Gujarat</string>
+    <string name="customer_full_name_hint">Full Name(Required)*</string>
+    <string name="customer_phone_num_hint">Phone Number(Required)*</string>
+    <string name="billing_email_hint">Billing Email(Required)*</string>
+    <string name="address_house_number_name_hint">House Number, Building Name(Required)*</string>
+    <string name="address_road_colony_hint">Road Name, Area, Colony(Required)*</string>
+    <string name="address_area_hint">Select Area(Required)*</string>
+    <string name="area_city_serve_text">City We Serve</string>
+    <string name="radio_button_1_text">Ahmedabad</string>
+    <string name="radio_button_2_text">Gandhinagar</string>
+    <string name="select_area_text">Select Area</string>
 </resources>

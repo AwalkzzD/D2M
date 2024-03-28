@@ -19,11 +19,15 @@
         android:id="@+id/serviceFragment"
         android:name="com.example.d2m.screens.home.main.service.ServiceFragment"
         android:label="Service"
-        tools:layout="@layout/fragment_service" >
+        tools:layout="@layout/fragment_service">
         <action
             android:id="@+id/action_serviceFragment_to_cartFragment"
             app:destination="@id/cartFragment"
             app:popUpTo="@id/homeFragment" />
+        <action
+            android:id="@+id/action_serviceFragment_to_addressDetails"
+            app:destination="@id/addressDetailsFragment"
+            app:popUpTo="@id/serviceFragment" />
     </fragment>
     <fragment
         android:id="@+id/profileFragment"
@@ -32,7 +36,22 @@
         tools:layout="@layout/fragment_profile" />
     <fragment
         android:id="@+id/cartFragment"
-        tools:layout="@layout/fragment_cart"
-        android:name="com.example.d2m.screens.home.main.service.cart.CartFragment"
-        android:label="CartFragment" />
+        android:name="com.example.d2m.screens.home.main.cart.CartFragment"
+        android:label="CartFragment"
+        tools:layout="@layout/fragment_cart" />
+    <fragment
+        android:id="@+id/addressDetailsFragment"
+        android:name="com.example.d2m.screens.home.main.address.AddressDetailsFragment"
+        android:label="AddressDetails"
+        tools:layout="@layout/fragment_address_details">
+        <action
+            android:id="@+id/action_addressDetails_to_selectAreaFragment"
+            app:destination="@id/selectAreaFragment"
+            app:popUpTo="@id/addressDetailsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/selectAreaFragment"
+        android:name="com.example.d2m.screens.home.main.address.SelectAreaFragment"
+        android:label="SelectAreaFragment"
+        tools:layout="@layout/fragment_select_area" />
 </navigation>

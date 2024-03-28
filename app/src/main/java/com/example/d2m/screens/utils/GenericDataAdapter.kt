@@ -13,6 +13,7 @@ import com.example.d2m.data.local.car.FuelType
 import com.example.d2m.data.local.home.Banner
 import com.example.d2m.data.local.home.Service
 import com.example.d2m.data.local.home.ServiceX
+import com.example.d2m.data.remote.otp.verify.GetCityAreaDetail
 
 class GenericDataAdapter<T : Any>(
     private var dataList: List<T>,
@@ -74,6 +75,11 @@ class GenericDataAdapter<T : Any>(
                 is ServiceX -> {
                     binding.setVariable(BR.serviceX, item)
                     binding.setVariable(BR.serviceVM, viewModel)
+                    binding.setVariable(BR.cartVM, viewModel)
+                }
+
+                is GetCityAreaDetail -> {
+                    binding.setVariable(BR.area, item)
                 }
             }
             binding.executePendingBindings()

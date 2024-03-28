@@ -31,7 +31,7 @@ abstract class BaseFragment<VB : ViewDataBinding, VM : BaseViewModel>(
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
-    ): View? {
+    ): View {
 
         if (!::binding.isInitialized) {
             binding = DataBindingUtil.inflate(inflater, layoutId, container, false)

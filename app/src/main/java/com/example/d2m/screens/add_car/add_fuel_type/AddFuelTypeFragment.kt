@@ -2,17 +2,18 @@ package com.example.d2m.screens.add_car.add_fuel_type
 
 import android.content.Context.MODE_PRIVATE
 import android.content.Intent
-import android.util.Log
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.d2m.R
 import com.example.d2m.data.local.car.FuelType
+import com.example.d2m.data.remote.otp.verify.VerifyOtpResponseData
 import com.example.d2m.databinding.FragmentAddFuelTypeBinding
 import com.example.d2m.screens.add_car.AddCarViewModel
 import com.example.d2m.screens.home.HomeActivity
 import com.example.d2m.screens.utils.BaseActivity
 import com.example.d2m.screens.utils.BaseFragment
 import com.example.d2m.screens.utils.GenericDataAdapter
+import com.google.gson.Gson
 
 private const val TAG = "AddFuelTypeFragment"
 
@@ -89,11 +90,15 @@ class AddFuelTypeFragment : BaseFragment<FragmentAddFuelTypeBinding, AddFuelType
 
         fragmentBinding.addCar.setOnClickListener {
             val sharedPreferences = activity?.getSharedPreferences("userData", MODE_PRIVATE)
+            val userData = Gson().fromJson(
+                sharedPreferences?.getString("verifiedUser", "") ?: "",
+                VerifyOtpResponseData::class.java
+            )
 
             addCarViewModel.apply {
-                userID.value = sharedPreferences?.getString("userID", "")
-                token.value = sharedPreferences?.getString("token", "")
-                Log.d(TAG, "setupListeners: ${userID.value} ${token.value}")
+                userID.value = userData.id.toString()
+                token.value = userData.token
+//                Log.d(TAG, "setupListeners: ${userID.value} ${token.value}")
                 addCar()
             }
         }

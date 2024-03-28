@@ -9,8 +9,8 @@
             type="com.example.d2m.data.local.home.ServiceX" />
 
         <variable
-            name="serviceVM"
-            type="com.example.d2m.screens.home.main.service.ServiceViewModel" />
+            name="cartVM"
+            type="com.example.d2m.screens.home.main.cart.CartViewModel" />
 
     </data>
 
@@ -98,7 +98,9 @@
                 android:scaleType="center"
                 android:src="@drawable/icon_cancel"
                 android:textColor="@color/white"
-                android:textSize="20sp" />
+                android:textSize="20sp"
+                app:fromVM="@{cartVM}"
+                app:removeService="@{serviceX}" />
 
         </RelativeLayout>
 

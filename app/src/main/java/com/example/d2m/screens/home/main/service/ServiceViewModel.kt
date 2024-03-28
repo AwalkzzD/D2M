@@ -5,6 +5,8 @@ import androidx.lifecycle.MutableLiveData
 import com.example.d2m.data.local.home.ServiceX
 import com.example.d2m.screens.utils.BaseViewModel
 
+private const val TAG = "ServiceViewModel"
+
 class ServiceViewModel : BaseViewModel() {
 
     var serviceXLiveData: MutableLiveData<List<ServiceX>> = MutableLiveData<List<ServiceX>>()
@@ -16,11 +18,13 @@ class ServiceViewModel : BaseViewModel() {
         isEmpty.postValue(false)
     }
 
-    fun removeService(serviceX: ServiceX) = addedServiceX.remove(serviceX)
+    fun removeService(serviceX: ServiceX) {
+        addedServiceX.remove(serviceX)
+    }
 
     fun removeAllServices() {
         addedServiceX.clear()
-        isEmpty.value = true
+        isEmpty.postValue(true)
     }
 
 }

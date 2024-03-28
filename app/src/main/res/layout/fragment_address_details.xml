@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        tools:context=".screens.home.main.address.AddressDetailsFragment">
+
+        <include
+            android:id="@+id/app_bar"
+            layout="@layout/add_car_app_bar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true" />
+
+        <ScrollView
+            android:id="@+id/address_details"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@id/set_as_default_address"
+            android:layout_below="@id/app_bar">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <com.google.android.material.textfield.TextInputLayout style="@style/AddressTextInputLayoutTheme">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/customer_full_name"
+                        style="@style/AddressTextInputEditTextTheme"
+                        android:hint="@string/customer_full_name_hint" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout style="@style/AddressTextInputLayoutTheme">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/customer_phone_num"
+                        style="@style/AddressTextInputEditTextTheme"
+                        android:hint="@string/customer_phone_num_hint"
+                        android:inputType="phone" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout style="@style/AddressTextInputLayoutTheme">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/billing_email"
+                        style="@style/AddressTextInputEditTextTheme"
+                        android:hint="@string/billing_email_hint" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout style="@style/AddressTextInputLayoutTheme">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/address_house_number_name"
+                        style="@style/AddressTextInputEditTextTheme"
+                        android:hint="@string/address_house_number_name_hint" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+
+                <com.google.android.material.textfield.TextInputLayout style="@style/AddressTextInputLayoutTheme">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/address_road_colony"
+                        style="@style/AddressTextInputEditTextTheme"
+                        android:hint="@string/address_road_colony_hint" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout style="@style/AddressTextInputLayoutTheme">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/address_area"
+                        style="@style/AddressTextInputEditTextTheme"
+                        android:focusable="false"
+                        android:hint="@string/address_area_hint" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:baselineAligned="false"
+                    android:weightSum="2">
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        style="@style/AddressTextInputLayoutTheme"
+                        android:layout_weight="1">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            style="@style/AddressTextInputEditTextTheme"
+                            android:text="@string/default_state" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        style="@style/AddressTextInputLayoutTheme"
+                        android:layout_weight="1">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            style="@style/AddressTextInputEditTextTheme"
+                            android:text="@string/default_country" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </ScrollView>
+
+        <CheckBox
+            android:id="@+id/set_as_default_address"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@id/save_address_button"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="15dp"
+            android:text="@string/default_address_checkbox_text"
+            android:textColor="@color/black"
+            android:textSize="17sp" />
+
+        <Button
+            android:id="@+id/save_address_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="15dp"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/rounded_rectangle_button"
+            android:text="@string/save_address_button_text"
+            android:textColor="@color/white"
+            android:textSize="20sp" />
+    </RelativeLayout>
+</layout>
