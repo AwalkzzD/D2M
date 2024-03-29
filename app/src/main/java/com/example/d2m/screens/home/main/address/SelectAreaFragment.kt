@@ -4,6 +4,7 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
 import android.widget.Toast
+import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.d2m.R
 import com.example.d2m.data.local.car.CarBrand
@@ -16,6 +17,8 @@ import com.example.d2m.screens.utils.GenericDataAdapter
 class SelectAreaFragment : BaseFragment<FragmentSelectAreaBinding, SelectAreaViewModel>(
     R.layout.fragment_select_area, SelectAreaViewModel::class.java
 ) {
+
+    private val addressDetailsViewModel: AddressDetailsViewModel by activityViewModels()
 
     private lateinit var areaListAdapter: GenericDataAdapter<GetCityAreaDetail>
     private val areaList: MutableList<GetCityAreaDetail> = mutableListOf()
@@ -59,7 +62,7 @@ class SelectAreaFragment : BaseFragment<FragmentSelectAreaBinding, SelectAreaVie
 
         areaListAdapter =
             GenericDataAdapter(areaList, R.layout.area_list_item) { area: GetCityAreaDetail ->
-                fragmentViewModel.area.postValue(area.areaName + " - " + area.pincode.toString())
+                addressDetailsViewModel.area.postValue(area.areaName + " - " + area.pincode.toString())
             }
 
         fragmentBinding.areaListRv.apply {

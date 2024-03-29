@@ -1,9 +1,12 @@
 package com.example.d2m.screens.home.main.home
 
 import android.content.Context
+import android.content.Intent
+import android.net.Uri
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
+import android.widget.MediaController
 import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.NavController
@@ -35,6 +38,8 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(
 
     private lateinit var navController: NavController
 
+    private var mediaControls: MediaController? = null
+
     private val serviceViewModel: ServiceViewModel by activityViewModels()
     private val profileViewModel: ProfileViewModel by activityViewModels()
 
@@ -45,6 +50,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(
         setUpToolBar()
         setupBottomNavBar()
         initViewModel()
+        initViews()
         initRecyclerView()
         setupListeners()
         loadUserProfileData()
@@ -78,6 +84,21 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(
         }
     }
 
+    private fun initViews() {
+
+        mediaControls = MediaController(requireContext())
+        mediaControls!!.setAnchorView(fragmentBinding.d2mVideo)
+
+        fragmentBinding.d2mVideo.run {
+            setMediaController(mediaControls)
+            setVideoURI(Uri.parse("http://d2m.php.dev.drcsystems.ooo/uploads/videos/video_1647499297.mp4"))
+            start()
+            setOnCompletionListener {
+                fragmentBinding.d2mVideo.start()
+            }
+        }
+    }
+
     private fun initRecyclerView() {
         /**
          * features/banners adapter & recycler view setup
@@ -85,7 +106,12 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(
         bannerAdapter = GenericDataAdapter(
             bannerList, R.layout.feature_list_item
         ) { banner: Banner ->
-            showToast(banner.bannerName, Toast.LENGTH_SHORT)
+            startActivity(
+                Intent(
+                    "android.intent.action.VIEW",
+                    Uri.parse(banner.redirectionUrl ?: "https://d2m.ooo/")
+                )
+            )
         }
 
         fragmentBinding.featuresRv.apply {
@@ -150,8 +176,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(
     private fun loadUserProfileData() {
         val sharedPrefs = activity?.getSharedPreferences("userData", Context.MODE_PRIVATE)
         val userData = Gson().fromJson(
-            sharedPrefs?.getString("verifiedUser", ""),
-            VerifyOtpResponseData::class.java
+            sharedPrefs?.getString("verifiedUser", ""), VerifyOtpResponseData::class.java
         )
         profileViewModel.loadUserProfile(
             userData.id.toString(),

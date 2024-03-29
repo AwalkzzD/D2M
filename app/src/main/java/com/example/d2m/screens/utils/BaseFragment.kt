@@ -22,13 +22,6 @@ abstract class BaseFragment<VB : ViewDataBinding, VM : BaseViewModel>(
     protected val fragmentBinding: VB get() = binding
     protected val fragmentViewModel: VM get() = viewModel
 
-    private fun getViewModel(): VM {
-        if (!::viewModel.isInitialized) {
-            viewModel = ViewModelProvider(requireActivity())[viewModelClass]
-        }
-        return viewModel
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
@@ -46,6 +39,13 @@ abstract class BaseFragment<VB : ViewDataBinding, VM : BaseViewModel>(
         viewModel = getViewModel()
         setUpView()
 
+    }
+
+    private fun getViewModel(): VM {
+        if (!::viewModel.isInitialized) {
+            viewModel = ViewModelProvider(requireActivity())[viewModelClass]
+        }
+        return viewModel
     }
 
     fun getActivityViewModel(): BaseViewModel {
