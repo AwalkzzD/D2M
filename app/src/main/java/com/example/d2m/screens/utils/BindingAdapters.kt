@@ -1,6 +1,7 @@
 package com.example.d2m.screens.utils
 
 import android.widget.Button
+import android.widget.CheckBox
 import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
@@ -9,9 +10,13 @@ import androidx.core.net.toUri
 import androidx.databinding.BindingAdapter
 import com.example.d2m.R
 import com.example.d2m.data.local.home.ServiceX
+import com.example.d2m.data.remote.otp.verify.GetCityAreaDetail
+import com.example.d2m.screens.home.main.address.SelectAreaViewModel
 import com.example.d2m.screens.home.main.cart.CartViewModel
 import com.example.d2m.screens.home.main.service.ServiceViewModel
 import com.squareup.picasso.Picasso
+
+private const val TAG = "BindingAdapters"
 
 @BindingAdapter("imageUrl")
 fun ImageView.loadImage(url: String?) {
@@ -107,5 +112,12 @@ fun TextView.setCartTotal(addedCartServices: List<ServiceX>) {
 fun ImageButton.removeFromCart(serviceX: ServiceX, cartViewModel: CartViewModel) {
     this.setOnClickListener {
         cartViewModel.removeService(serviceX)
+    }
+}
+
+@BindingAdapter(value = ["setAreaDetails", "areaVM"], requireAll = true)
+fun CheckBox.setAreaDetails(area: GetCityAreaDetail, areaVM: SelectAreaViewModel) {
+    this.setOnClickListener {
+        areaVM.area.postValue(area)
     }
 }

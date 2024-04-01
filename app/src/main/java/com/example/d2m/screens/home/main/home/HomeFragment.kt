@@ -50,7 +50,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(
         setUpToolBar()
         setupBottomNavBar()
         initViewModel()
-        initViews()
+//        playVideo()
         initRecyclerView()
         setupListeners()
         loadUserProfileData()
@@ -66,6 +66,9 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(
     }
 
     private fun initViewModel() {
+
+        fragmentBinding.cartBottomDialog.cart = serviceViewModel
+
         (getActivityViewModel() as HomeActivityViewModel).userLiveData.observe(viewLifecycleOwner) {
             fragmentViewModel.bannerLiveData.value = it.userData?.banners
             fragmentViewModel.serviceLiveData.value = it.userData?.services
@@ -84,7 +87,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(
         }
     }
 
-    private fun initViews() {
+    private fun playVideo() {
 
         mediaControls = MediaController(requireContext())
         mediaControls!!.setAnchorView(fragmentBinding.d2mVideo)
@@ -136,6 +139,19 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(
     }
 
     private fun setupListeners() {
+
+        val sharedPreferences = activity?.getSharedPreferences("userData", Context.MODE_PRIVATE)
+        val userData = Gson().fromJson(
+            sharedPreferences?.getString("verifiedUser", ""), VerifyOtpResponseData::class.java
+        )
+        fragmentBinding.cartBottomDialog.viewCart.setOnClickListener {
+            if (userData.defaultAddress == null) {
+                findNavController().navigate(R.id.action_homeFragment_to_addressDetailsFragment)
+            } else {
+                findNavController().navigate(R.id.action_homeFragment_to_cartFragment)
+            }
+        }
+
         fragmentBinding.serviceSearchView.searchItem.apply {
             hint = "Search Service"
             addTextChangedListener(object : TextWatcher {

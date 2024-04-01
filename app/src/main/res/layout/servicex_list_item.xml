@@ -89,11 +89,13 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentBottom="true"
-                android:background="@color/green"
-                android:textColor="@color/white"
+                android:backgroundTint="@color/white"
+                android:textColor="@color/green"
                 android:textSize="17sp"
                 app:addService="@{serviceX}"
-                app:cornerRadius="15dp"
+                app:cornerRadius="7dp"
+                app:strokeColor="@color/green"
+                app:strokeWidth="2dp"
                 app:toVM="@{serviceVM}" />
 
         </RelativeLayout>

@@ -80,6 +80,7 @@ class GenericDataAdapter<T : Any>(
 
                 is GetCityAreaDetail -> {
                     binding.setVariable(BR.area, item)
+                    binding.setVariable(BR.selectAreaVM, viewModel)
                 }
             }
             binding.executePendingBindings()

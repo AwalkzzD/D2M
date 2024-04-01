@@ -1,8 +1,8 @@
 package com.example.d2m.screens.home.main.address
 
-import android.util.Log
 import android.util.Patterns
 import android.widget.Toast
+import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.example.d2m.R
 import com.example.d2m.databinding.FragmentAddressDetailsBinding
@@ -14,6 +14,8 @@ private const val TAG = "AddressDetailsFragment"
 class AddressDetailsFragment : BaseFragment<FragmentAddressDetailsBinding, AddressDetailsViewModel>(
     R.layout.fragment_address_details, AddressDetailsViewModel::class.java
 ) {
+
+    private val selectAreaViewModel: SelectAreaViewModel by activityViewModels()
 
     override fun setUpView() {
         setUpToolBar()
@@ -94,9 +96,12 @@ class AddressDetailsFragment : BaseFragment<FragmentAddressDetailsBinding, Addre
     }
 
     private fun initViewModel() {
-        fragmentViewModel.area.observe(viewLifecycleOwner) {
-            fragmentBinding.addressArea.setText("$it asd")
-            Log.d(TAG, "initViewModel: Called")
+        selectAreaViewModel.area.observe(viewLifecycleOwner) {
+            fragmentBinding.addressArea.setText(buildString {
+                append(it.areaName)
+                append(" - ")
+                append(it.pincode)
+            })
         }
     }
 }

@@ -106,6 +106,15 @@
 
         </ScrollView>
 
+        <include
+            android:id="@+id/cart_bottom_dialog"
+            layout="@layout/cart_bottom_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@id/bottom_nav"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentEnd="true" />
+
         <com.google.android.material.bottomnavigation.BottomNavigationView
             android:id="@+id/bottom_nav"
             android:layout_width="match_parent"

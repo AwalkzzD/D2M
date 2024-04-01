@@ -22,13 +22,12 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_margin="5dp">
+            android:layout_height="match_parent">
 
             <ImageView
                 android:id="@+id/cart_image"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
                 android:layout_alignParentStart="true"
                 android:layout_margin="10dp"
                 android:scaleType="fitCenter"
@@ -55,7 +54,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@color/white"
-                    android:textSize="20sp"
+                    android:textSize="17sp"
                     android:textStyle="bold"
                     app:cartTotal="@{cart.addedServiceX}" />
 
@@ -71,13 +70,13 @@
                 android:clickable="true"
                 android:text="@string/view_cart_text"
                 android:textColor="@color/white"
-                android:textSize="20sp"
+                android:textSize="17sp"
                 android:textStyle="bold|italic" />
 
             <ImageButton
                 android:id="@+id/discard_card_items"
-                android:layout_width="60dp"
-                android:layout_height="60dp"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
                 android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true"
                 android:backgroundTint="@color/transparent"
