@@ -1,5 +1,6 @@
 package com.example.d2m.screens.utils
 
+import android.app.AlertDialog
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -54,6 +55,28 @@ abstract class BaseFragment<VB : ViewDataBinding, VM : BaseViewModel>(
 
     fun showToast(message: String, duration: Int) {
         (activity as BaseActivity<*, *>).showToast(message, duration)
+    }
+
+    fun showDialog(
+        titleText: String,
+        messageText: String,
+        positiveButtonText: String,
+        negativeButtonText: String,
+        onPositiveClick: () -> Unit
+    ) {
+        val dialogBuilder = AlertDialog.Builder(requireActivity())
+
+        dialogBuilder.setMessage(messageText).setCancelable(true)
+            .setPositiveButton(positiveButtonText) { dialog, _ ->
+                onPositiveClick()
+                dialog.dismiss()
+            }.setNegativeButton(negativeButtonText) { dialog, _ ->
+                dialog.dismiss()
+            }
+
+        val alert = dialogBuilder.create()
+        alert.setTitle(titleText)
+        alert.show()
     }
 
     open fun setUpView() {}

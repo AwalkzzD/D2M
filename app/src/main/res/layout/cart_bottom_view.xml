@@ -80,7 +80,6 @@
                 android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true"
                 android:backgroundTint="@color/transparent"
-                android:onClick="@{() -> cart.removeAllServices()}"
                 android:scaleType="centerInside"
                 android:src="@drawable/ic_cancel" />
 

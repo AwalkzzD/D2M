@@ -1,11 +1,12 @@
 package com.example.d2m.screens.home.main.cart
 
+import android.util.Log
 import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import com.example.d2m.R
 import com.example.d2m.data.local.home.ServiceX
 import com.example.d2m.databinding.FragmentCartBinding
-import com.example.d2m.screens.home.main.service.ServiceViewModel
+import com.example.d2m.screens.home.main.checkout.CheckoutViewModel
 import com.example.d2m.screens.utils.BaseActivity
 import com.example.d2m.screens.utils.BaseFragment
 import com.example.d2m.screens.utils.GenericDataAdapter
@@ -20,7 +21,7 @@ class CartFragment : BaseFragment<FragmentCartBinding, CartViewModel>(
 
     private var cartServiceXList: MutableList<ServiceX> = mutableListOf()
 
-    private val serviceViewModel: ServiceViewModel by activityViewModels()
+    private val checkoutViewModel: CheckoutViewModel by activityViewModels()
 
     override fun setUpView() {
         setUpToolBar()
@@ -37,7 +38,8 @@ class CartFragment : BaseFragment<FragmentCartBinding, CartViewModel>(
 
     private fun initViewModel() {
 
-        fragmentViewModel.addedCartServices.postValue(serviceViewModel.addedServiceX)
+        fragmentViewModel.addedCartServices.postValue(checkoutViewModel.addedCartServices.value)
+        Log.d(TAG, "initViewModel: ${fragmentViewModel.addedCartServices.value}")
 
         fragmentViewModel.addedCartServices.observe(viewLifecycleOwner) {
             cartServiceXList.clear()

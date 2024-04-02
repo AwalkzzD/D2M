@@ -5,6 +5,7 @@ import android.content.Intent
 import android.graphics.Color
 import android.graphics.Typeface
 import android.os.CountDownTimer
+import android.util.Log
 import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import com.example.d2m.R
@@ -14,6 +15,7 @@ import com.example.d2m.screens.home.HomeActivity
 import com.example.d2m.screens.utils.BaseActivity
 import com.example.d2m.screens.utils.BaseFragment
 import com.google.gson.Gson
+import com.google.gson.GsonBuilder
 import java.util.concurrent.TimeUnit
 
 private const val TAG = "OtpFragment"

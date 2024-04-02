@@ -66,4 +66,6 @@
     <string name="radio_button_1_text">Ahmedabad</string>
     <string name="radio_button_2_text">Gandhinagar</string>
     <string name="select_area_text">Select Area</string>
+    <string name="checkout_button_text">Checkout</string>
+    <string name="total_value_text">Total Value</string>
 </resources>

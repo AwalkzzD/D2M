@@ -17,6 +17,8 @@ class AddressDetailsFragment : BaseFragment<FragmentAddressDetailsBinding, Addre
 
     private val selectAreaViewModel: SelectAreaViewModel by activityViewModels()
 
+    private lateinit var address: StringBuilder
+
     override fun setUpView() {
         setUpToolBar()
         initViewModel()
@@ -32,9 +34,18 @@ class AddressDetailsFragment : BaseFragment<FragmentAddressDetailsBinding, Addre
     private fun setUpListeners() {
         fragmentBinding.saveAddressButton.setOnClickListener {
             if (validateInputs()) {
-                showToast("Saving Address Details", Toast.LENGTH_LONG)
+                showToast("Saving your address details", Toast.LENGTH_LONG)
+
+                /**
+                 * code snippet to store address into Shared Prefs
+                 * */
+                /*val sharedPreferencesLogin =
+                    activity?.getSharedPreferences("userData", Context.MODE_PRIVATE)
+                sharedPreferencesLogin?.edit()?.putString("address", address.toString())?.apply()*/
+
+                findNavController().navigate(R.id.action_addressDetailsFragment_to_checkoutFragment)
             } else {
-                showToast("Invalid Address Details", Toast.LENGTH_SHORT)
+                showToast("Invalid address details", Toast.LENGTH_SHORT)
             }
         }
 
@@ -44,6 +55,9 @@ class AddressDetailsFragment : BaseFragment<FragmentAddressDetailsBinding, Addre
     }
 
     private fun validateInputs(): Boolean {
+
+        address.clear()
+
         fragmentBinding.customerFullName.apply {
             if (this.text.toString().isEmpty()) {
                 this.error = "Cannot be empty"
@@ -76,6 +90,7 @@ class AddressDetailsFragment : BaseFragment<FragmentAddressDetailsBinding, Addre
                 this.error = "Cannot be empty"
                 return false
             }
+            address.append(this.text.toString())
         }
 
         fragmentBinding.addressRoadColony.apply {
@@ -83,6 +98,9 @@ class AddressDetailsFragment : BaseFragment<FragmentAddressDetailsBinding, Addre
                 this.error = "Cannot be empty"
                 return false
             }
+            address.append(this.text.toString())
+            address.append(", ")
+
         }
 
         fragmentBinding.addressArea.apply {
@@ -90,6 +108,7 @@ class AddressDetailsFragment : BaseFragment<FragmentAddressDetailsBinding, Addre
                 this.error = "Cannot be empty"
                 return false
             }
+            address.append(this.text.toString())
         }
 
         return true

@@ -72,8 +72,17 @@ class ServiceFragment : BaseFragment<FragmentServiceBinding, ServiceViewModel>(
             if (userData.defaultAddress == null) {
                 findNavController().navigate(R.id.action_serviceFragment_to_addressDetails)
             } else {
-                findNavController().navigate(R.id.action_serviceFragment_to_cartFragment)
+                findNavController().navigate(R.id.action_serviceFragment_to_checkoutFragment)
             }
+        }
+
+        fragmentBinding.cartBottomDialog.discardCardItems.setOnClickListener {
+            showDialog(
+                "Confirm Discard Items",
+                "Are you sure you want discard all cart items?",
+                "DISCARD",
+                "CANCEL"
+            ) { fragmentViewModel.removeAllServices() }
         }
     }
 }

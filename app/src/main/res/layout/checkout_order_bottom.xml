@@ -6,7 +6,7 @@
 
         <variable
             name="cart"
-            type="com.example.d2m.screens.home.main.cart.CartViewModel" />
+            type="com.example.d2m.screens.home.main.checkout.CheckoutViewModel" />
 
     </data>
 
@@ -36,7 +36,7 @@
                     android:id="@+id/cart_order_value_tv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/order_value_text"
+                    android:text="@string/total_value_text"
                     android:textColor="@color/black"
                     android:textSize="17sp"
                     android:textStyle="bold" />
@@ -52,7 +52,7 @@
             </LinearLayout>
 
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/pay_now_button"
+                android:id="@+id/checkout_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
@@ -60,7 +60,8 @@
                 android:backgroundTint="@color/green"
                 android:drawableRight="@drawable/ic_next_arrow"
                 android:scaleType="centerInside"
-                android:text="@string/pay_now_button_text"
+                android:src="@drawable/ic_cancel"
+                android:text="@string/checkout_button_text"
                 android:textSize="20sp"
                 app:cornerRadius="5dp" />
 

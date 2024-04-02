@@ -148,8 +148,17 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(
             if (userData.defaultAddress == null) {
                 findNavController().navigate(R.id.action_homeFragment_to_addressDetailsFragment)
             } else {
-                findNavController().navigate(R.id.action_homeFragment_to_cartFragment)
+                findNavController().navigate(R.id.action_homeFragment_to_checkoutFragment)
             }
+        }
+
+        fragmentBinding.cartBottomDialog.discardCardItems.setOnClickListener {
+            showDialog(
+                "Confirm Discard Items",
+                "Are you sure you want discard all cart items?",
+                "DISCARD",
+                "CANCEL"
+            ) { serviceViewModel.removeAllServices() }
         }
 
         fragmentBinding.serviceSearchView.searchItem.apply {
