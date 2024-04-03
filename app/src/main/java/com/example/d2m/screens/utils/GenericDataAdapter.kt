@@ -10,6 +10,7 @@ import com.example.d2m.BR
 import com.example.d2m.data.local.car.CarBrand
 import com.example.d2m.data.local.car.CarModel
 import com.example.d2m.data.local.car.FuelType
+import com.example.d2m.data.local.checkout.TimeSlots
 import com.example.d2m.data.local.home.Banner
 import com.example.d2m.data.local.home.Service
 import com.example.d2m.data.local.home.ServiceX
@@ -35,6 +36,7 @@ class GenericDataAdapter<T : Any>(
         holder.itemView.setOnClickListener {
             onItemClick(item)
         }
+
     }
 
     fun setVM(viewModel: BaseViewModel) {
@@ -81,6 +83,10 @@ class GenericDataAdapter<T : Any>(
                 is GetCityAreaDetail -> {
                     binding.setVariable(BR.area, item)
                     binding.setVariable(BR.selectAreaVM, viewModel)
+                }
+
+                is TimeSlots -> {
+                    binding.setVariable(BR.timeSlot, item)
                 }
             }
             binding.executePendingBindings()

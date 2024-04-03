@@ -1,9 +1,11 @@
 package com.example.d2m.screens.utils
 
+import android.util.Log
 import android.widget.Button
 import android.widget.CheckBox
 import android.widget.ImageButton
 import android.widget.ImageView
+import android.widget.RadioButton
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.core.net.toUri
@@ -119,5 +121,12 @@ fun ImageButton.removeFromCart(serviceX: ServiceX, cartViewModel: CartViewModel)
 fun CheckBox.setAreaDetails(area: GetCityAreaDetail, areaVM: SelectAreaViewModel) {
     this.setOnClickListener {
         areaVM.area.postValue(area)
+    }
+}
+
+@BindingAdapter("saveTimeSlot")
+fun RadioButton.saveTimeSlot(timeSlot: String) {
+    this.setOnClickListener {
+        Log.d(TAG, "saveTimeSlot: $timeSlot")
     }
 }

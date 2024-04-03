@@ -65,7 +65,6 @@
                             android:button="@color/transparent"
                             android:checked="true"
                             android:elevation="4dp"
-                            android:enabled="true"
                             android:padding="10dp"
                             android:text="@string/radio_button_1_text"
                             android:textColor="@drawable/radio_text_color"

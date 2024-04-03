@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="timeSlot"
+            type="com.example.d2m.data.local.checkout.TimeSlots" />
+    </data>
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="2dp"
+        app:cardCornerRadius="5dp">
+
+        <RadioButton
+            android:id="@+id/time_slot_2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_columnWeight="1"
+            android:layout_weight="1"
+            android:background="@drawable/radio_selector"
+            android:button="@color/transparent"
+            android:elevation="4dp"
+            android:text="@{timeSlot.time_slot}"
+            android:textAlignment="center"
+            android:textColor="@color/black"
+            android:textSize="13sp"
+            app:saveTimeSlot="@{timeSlot.time_slot}" />
+
+    </com.google.android.material.card.MaterialCardView>
+</layout>
