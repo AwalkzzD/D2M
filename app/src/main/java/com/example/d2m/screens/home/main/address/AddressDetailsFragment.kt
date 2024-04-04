@@ -6,8 +6,8 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.example.d2m.R
 import com.example.d2m.databinding.FragmentAddressDetailsBinding
-import com.example.d2m.screens.utils.BaseActivity
-import com.example.d2m.screens.utils.BaseFragment
+import com.example.d2m.screens.utils.base_classes.BaseActivity
+import com.example.d2m.screens.utils.base_classes.BaseFragment
 
 private const val TAG = "AddressDetailsFragment"
 

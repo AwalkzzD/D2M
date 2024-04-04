@@ -5,8 +5,8 @@ import android.content.Intent
 import com.example.d2m.R
 import com.example.d2m.databinding.FragmentProfileBinding
 import com.example.d2m.screens.login.LoginActivity
-import com.example.d2m.screens.utils.BaseActivity
-import com.example.d2m.screens.utils.BaseFragment
+import com.example.d2m.screens.utils.base_classes.BaseActivity
+import com.example.d2m.screens.utils.base_classes.BaseFragment
 
 class ProfileFragment : BaseFragment<FragmentProfileBinding, ProfileViewModel>(
     R.layout.fragment_profile, ProfileViewModel::class.java

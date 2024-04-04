@@ -12,8 +12,8 @@ import com.example.d2m.R
 import com.example.d2m.databinding.FragmentOtpBinding
 import com.example.d2m.screens.add_car.AddCarActivity
 import com.example.d2m.screens.home.HomeActivity
-import com.example.d2m.screens.utils.BaseActivity
-import com.example.d2m.screens.utils.BaseFragment
+import com.example.d2m.screens.utils.base_classes.BaseActivity
+import com.example.d2m.screens.utils.base_classes.BaseFragment
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import java.util.concurrent.TimeUnit

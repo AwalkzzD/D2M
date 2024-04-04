@@ -3,7 +3,7 @@ package com.example.d2m.screens.home.main.home
 import androidx.lifecycle.MutableLiveData
 import com.example.d2m.data.local.home.Banner
 import com.example.d2m.data.local.home.Service
-import com.example.d2m.screens.utils.BaseViewModel
+import com.example.d2m.screens.utils.base_classes.BaseViewModel
 
 class HomeViewModel : BaseViewModel() {
 

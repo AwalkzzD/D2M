@@ -2,7 +2,7 @@ package com.example.d2m.screens.add_car.add_car_brand
 
 import androidx.lifecycle.MutableLiveData
 import com.example.d2m.data.local.car.CarBrand
-import com.example.d2m.screens.utils.BaseViewModel
+import com.example.d2m.screens.utils.base_classes.BaseViewModel
 
 class AddCarBrandViewModel : BaseViewModel() {
 

@@ -1,4 +1,4 @@
-package com.example.d2m.screens.utils
+package com.example.d2m.screens.utils.adapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -15,6 +15,7 @@ import com.example.d2m.data.local.home.Banner
 import com.example.d2m.data.local.home.Service
 import com.example.d2m.data.local.home.ServiceX
 import com.example.d2m.data.remote.otp.verify.GetCityAreaDetail
+import com.example.d2m.screens.utils.base_classes.BaseViewModel
 
 class GenericDataAdapter<T : Any>(
     private var dataList: List<T>,

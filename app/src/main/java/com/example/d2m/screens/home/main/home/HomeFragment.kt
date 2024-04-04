@@ -22,9 +22,9 @@ import com.example.d2m.databinding.FragmentHomeBinding
 import com.example.d2m.screens.account.ProfileViewModel
 import com.example.d2m.screens.home.HomeActivityViewModel
 import com.example.d2m.screens.home.main.service.ServiceViewModel
-import com.example.d2m.screens.utils.BaseActivity
-import com.example.d2m.screens.utils.BaseFragment
-import com.example.d2m.screens.utils.GenericDataAdapter
+import com.example.d2m.screens.utils.adapters.GenericDataAdapter
+import com.example.d2m.screens.utils.base_classes.BaseActivity
+import com.example.d2m.screens.utils.base_classes.BaseFragment
 import com.google.gson.Gson
 
 private const val TAG = "HomeFragment"

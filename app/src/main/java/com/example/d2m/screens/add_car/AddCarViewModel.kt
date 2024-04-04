@@ -9,7 +9,7 @@ import com.example.d2m.data.local.car.CarRegistration
 import com.example.d2m.data.local.car.FuelType
 import com.example.d2m.network_utils.ApiClient
 import com.example.d2m.network_utils.api_services.AddVehicleService
-import com.example.d2m.screens.utils.BaseViewModel
+import com.example.d2m.screens.utils.base_classes.BaseViewModel
 import com.google.gson.GsonBuilder
 import okhttp3.MultipartBody
 import okhttp3.RequestBody

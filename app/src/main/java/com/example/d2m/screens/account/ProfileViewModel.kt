@@ -2,7 +2,7 @@ package com.example.d2m.screens.account
 
 import androidx.lifecycle.MutableLiveData
 import com.example.d2m.data.local.account.UserProfile
-import com.example.d2m.screens.utils.BaseViewModel
+import com.example.d2m.screens.utils.base_classes.BaseViewModel
 
 class ProfileViewModel : BaseViewModel() {
 

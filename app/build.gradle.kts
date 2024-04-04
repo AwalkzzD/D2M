@@ -67,4 +67,11 @@ dependencies {
     implementation("com.squareup.picasso:picasso:2.8")
 //    ViewModel
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.7.0")
+
+// https://mvnrepository.com/artifact/androidx.recyclerview/recyclerview
+    runtimeOnly("androidx.recyclerview:recyclerview:1.1.0")
+
+// https://mvnrepository.com/artifact/androidx.recyclerview/recyclerview-selection
+    implementation("androidx.recyclerview:recyclerview-selection:1.1.0-alpha06")
+
 }

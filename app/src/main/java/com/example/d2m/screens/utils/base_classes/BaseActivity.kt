@@ -1,4 +1,4 @@
-package com.example.d2m.screens.utils
+package com.example.d2m.screens.utils.base_classes
 
 import android.os.Bundle
 import android.widget.Toast
@@ -8,8 +8,6 @@ import androidx.appcompat.widget.Toolbar
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.ViewModelProvider
-
-private const val TAG = "BaseActivity"
 
 abstract class BaseActivity<VB : ViewDataBinding, VM : BaseViewModel>(
     @LayoutRes private val layoutId: Int, private val viewModelClass: Class<VM>

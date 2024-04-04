@@ -5,7 +5,7 @@ import android.os.Bundle
 import com.example.d2m.R
 import com.example.d2m.data.remote.otp.verify.VerifyOtpResponseData
 import com.example.d2m.databinding.ActivityHomeBinding
-import com.example.d2m.screens.utils.BaseActivity
+import com.example.d2m.screens.utils.base_classes.BaseActivity
 import com.google.gson.Gson
 
 class HomeActivity : BaseActivity<ActivityHomeBinding, HomeActivityViewModel>(

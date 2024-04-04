@@ -6,8 +6,8 @@ import com.example.d2m.R
 import com.example.d2m.data.local.car.CarRegistration
 import com.example.d2m.databinding.FragmentAddCarRegistrationBinding
 import com.example.d2m.screens.add_car.AddCarViewModel
-import com.example.d2m.screens.utils.BaseActivity
-import com.example.d2m.screens.utils.BaseFragment
+import com.example.d2m.screens.utils.base_classes.BaseActivity
+import com.example.d2m.screens.utils.base_classes.BaseFragment
 
 class AddCarRegistrationFragment :
     BaseFragment<FragmentAddCarRegistrationBinding, AddCarRegistrationViewModel>(

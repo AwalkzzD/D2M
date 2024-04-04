@@ -5,7 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import com.example.d2m.data.local.home.UserHome
 import com.example.d2m.network_utils.ApiClient
 import com.example.d2m.network_utils.api_services.RequestUserData
-import com.example.d2m.screens.utils.BaseViewModel
+import com.example.d2m.screens.utils.base_classes.BaseViewModel
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import retrofit2.Call

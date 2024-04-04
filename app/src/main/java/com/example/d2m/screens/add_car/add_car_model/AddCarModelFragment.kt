@@ -13,9 +13,9 @@ import com.example.d2m.data.local.car.CarBrand
 import com.example.d2m.data.local.car.CarModel
 import com.example.d2m.databinding.FragmentAddCarModelBinding
 import com.example.d2m.screens.add_car.AddCarViewModel
-import com.example.d2m.screens.utils.BaseActivity
-import com.example.d2m.screens.utils.BaseFragment
-import com.example.d2m.screens.utils.GenericDataAdapter
+import com.example.d2m.screens.utils.base_classes.BaseActivity
+import com.example.d2m.screens.utils.base_classes.BaseFragment
+import com.example.d2m.screens.utils.adapters.GenericDataAdapter
 
 class AddCarModelFragment : BaseFragment<FragmentAddCarModelBinding, AddCarModelViewModel>(
     R.layout.fragment_add_car_model, AddCarModelViewModel::class.java

@@ -10,9 +10,9 @@ import com.example.d2m.data.remote.otp.verify.VerifyOtpResponseData
 import com.example.d2m.databinding.FragmentAddFuelTypeBinding
 import com.example.d2m.screens.add_car.AddCarViewModel
 import com.example.d2m.screens.home.HomeActivity
-import com.example.d2m.screens.utils.BaseActivity
-import com.example.d2m.screens.utils.BaseFragment
-import com.example.d2m.screens.utils.GenericDataAdapter
+import com.example.d2m.screens.utils.base_classes.BaseActivity
+import com.example.d2m.screens.utils.base_classes.BaseFragment
+import com.example.d2m.screens.utils.adapters.GenericDataAdapter
 import com.google.gson.Gson
 
 private const val TAG = "AddFuelTypeFragment"

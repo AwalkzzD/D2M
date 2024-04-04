@@ -7,9 +7,9 @@ import com.example.d2m.R
 import com.example.d2m.data.local.home.ServiceX
 import com.example.d2m.databinding.FragmentCartBinding
 import com.example.d2m.screens.home.main.checkout.CheckoutViewModel
-import com.example.d2m.screens.utils.BaseActivity
-import com.example.d2m.screens.utils.BaseFragment
-import com.example.d2m.screens.utils.GenericDataAdapter
+import com.example.d2m.screens.utils.base_classes.BaseActivity
+import com.example.d2m.screens.utils.base_classes.BaseFragment
+import com.example.d2m.screens.utils.adapters.GenericDataAdapter
 
 private const val TAG = "CartFragment"
 

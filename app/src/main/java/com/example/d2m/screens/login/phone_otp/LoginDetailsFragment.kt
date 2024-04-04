@@ -5,7 +5,7 @@ import androidx.navigation.fragment.findNavController
 import com.example.d2m.R
 import com.example.d2m.common_utils.AppConstants.PHONE_NUM_LENGTH
 import com.example.d2m.databinding.FragmentLoginDetailsBinding
-import com.example.d2m.screens.utils.BaseFragment
+import com.example.d2m.screens.utils.base_classes.BaseFragment
 
 class LoginDetailsFragment : BaseFragment<FragmentLoginDetailsBinding, LoginDetailsViewModel>(
     R.layout.fragment_login_details, LoginDetailsViewModel::class.java

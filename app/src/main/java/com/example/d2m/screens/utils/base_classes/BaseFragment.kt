@@ -1,4 +1,4 @@
-package com.example.d2m.screens.utils
+package com.example.d2m.screens.utils.base_classes
 
 import android.app.AlertDialog
 import android.os.Bundle
@@ -10,8 +10,6 @@ import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-
-private const val TAG = "BaseFragment"
 
 abstract class BaseFragment<VB : ViewDataBinding, VM : BaseViewModel>(
     @LayoutRes private val layoutId: Int, private val viewModelClass: Class<VM>

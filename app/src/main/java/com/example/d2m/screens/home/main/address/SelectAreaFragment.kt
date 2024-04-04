@@ -9,9 +9,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.d2m.R
 import com.example.d2m.data.remote.otp.verify.GetCityAreaDetail
 import com.example.d2m.databinding.FragmentSelectAreaBinding
-import com.example.d2m.screens.utils.BaseActivity
-import com.example.d2m.screens.utils.BaseFragment
-import com.example.d2m.screens.utils.GenericDataAdapter
+import com.example.d2m.screens.utils.base_classes.BaseActivity
+import com.example.d2m.screens.utils.base_classes.BaseFragment
+import com.example.d2m.screens.utils.adapters.GenericDataAdapter
 
 private const val TAG = "SelectAreaFragment"
 

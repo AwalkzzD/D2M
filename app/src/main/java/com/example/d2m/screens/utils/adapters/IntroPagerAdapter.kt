@@ -1,4 +1,4 @@
-package com.example.d2m.screens.utils
+package com.example.d2m.screens.utils.adapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

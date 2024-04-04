@@ -1,8 +1,10 @@
 package com.example.d2m.screens.home.main.checkout
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.util.Log
 import android.view.View
+import android.widget.TextView
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
@@ -12,11 +14,17 @@ import com.example.d2m.data.local.home.ServiceX
 import com.example.d2m.data.remote.otp.verify.VerifyOtpResponseData
 import com.example.d2m.databinding.FragmentCheckoutBinding
 import com.example.d2m.screens.home.main.service.ServiceViewModel
-import com.example.d2m.screens.utils.BaseActivity
-import com.example.d2m.screens.utils.BaseFragment
-import com.example.d2m.screens.utils.GenericDataAdapter
+import com.example.d2m.screens.utils.adapters.GenericDataAdapter
+import com.example.d2m.screens.utils.base_classes.BaseActivity
+import com.example.d2m.screens.utils.base_classes.BaseFragment
+import com.example.d2m.screens.utils.calendar_utils.DateUtils
+import com.example.d2m.screens.utils.calendar_utils.calendar.CalendarChangesObserver
+import com.example.d2m.screens.utils.calendar_utils.calendar.CalendarViewManager
+import com.example.d2m.screens.utils.calendar_utils.calendar.SingleRowCalendarAdapter
+import com.example.d2m.screens.utils.calendar_utils.selection.CalendarSelectionManager
 import com.google.gson.Gson
 import java.util.Calendar
+import java.util.Date
 import java.util.Locale
 
 private const val TAG = "CheckoutFragment"
@@ -31,9 +39,12 @@ class CheckoutFragment : BaseFragment<FragmentCheckoutBinding, CheckoutViewModel
     private val calendar = Calendar.getInstance()
     private val timeSlotsList: MutableList<TimeSlots> = mutableListOf()
 
+    private val datesList: MutableList<Date> = mutableListOf()
+
     override fun setUpView() {
         setUpToolBar()
         setUpData()
+        setUpCalendar()
         initViewModel()
         initRecyclerView()
         initViews()
@@ -54,6 +65,118 @@ class CheckoutFragment : BaseFragment<FragmentCheckoutBinding, CheckoutViewModel
         timeSlotsList.add(TimeSlots("04:00 PM - 05:00 PM"))
         timeSlotsList.add(TimeSlots("05:00 PM - 06:00 PM"))
         timeSlotsList.add(TimeSlots("06:00 PM - 07:00 PM"))
+
+        datesList.clear()
+        datesList.add(Calendar.getInstance().time)
+        datesList.add(Calendar.getInstance().time)
+        datesList.add(Calendar.getInstance().time)
+        datesList.add(Calendar.getInstance().time)
+        datesList.add(Calendar.getInstance().time)
+        datesList.add(Calendar.getInstance().time)
+        datesList.add(Calendar.getInstance().time)
+        datesList.add(Calendar.getInstance().time)
+        datesList.add(Calendar.getInstance().time)
+        datesList.add(Calendar.getInstance().time)
+    }
+
+    private fun setUpCalendar() {
+        val myCalendarViewManager = object : CalendarViewManager {
+            override fun setCalendarViewResourceId(
+                position: Int,
+                date: Date,
+                isSelected: Boolean,
+            ): Int {
+                return if (isSelected) {
+                    R.layout.calendar_user
+                } else R.layout.calendar_item
+            }
+
+            override fun bindDataToCalendarView(
+                holder: SingleRowCalendarAdapter.CalendarViewHolder,
+                date: Date,
+                position: Int,
+                isSelected: Boolean,
+            ) {
+                holder.itemView.findViewById<TextView>(R.id.tv_date_calendar_item).text =
+                    DateUtils.getDayNumber(date)
+
+                holder.itemView.findViewById<TextView>(R.id.tv_day_calendar_item).text =
+                    DateUtils.getDay3LettersName(date)
+            }
+        }
+        val mySelectionManager = object : CalendarSelectionManager {
+            override fun canBeItemSelected(position: Int, date: Date): Boolean {
+                return true
+            }
+        }
+        val myCalendarChangesObserver = object : CalendarChangesObserver {
+            @SuppressLint("SetTextI18n")
+            override fun whenWeekMonthYearChanged(
+                weekNumber: String,
+                monthNumber: String,
+                monthName: String,
+                year: String,
+                date: Date,
+            ) {
+                fragmentBinding.selectedDate.text =
+                    "${DateUtils.getMonthName(date)}, ${DateUtils.getYear(date)} "
+
+                super.whenWeekMonthYearChanged(weekNumber, monthNumber, monthName, year, date)
+            }
+
+            /***
+             * This function is called when the user selects a date from the calendar view.
+             * It updates the selected date and time in the view model and then checks
+             * if the selected date is the same as the current booking date. If it is,
+             * it sets up the time slots for today's date, otherwise it sets up the time slots for the selected date.
+             */
+            @SuppressLint("SetTextI18n")
+            override fun whenSelectionChanged(isSelected: Boolean, position: Int, date: Date) {/*viewModel.selectedDate.value =
+                    DateUtils.getYear(date) + "-" + DateUtils.getMonthNumber(date) + "-" + DateUtils.getDayNumber(
+                        date
+                    )*/
+
+                val todayDate =
+                    DateUtils.getDayNumber(date) + "-" + DateUtils.getMonthNumber(date) + "-" + DateUtils.getYear(
+                        date
+                    )
+
+                /*viewModel.selectedTimeId.value = 0
+                viewModel.selectedTime.value = ""
+
+                if (todayDate == viewModel.bookingDate.value) {
+                    getBinding().txtTitle2.text =
+                        ("(" + slotDataToday.size.toString() + " Slot Available)")
+                    setUpTimeSlotMultiViewRecyclerView(slotDataToday)
+                } else {
+                    getBinding().txtTitle2.text =
+                        ("(" + slotDataList.size.toString() + " Slot Available)")
+                    setUpTimeSlotMultiViewRecyclerView(slotDataList)
+                }*/
+
+                fragmentBinding.selectedDate.text =
+                    "${DateUtils.getMonthName(date)}, ${DateUtils.getYear(date)} "
+
+                super.whenSelectionChanged(isSelected, position, date)
+            }
+        }
+
+        /**
+         * creates a single row calendar by setting
+         * the calendar view manager, calendar changes observer, and calendar selection manager.
+         */
+        val singleRowCalendar = fragmentBinding.rowCalendar.apply {
+            calendarViewManager = myCalendarViewManager
+            calendarChangesObserver = myCalendarChangesObserver
+            calendarSelectionManager = mySelectionManager
+            longPress = false
+            multiSelection = false
+            deselection = false
+            futureDaysCount = 20
+            includeCurrentDate = true
+            init()
+            select(0)
+        }
     }
 
     private fun initViewModel() {
@@ -90,11 +213,6 @@ class CheckoutFragment : BaseFragment<FragmentCheckoutBinding, CheckoutViewModel
             }
         }
 
-        fragmentBinding.datePicker.apply {
-            minDate = System.currentTimeMillis()
-//            maxDate = System.currentTimeMillis() + (1000 * 60 * 60 * 24 * 20)
-        }
-
         fragmentBinding.selectedDate.text = buildString {
             append(
                 calendar.getDisplayName(Calendar.MONTH, Calendar.LONG, Locale.ENGLISH)
@@ -120,16 +238,6 @@ class CheckoutFragment : BaseFragment<FragmentCheckoutBinding, CheckoutViewModel
     }
 
     private fun seUpListeners() {
-        fragmentBinding.datePicker.setOnDateChangedListener { view, year, monthOfYear, dayOfMonth ->
-            calendar.set(year, monthOfYear, dayOfMonth)
-
-            fragmentBinding.selectedDate.text = buildString {
-                append(calendar.getDisplayName(Calendar.MONTH, Calendar.LONG, Locale.ENGLISH))
-                append(", ")
-                append(year)
-            }
-        }
-
         fragmentBinding.checkoutOrderBottom.checkoutButton.setOnClickListener {
             // FIXME: add condition, if all details are valid only then navigate to CartFragment
             findNavController().navigate(R.id.action_checkoutFragment_to_cartFragment)
@@ -150,5 +258,6 @@ class CheckoutFragment : BaseFragment<FragmentCheckoutBinding, CheckoutViewModel
 
         Log.d(TAG, "updateCartAmount: $cartTotal")
     }
+
 
 }

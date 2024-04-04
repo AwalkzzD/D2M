@@ -9,7 +9,7 @@ import com.example.d2m.data.remote.otp.verify.VerifyOtpResponse
 import com.example.d2m.network_utils.ApiClient
 import com.example.d2m.network_utils.api_services.SendOtpService
 import com.example.d2m.network_utils.api_services.VerifyOtpService
-import com.example.d2m.screens.utils.BaseViewModel
+import com.example.d2m.screens.utils.base_classes.BaseViewModel
 import com.google.gson.GsonBuilder
 
 private const val TAG = "OtpViewModel"

@@ -128,19 +128,18 @@
                     android:textSize="20sp"
                     android:textStyle="bold" />
 
-                <DatePicker
-                    android:id="@+id/date_picker"
+                <com.example.d2m.screens.utils.calendar_utils.calendar.SingleRowCalendar
+                    android:id="@+id/rowCalendar"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/selected_date"
-                    android:calendarViewShown="false"
-                    android:datePickerMode="spinner" />
+                    android:layout_margin="10dp" />
 
                 <TextView
                     android:id="@+id/select_time_slot_tv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/date_picker"
+                    android:layout_below="@id/rowCalendar"
                     android:layout_margin="10dp"
                     android:text="Select Time Slot"
                     android:textColor="@color/black"
@@ -151,7 +150,7 @@
                     android:id="@+id/no_of_time_slots_available"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/date_picker"
+                    android:layout_below="@id/rowCalendar"
                     android:layout_margin="10dp"
                     android:layout_toEndOf="@id/select_time_slot_tv"
                     android:text="(6 Slot Available)"

@@ -3,7 +3,7 @@ package com.example.d2m.screens.home.main.service
 import androidx.databinding.ObservableArrayList
 import androidx.lifecycle.MutableLiveData
 import com.example.d2m.data.local.home.ServiceX
-import com.example.d2m.screens.utils.BaseViewModel
+import com.example.d2m.screens.utils.base_classes.BaseViewModel
 
 private const val TAG = "ServiceViewModel"
 

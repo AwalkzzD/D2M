@@ -8,9 +8,9 @@ import androidx.viewpager2.widget.ViewPager2
 import com.example.d2m.R
 import com.example.d2m.databinding.ActivityIntroBinding
 import com.example.d2m.screens.login.LoginActivity
-import com.example.d2m.screens.utils.BaseActivity
-import com.example.d2m.screens.utils.BaseViewModel
-import com.example.d2m.screens.utils.IntroPagerAdapter
+import com.example.d2m.screens.utils.base_classes.BaseActivity
+import com.example.d2m.screens.utils.base_classes.BaseViewModel
+import com.example.d2m.screens.utils.adapters.IntroPagerAdapter
 import com.google.android.material.tabs.TabLayoutMediator
 
 class IntroActivity : BaseActivity<ActivityIntroBinding, BaseViewModel>(
