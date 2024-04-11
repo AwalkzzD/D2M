@@ -1,6 +1,10 @@
 package com.example.d2m.screens.utils.base_classes
 
+import android.graphics.PorterDuff
 import android.os.Bundle
+import android.view.View
+import android.view.ViewGroup
+import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.annotation.LayoutRes
 import androidx.appcompat.app.AppCompatActivity
@@ -8,6 +12,7 @@ import androidx.appcompat.widget.Toolbar
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.ViewModelProvider
+import com.example.d2m.R
 
 abstract class BaseActivity<VB : ViewDataBinding, VM : BaseViewModel>(
     @LayoutRes private val layoutId: Int, private val viewModelClass: Class<VM>
@@ -30,6 +35,28 @@ abstract class BaseActivity<VB : ViewDataBinding, VM : BaseViewModel>(
         binding = DataBindingUtil.setContentView(this, layoutId)
 
         viewModel = getViewModel()
+
+        val progressBar = ProgressBar(this, null, android.R.attr.progressBarStyleSmall)
+        progressBar.isIndeterminate = true
+        progressBar.indeterminateDrawable.setColorFilter(
+            resources.getColor(R.color.black, null),
+            PorterDuff.Mode.SRC_IN
+        )
+
+        val layoutParams = ViewGroup.LayoutParams(
+            ViewGroup.LayoutParams.WRAP_CONTENT,
+            ViewGroup.LayoutParams.WRAP_CONTENT
+        )
+        progressBar.layoutParams = layoutParams
+        addContentView(progressBar, layoutParams)
+
+        viewModel.isLoading.observe(this) {
+            if (it) {
+                progressBar.visibility = View.VISIBLE
+            } else {
+                progressBar.visibility = View.GONE
+            }
+        }
 
     }
 

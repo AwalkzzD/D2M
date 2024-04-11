@@ -18,9 +18,11 @@ class HomeActivityViewModel : BaseViewModel() {
     var userLiveData: MutableLiveData<UserHome> = MutableLiveData<UserHome>()
 
     fun requestUserData(userId: String) {
+        setLoadingState(true)
 
         val reqBody: RequestBody =
-            MultipartBody.Builder().setType(MultipartBody.FORM).addFormDataPart("user_id", userId)
+            MultipartBody.Builder().setType(MultipartBody.FORM)
+                .addFormDataPart("user_id", userId)
                 .build()
 
         val retrofitInstance =
@@ -35,6 +37,7 @@ class HomeActivityViewModel : BaseViewModel() {
                     "onResponse: " + GsonBuilder().setPrettyPrinting().create()
                         .toJson(response.body())
                 )*/
+                setLoadingState(false)
             }
 
             override fun onFailure(call: Call<UserHome?>, t: Throwable) {
@@ -47,9 +50,11 @@ class HomeActivityViewModel : BaseViewModel() {
                         Log.d("TAG", "onFailure: Failed to get User Data --> $t")
                     }
                 }
+                setLoadingState(true)
             }
         })
         ApiClient.destroyInstance()
+        setLoadingState(false)
 
     }
 }

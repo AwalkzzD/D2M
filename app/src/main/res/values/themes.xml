@@ -42,4 +42,11 @@
         <item name="hintTextColor">@color/gray</item>
     </style>
 
+    <style name="RoundedTabLayoutStyle" parent="">
+        <item name="tabSelectedTextColor">@color/white</item>
+        <item name="tabTextColor">@color/green</item>
+        <item name="tabBackground">@drawable/tab_selector</item>
+        <item name="android:background">@drawable/tab_bg</item>
+    </style>
+
 </resources>

@@ -48,7 +48,7 @@
                             android:id="@+id/your_location_tv"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="Your Location"
+                            android:text="@string/your_location_text"
                             android:textColor="@color/black"
                             android:textSize="17sp"
                             android:textStyle="bold" />
@@ -103,14 +103,13 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="Select Preferred Date &amp; Time"
+                        android:text="@string/preferred_date_time_text"
                         android:textSize="17sp"
                         android:textStyle="bold" />
 
                     <ImageView
                         android:layout_width="25dp"
                         android:layout_height="25dp"
-                        android:layout_alignParentEnd="true"
                         android:layout_gravity="end"
                         android:scaleType="fitXY"
                         android:src="@drawable/ic_calendar" />
@@ -133,7 +132,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/selected_date"
-                    android:layout_margin="10dp" />
+                    android:layout_margin="10dp"
+                    android:orientation="horizontal"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    tools:listitem="@layout/calendar_item" />
 
                 <TextView
                     android:id="@+id/select_time_slot_tv"
@@ -141,7 +143,7 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@id/rowCalendar"
                     android:layout_margin="10dp"
-                    android:text="Select Time Slot"
+                    android:text="@string/select_time_slot_text"
                     android:textColor="@color/black"
                     android:textSize="17sp"
                     android:textStyle="bold" />
@@ -164,7 +166,8 @@
                     android:layout_below="@id/no_of_time_slots_available"
                     android:layout_marginStart="10dp"
                     android:layout_marginEnd="10dp"
-                    tools:itemCount="3" />
+                    tools:itemCount="3"
+                    tools:listitem="@layout/time_slot_list_item" />
 
             </RelativeLayout>
 

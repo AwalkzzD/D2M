@@ -40,7 +40,6 @@
                 android:textColor="@color/black"
                 android:textSize="17sp" />
 
-
         </RelativeLayout>
 
     </com.google.android.material.card.MaterialCardView>

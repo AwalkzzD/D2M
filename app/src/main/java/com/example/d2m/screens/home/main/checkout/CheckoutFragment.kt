@@ -5,6 +5,7 @@ import android.content.Context
 import android.util.Log
 import android.view.View
 import android.widget.TextView
+import androidx.databinding.ObservableBoolean
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
@@ -28,6 +29,8 @@ import java.util.Date
 import java.util.Locale
 
 private const val TAG = "CheckoutFragment"
+
+// FIXME: change text setting for number of slots available according to time slots available
 
 class CheckoutFragment : BaseFragment<FragmentCheckoutBinding, CheckoutViewModel>(
     R.layout.fragment_checkout, CheckoutViewModel::class.java
@@ -59,12 +62,14 @@ class CheckoutFragment : BaseFragment<FragmentCheckoutBinding, CheckoutViewModel
 
     private fun setUpData() {
         timeSlotsList.clear()
-        timeSlotsList.add(TimeSlots("01:00 PM - 02:00 PM"))
-        timeSlotsList.add(TimeSlots("02:00 PM - 03:00 PM"))
-        timeSlotsList.add(TimeSlots("03:00 PM - 04:00 PM"))
-        timeSlotsList.add(TimeSlots("04:00 PM - 05:00 PM"))
-        timeSlotsList.add(TimeSlots("05:00 PM - 06:00 PM"))
-        timeSlotsList.add(TimeSlots("06:00 PM - 07:00 PM"))
+        timeSlotsList.add(TimeSlots("01:00 PM - 02:00 PM", ObservableBoolean(false)))
+        timeSlotsList.add(TimeSlots("02:00 PM - 03:00 PM", ObservableBoolean(false)))
+        timeSlotsList.add(TimeSlots("03:00 PM - 04:00 PM", ObservableBoolean(false)))
+        timeSlotsList.add(TimeSlots("04:00 PM - 05:00 PM", ObservableBoolean(false)))
+        timeSlotsList.add(TimeSlots("05:00 PM - 06:00 PM", ObservableBoolean(false)))
+        timeSlotsList.add(TimeSlots("06:00 PM - 07:00 PM", ObservableBoolean(false)))
+
+        fragmentBinding.noOfTimeSlotsAvailable.text = "(${timeSlotsList.size} Slots Available)"
 
         datesList.clear()
         datesList.add(Calendar.getInstance().time)
@@ -131,29 +136,7 @@ class CheckoutFragment : BaseFragment<FragmentCheckoutBinding, CheckoutViewModel
              * it sets up the time slots for today's date, otherwise it sets up the time slots for the selected date.
              */
             @SuppressLint("SetTextI18n")
-            override fun whenSelectionChanged(isSelected: Boolean, position: Int, date: Date) {/*viewModel.selectedDate.value =
-                    DateUtils.getYear(date) + "-" + DateUtils.getMonthNumber(date) + "-" + DateUtils.getDayNumber(
-                        date
-                    )*/
-
-                val todayDate =
-                    DateUtils.getDayNumber(date) + "-" + DateUtils.getMonthNumber(date) + "-" + DateUtils.getYear(
-                        date
-                    )
-
-                /*viewModel.selectedTimeId.value = 0
-                viewModel.selectedTime.value = ""
-
-                if (todayDate == viewModel.bookingDate.value) {
-                    getBinding().txtTitle2.text =
-                        ("(" + slotDataToday.size.toString() + " Slot Available)")
-                    setUpTimeSlotMultiViewRecyclerView(slotDataToday)
-                } else {
-                    getBinding().txtTitle2.text =
-                        ("(" + slotDataList.size.toString() + " Slot Available)")
-                    setUpTimeSlotMultiViewRecyclerView(slotDataList)
-                }*/
-
+            override fun whenSelectionChanged(isSelected: Boolean, position: Int, date: Date) {
                 fragmentBinding.selectedDate.text =
                     "${DateUtils.getMonthName(date)}, ${DateUtils.getYear(date)} "
 
@@ -213,6 +196,10 @@ class CheckoutFragment : BaseFragment<FragmentCheckoutBinding, CheckoutViewModel
             }
         }
 
+        fragmentBinding.changeAddress.setOnClickListener {
+            findNavController().navigate(R.id.action_checkoutFragment_to_addressDetailsFragment)
+        }
+
         fragmentBinding.selectedDate.text = buildString {
             append(
                 calendar.getDisplayName(Calendar.MONTH, Calendar.LONG, Locale.ENGLISH)
@@ -225,10 +212,9 @@ class CheckoutFragment : BaseFragment<FragmentCheckoutBinding, CheckoutViewModel
 
     private fun initRecyclerView() {
 
-        timeSlotsAdapter =
-            GenericDataAdapter(timeSlotsList, R.layout.time_slot_list_item) { timeSlot: TimeSlots ->
+        timeSlotsAdapter = GenericDataAdapter(timeSlotsList, R.layout.time_slot_list_item) {}
 
-            }
+        timeSlotsAdapter.setVM(fragmentViewModel)
 
         fragmentBinding.timeSlotsRv.apply {
             layoutManager = GridLayoutManager(requireActivity(), 2)
@@ -242,7 +228,6 @@ class CheckoutFragment : BaseFragment<FragmentCheckoutBinding, CheckoutViewModel
             // FIXME: add condition, if all details are valid only then navigate to CartFragment
             findNavController().navigate(R.id.action_checkoutFragment_to_cartFragment)
         }
-
     }
 
     private fun updateCartAmount(addedCartServices: ArrayList<ServiceX>) {

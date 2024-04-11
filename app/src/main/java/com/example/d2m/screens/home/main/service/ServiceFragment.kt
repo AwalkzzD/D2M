@@ -7,9 +7,9 @@ import com.example.d2m.R
 import com.example.d2m.data.local.home.ServiceX
 import com.example.d2m.data.remote.otp.verify.VerifyOtpResponseData
 import com.example.d2m.databinding.FragmentServiceBinding
+import com.example.d2m.screens.utils.adapters.GenericDataAdapter
 import com.example.d2m.screens.utils.base_classes.BaseActivity
 import com.example.d2m.screens.utils.base_classes.BaseFragment
-import com.example.d2m.screens.utils.adapters.GenericDataAdapter
 import com.google.gson.Gson
 
 class ServiceFragment : BaseFragment<FragmentServiceBinding, ServiceViewModel>(

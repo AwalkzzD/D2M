@@ -14,6 +14,7 @@ import com.example.d2m.data.local.checkout.TimeSlots
 import com.example.d2m.data.local.home.Banner
 import com.example.d2m.data.local.home.Service
 import com.example.d2m.data.local.home.ServiceX
+import com.example.d2m.data.local.orders.DataX
 import com.example.d2m.data.remote.otp.verify.GetCityAreaDetail
 import com.example.d2m.screens.utils.base_classes.BaseViewModel
 
@@ -26,8 +27,8 @@ class GenericDataAdapter<T : Any>(
     lateinit var viewModel: BaseViewModel
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val inflater = LayoutInflater.from(parent.context)
-        val binding: ViewDataBinding = DataBindingUtil.inflate(inflater, layoutID, parent, false)
+        val binding: ViewDataBinding =
+            DataBindingUtil.inflate(LayoutInflater.from(parent.context), layoutID, parent, false)
         return ViewHolder(binding)
     }
 
@@ -88,6 +89,11 @@ class GenericDataAdapter<T : Any>(
 
                 is TimeSlots -> {
                     binding.setVariable(BR.timeSlot, item)
+                    binding.setVariable(BR.timeSlotVM, viewModel)
+                }
+
+                is DataX -> {
+                    binding.setVariable(BR.order, item)
                 }
             }
             binding.executePendingBindings()

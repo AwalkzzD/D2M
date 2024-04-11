@@ -118,7 +118,7 @@
                         android:layout_height="match_parent"
                         android:gravity="center"
                         android:padding="15dp">
-fragmentBinding.cart = fragmentViewModel
+
                         <CheckBox
                             android:id="@+id/pay_using_reward_checkbox"
                             android:layout_width="20dp"

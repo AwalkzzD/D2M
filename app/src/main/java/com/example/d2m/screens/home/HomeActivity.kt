@@ -23,6 +23,8 @@ class HomeActivity : BaseActivity<ActivityHomeBinding, HomeActivityViewModel>(
         val userData = Gson().fromJson(
             sharedPreferences.getString("verifiedUser", ""), VerifyOtpResponseData::class.java
         )
+
         activityViewModel.requestUserData(userData.id.toString())
+
     }
 }

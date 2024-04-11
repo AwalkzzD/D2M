@@ -68,4 +68,7 @@
     <string name="select_area_text">Select Area</string>
     <string name="checkout_button_text">Checkout</string>
     <string name="total_value_text">Total Value</string>
+    <string name="your_location_text">Your Location</string>
+    <string name="preferred_date_time_text"><![CDATA[Select Preferred Date & Time]]></string>
+    <string name="select_time_slot_text">Select Time Slot</string>
 </resources>

@@ -1,6 +1,5 @@
 package com.example.d2m.screens.utils
 
-import android.util.Log
 import android.widget.Button
 import android.widget.CheckBox
 import android.widget.ImageButton
@@ -11,6 +10,7 @@ import androidx.core.content.ContextCompat
 import androidx.core.net.toUri
 import androidx.databinding.BindingAdapter
 import com.example.d2m.R
+import com.example.d2m.data.local.checkout.TimeSlots
 import com.example.d2m.data.local.home.ServiceX
 import com.example.d2m.data.remote.otp.verify.GetCityAreaDetail
 import com.example.d2m.screens.home.main.address.SelectAreaViewModel
@@ -124,9 +124,13 @@ fun CheckBox.setAreaDetails(area: GetCityAreaDetail, areaVM: SelectAreaViewModel
     }
 }
 
-@BindingAdapter("saveTimeSlot")
-fun RadioButton.saveTimeSlot(timeSlot: String) {
+@BindingAdapter("onTimeSlotClick")
+fun RadioButton.saveTimeSlot(timeSlot: TimeSlots) {
     this.setOnClickListener {
-        Log.d(TAG, "saveTimeSlot: $timeSlot")
+        if (timeSlot.isSelected.get()) {
+            timeSlot.isSelected.set(false)
+        } else {
+            timeSlot.isSelected.set(true)
+        }
     }
 }
