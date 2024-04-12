@@ -10,8 +10,8 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.d2m.R
-import com.example.d2m.data.local.checkout.TimeSlots
 import com.example.d2m.data.local.home.ServiceX
+import com.example.d2m.data.local.time_slots.TimeSlots
 import com.example.d2m.data.remote.otp.verify.VerifyOtpResponseData
 import com.example.d2m.databinding.FragmentCheckoutBinding
 import com.example.d2m.screens.home.main.service.ServiceViewModel
@@ -42,8 +42,6 @@ class CheckoutFragment : BaseFragment<FragmentCheckoutBinding, CheckoutViewModel
     private val calendar = Calendar.getInstance()
     private val timeSlotsList: MutableList<TimeSlots> = mutableListOf()
 
-    private val datesList: MutableList<Date> = mutableListOf()
-
     override fun setUpView() {
         setUpToolBar()
         setUpData()
@@ -61,27 +59,7 @@ class CheckoutFragment : BaseFragment<FragmentCheckoutBinding, CheckoutViewModel
     }
 
     private fun setUpData() {
-        timeSlotsList.clear()
-        timeSlotsList.add(TimeSlots("01:00 PM - 02:00 PM", ObservableBoolean(false)))
-        timeSlotsList.add(TimeSlots("02:00 PM - 03:00 PM", ObservableBoolean(false)))
-        timeSlotsList.add(TimeSlots("03:00 PM - 04:00 PM", ObservableBoolean(false)))
-        timeSlotsList.add(TimeSlots("04:00 PM - 05:00 PM", ObservableBoolean(false)))
-        timeSlotsList.add(TimeSlots("05:00 PM - 06:00 PM", ObservableBoolean(false)))
-        timeSlotsList.add(TimeSlots("06:00 PM - 07:00 PM", ObservableBoolean(false)))
-
-        fragmentBinding.noOfTimeSlotsAvailable.text = "(${timeSlotsList.size} Slots Available)"
-
-        datesList.clear()
-        datesList.add(Calendar.getInstance().time)
-        datesList.add(Calendar.getInstance().time)
-        datesList.add(Calendar.getInstance().time)
-        datesList.add(Calendar.getInstance().time)
-        datesList.add(Calendar.getInstance().time)
-        datesList.add(Calendar.getInstance().time)
-        datesList.add(Calendar.getInstance().time)
-        datesList.add(Calendar.getInstance().time)
-        datesList.add(Calendar.getInstance().time)
-        datesList.add(Calendar.getInstance().time)
+        fragmentViewModel.getTimeSlots()
     }
 
     private fun setUpCalendar() {
@@ -138,7 +116,9 @@ class CheckoutFragment : BaseFragment<FragmentCheckoutBinding, CheckoutViewModel
             @SuppressLint("SetTextI18n")
             override fun whenSelectionChanged(isSelected: Boolean, position: Int, date: Date) {
                 fragmentBinding.selectedDate.text =
-                    "${DateUtils.getMonthName(date)}, ${DateUtils.getYear(date)} "
+                    "${DateUtils.getMonthName(date)}, ${DateUtils.getYear(date)}"
+
+                fragmentViewModel.getTimeSlots()
 
                 super.whenSelectionChanged(isSelected, position, date)
             }
@@ -148,7 +128,7 @@ class CheckoutFragment : BaseFragment<FragmentCheckoutBinding, CheckoutViewModel
          * creates a single row calendar by setting
          * the calendar view manager, calendar changes observer, and calendar selection manager.
          */
-        val singleRowCalendar = fragmentBinding.rowCalendar.apply {
+        fragmentBinding.rowCalendar.apply {
             calendarViewManager = myCalendarViewManager
             calendarChangesObserver = myCalendarChangesObserver
             calendarSelectionManager = mySelectionManager
@@ -170,6 +150,18 @@ class CheckoutFragment : BaseFragment<FragmentCheckoutBinding, CheckoutViewModel
             if (it != null) {
                 updateCartAmount(it)
             }
+        }
+
+        fragmentViewModel.timeSlotsList.observe(viewLifecycleOwner) {
+            it.timeSlots?.forEach { timeSlots -> timeSlots.isSelected = ObservableBoolean(false) }
+            timeSlotsList.clear()
+            it.timeSlots?.let { timeSlots -> timeSlotsList.addAll(timeSlots) }
+            fragmentBinding.noOfTimeSlotsAvailable.text = buildString {
+                append("(")
+                append(timeSlotsList.size)
+                append(" Slots Available)")
+            }
+            timeSlotsAdapter.notifyItemRangeChanged(0, timeSlotsList.size)
         }
 
     }
@@ -212,7 +204,9 @@ class CheckoutFragment : BaseFragment<FragmentCheckoutBinding, CheckoutViewModel
 
     private fun initRecyclerView() {
 
-        timeSlotsAdapter = GenericDataAdapter(timeSlotsList, R.layout.time_slot_list_item) {}
+        timeSlotsAdapter = GenericDataAdapter(
+            timeSlotsList, R.layout.time_slot_list_item
+        ) {}
 
         timeSlotsAdapter.setVM(fragmentViewModel)
 

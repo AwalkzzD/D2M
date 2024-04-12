@@ -39,13 +39,14 @@ class OrdersFragment : BaseFragment<FragmentOrdersBinding, OrdersViewModel>(
         fragmentViewModel.ordersLiveData.observe(viewLifecycleOwner) {
             ordersList.clear()
             ordersList.addAll(it)
+            ordersAdapter.filterList(filterList(1))
             ordersAdapter.notifyDataSetChanged()
         }
     }
 
     private fun initRecyclerView() {
         ordersAdapter = GenericDataAdapter(
-            filterList(1), R.layout.order_list_item
+            ordersList, R.layout.order_list_item
         ) {
             // TODO: Redirect to Full Order Details Page
         }

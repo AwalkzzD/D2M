@@ -9,8 +9,8 @@
             type="com.example.d2m.screens.home.main.checkout.CheckoutViewModel" />
 
         <variable
-            name="timeSlot"
-            type="com.example.d2m.data.local.checkout.TimeSlots" />
+            name="timeSlots"
+            type="com.example.d2m.data.local.time_slots.TimeSlots" />
     </data>
 
     <com.google.android.material.card.MaterialCardView
@@ -23,14 +23,15 @@
             android:id="@+id/time_slot_2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@{(timeSlot.isSelected()) ? @drawable/radio_selected : @drawable/radio_normal }"
+            android:background="@{(timeSlots.isSelected()) ? @drawable/radio_selected : @drawable/radio_normal }"
             android:button="@color/transparent"
             android:elevation="4dp"
-            android:text="@{timeSlot.time_slot}"
+            android:text="@{timeSlots.timeSlot}"
             android:textAlignment="center"
             android:textColor="@color/black"
             android:textSize="13sp"
-            app:onTimeSlotClick="@{timeSlot}" />
+            app:onTimeSlotClick="@{timeSlotVM}"
+            app:timeSlot="@{timeSlots}" />
     </com.google.android.material.card.MaterialCardView>
 
 </layout>

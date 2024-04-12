@@ -10,11 +10,12 @@ import androidx.core.content.ContextCompat
 import androidx.core.net.toUri
 import androidx.databinding.BindingAdapter
 import com.example.d2m.R
-import com.example.d2m.data.local.checkout.TimeSlots
 import com.example.d2m.data.local.home.ServiceX
+import com.example.d2m.data.local.time_slots.TimeSlots
 import com.example.d2m.data.remote.otp.verify.GetCityAreaDetail
 import com.example.d2m.screens.home.main.address.SelectAreaViewModel
 import com.example.d2m.screens.home.main.cart.CartViewModel
+import com.example.d2m.screens.home.main.checkout.CheckoutViewModel
 import com.example.d2m.screens.home.main.service.ServiceViewModel
 import com.squareup.picasso.Picasso
 
@@ -124,13 +125,9 @@ fun CheckBox.setAreaDetails(area: GetCityAreaDetail, areaVM: SelectAreaViewModel
     }
 }
 
-@BindingAdapter("onTimeSlotClick")
-fun RadioButton.saveTimeSlot(timeSlot: TimeSlots) {
+@BindingAdapter(value = ["onTimeSlotClick", "timeSlot"], requireAll = true)
+fun RadioButton.saveTimeSlot(timeSlotVM: CheckoutViewModel, timeSlot: TimeSlots) {
     this.setOnClickListener {
-        if (timeSlot.isSelected.get()) {
-            timeSlot.isSelected.set(false)
-        } else {
-            timeSlot.isSelected.set(true)
-        }
+        timeSlotVM.checkTimeSlots(timeSlot)
     }
 }

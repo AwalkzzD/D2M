@@ -10,11 +10,11 @@ import com.example.d2m.BR
 import com.example.d2m.data.local.car.CarBrand
 import com.example.d2m.data.local.car.CarModel
 import com.example.d2m.data.local.car.FuelType
-import com.example.d2m.data.local.checkout.TimeSlots
 import com.example.d2m.data.local.home.Banner
 import com.example.d2m.data.local.home.Service
 import com.example.d2m.data.local.home.ServiceX
 import com.example.d2m.data.local.orders.DataX
+import com.example.d2m.data.local.time_slots.TimeSlots
 import com.example.d2m.data.remote.otp.verify.GetCityAreaDetail
 import com.example.d2m.screens.utils.base_classes.BaseViewModel
 
@@ -88,7 +88,7 @@ class GenericDataAdapter<T : Any>(
                 }
 
                 is TimeSlots -> {
-                    binding.setVariable(BR.timeSlot, item)
+                    binding.setVariable(BR.timeSlots, item)
                     binding.setVariable(BR.timeSlotVM, viewModel)
                 }
 
